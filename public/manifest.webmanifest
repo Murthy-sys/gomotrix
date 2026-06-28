@@ -1,0 +1,17 @@
+{
+  "name": "Gomotrix",
+  "short_name": "Gomotrix",
+  "description": "Technology Solutions That Drive Business Growth",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0e1a",
+  "theme_color": "#141d57",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
