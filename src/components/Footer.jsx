@@ -37,7 +37,7 @@ export default function Footer() {
             <a href="#top" className="flex items-center gap-2.5">
               <Logo className="h-9 w-9" />
               <span className="text-lg font-extrabold tracking-tight text-ink-900 dark:text-white">
-                Go<span className="gradient-text">motrix</span>
+                Tri<span className="gradient-text">mugo</span>
               </span>
             </a>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate-500 dark:text-slate-400">
@@ -80,7 +80,7 @@ export default function Footer() {
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-200 pt-6 dark:border-white/10 sm:flex-row">
           <p className="text-sm text-slate-500 dark:text-slate-400">
-            © {2026} Gomotrix. All rights reserved.
+            © {2026} Trimugo. All rights reserved.
           </p>
           <a
             href="#top"

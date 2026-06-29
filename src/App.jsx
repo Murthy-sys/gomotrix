@@ -1,7 +1,7 @@
 import Navbar from './components/Navbar.jsx'
 import ScrollProgress from './components/ScrollProgress.jsx'
 import Hero from './components/Hero.jsx'
-import WhyGomotrix from './components/WhyGomotrix.jsx'
+import WhyTrimugo from './components/WhyTrimugo.jsx'
 import Industries from './components/Industries.jsx'
 import Solutions from './components/Solutions.jsx'
 import AISolutions from './components/AISolutions.jsx'
@@ -23,7 +23,7 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
-        <WhyGomotrix />
+        <WhyTrimugo />
         <Industries />
         <Solutions />
         <AISolutions />

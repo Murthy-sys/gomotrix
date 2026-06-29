@@ -25,10 +25,10 @@ export default function Navbar() {
       }`}
     >
       <nav className="container-x flex h-16 items-center justify-between md:h-20">
-        <a href="#top" className="flex items-center gap-2.5" aria-label="Gomotrix home">
+        <a href="#top" className="flex items-center gap-2.5" aria-label="Trimugo home">
           <Logo className="h-9 w-9" />
           <span className="text-lg font-extrabold tracking-tight text-ink-900 dark:text-white">
-            Go<span className="gradient-text">motrix</span>
+            Tri<span className="gradient-text">mugo</span>
           </span>
         </a>
 

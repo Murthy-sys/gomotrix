@@ -15,7 +15,7 @@ export default function CTABanner() {
                 Ready to transform your business?
               </h2>
               <p className="mt-4 text-lg text-slate-300">
-                Join the businesses already growing faster with Gomotrix as their technology partner.
+                Join the businesses already growing faster with Trimugo as their technology partner.
               </p>
               <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
                 <a href="#contact" className="btn-primary text-base">

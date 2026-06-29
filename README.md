@@ -1,6 +1,6 @@
-# Gomotrix — Official Website
+# Trimugo — Official Website
 
-A modern, premium, enterprise-grade marketing site for **Gomotrix**, a technology solutions company. Built with **React + Vite + Tailwind CSS** and **Framer Motion**, with dark/light mode, responsive layout, animations, and PWA support.
+A modern, premium, enterprise-grade marketing site for **Trimugo**, a technology solutions company. Built with **React + Vite + Tailwind CSS** and **Framer Motion**, with dark/light mode, responsive layout, animations, and PWA support.
 
 ## Tech stack
 
@@ -20,7 +20,7 @@ npm run preview  # preview the production build
 
 ## Sections implemented
 
-Hero · Why Gomotrix (process timeline) · Industries (15 interactive cards) · Solutions (18) ·
+Hero · Why Trimugo (process timeline) · Industries (15 interactive cards) · Solutions (18) ·
 AI Solutions · Business Transformation Process (8-step roadmap) · Featured Products (14, with pricing & demo CTA) ·
 Case Studies (problem → solution → tech → results + testimonial) · Knowledge Center (searchable) ·
 Resources · Community · Careers · Contact (working form with success state) · Footer.

@@ -3,7 +3,7 @@ import { Mail, Phone, MessageCircle, MapPin, Calendar, CheckCircle2, Send } from
 import Reveal from './Reveal.jsx'
 
 const contactInfo = [
-  { icon: Mail, label: 'Email', value: 'hello@gomotrix.io', href: 'mailto:hello@gomotrix.io' },
+  { icon: Mail, label: 'Email', value: 'hello@trimugo.io', href: 'mailto:hello@trimugo.io' },
   { icon: Phone, label: 'Phone', value: '+1 (555) 012-3456', href: 'tel:+15550123456' },
   { icon: MessageCircle, label: 'WhatsApp', value: 'Chat with us', href: '#contact' },
   { icon: MapPin, label: 'Office', value: '100 Innovation Ave, Tech City', href: '#contact' },
@@ -76,7 +76,7 @@ export default function Contact() {
                   </span>
                   <h3 className="mt-5 text-xl font-extrabold text-ink-900 dark:text-white">Thank you, {form.name || 'there'}!</h3>
                   <p className="mt-2 max-w-sm text-slate-600 dark:text-slate-300">
-                    Your request is in. A Gomotrix consultant will reach out within one business day to schedule
+                    Your request is in. A Trimugo consultant will reach out within one business day to schedule
                     your free consultation.
                   </p>
                   <button onClick={() => setSent(false)} className="btn-ghost mt-6">

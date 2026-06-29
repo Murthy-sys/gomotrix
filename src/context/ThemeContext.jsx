@@ -4,7 +4,7 @@ const ThemeContext = createContext({ theme: 'light', toggle: () => {} })
 
 const getInitial = () => {
   if (typeof window === 'undefined') return 'light'
-  const stored = localStorage.getItem('gomotrix-theme')
+  const stored = localStorage.getItem('trimugo-theme')
   if (stored) return stored
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
@@ -16,7 +16,7 @@ export function ThemeProvider({ children }) {
     const root = document.documentElement
     if (theme === 'dark') root.classList.add('dark')
     else root.classList.remove('dark')
-    localStorage.setItem('gomotrix-theme', theme)
+    localStorage.setItem('trimugo-theme', theme)
   }, [theme])
 
   const toggle = () => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))

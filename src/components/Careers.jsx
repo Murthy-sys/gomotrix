@@ -9,7 +9,7 @@ export default function Careers() {
       <div className="container-x">
         <SectionHeading
           eyebrow="Careers"
-          title="Join Gomotrix"
+          title="Join Trimugo"
           subtitle="We hire full-timers, interns, freelancers, and campus talent who want to build technology that matters."
         />
 

@@ -3,14 +3,14 @@ import SectionHeading from './SectionHeading.jsx'
 import Reveal from './Reveal.jsx'
 import { principles } from '../data/content.js'
 
-export default function WhyGomotrix() {
+export default function WhyTrimugo() {
   return (
     <section id="why" className="relative py-24">
       <div className="container-x">
         <SectionHeading
-          eyebrow="Why Gomotrix"
+          eyebrow="Why Trimugo"
           title="We solve business problems — not just build software"
-          subtitle="Gomotrix is a long-term technology partner. We follow a proven process that puts your business outcomes first, then applies the right technology to get you there."
+          subtitle="Trimugo is a long-term technology partner. We follow a proven process that puts your business outcomes first, then applies the right technology to get you there."
         />
 
         {/* Process timeline */}

@@ -1,9 +1,9 @@
 {
-  "name": "gomotrix-website",
+  "name": "trimugo-website",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Gomotrix — Technology Solutions That Drive Business Growth",
+  "description": "Trimugo — Technology Solutions That Drive Business Growth",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

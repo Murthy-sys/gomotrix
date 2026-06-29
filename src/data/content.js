@@ -1,4 +1,4 @@
-// Centralised content for Gomotrix — keeps components clean and data-driven.
+// Centralised content for Trimugo — keeps components clean and data-driven.
 
 export const principles = [
   {
@@ -116,7 +116,7 @@ export const caseStudies = [
       { metric: '63%', label: 'less admin time' },
       { metric: '4.8/5', label: 'patient satisfaction' },
     ],
-    quote: 'Gomotrix gave our staff their time back. It transformed how we run the hospital.',
+    quote: 'Trimugo gave our staff their time back. It transformed how we run the hospital.',
     author: 'Dr. A. Mehta, Medical Director',
   },
   {
@@ -185,7 +185,7 @@ export const resources = [
 export const communityEvents = [
   { type: 'Webinar', title: 'AI for Operations: Live Build', date: 'Jul 18, 2026', mode: 'Online' },
   { type: 'Workshop', title: 'Automation Bootcamp for SMEs', date: 'Aug 02, 2026', mode: 'Hybrid' },
-  { type: 'Hackathon', title: 'Gomotrix Campus Hack 2026', date: 'Sep 14, 2026', mode: 'On-site' },
+  { type: 'Hackathon', title: 'Trimugo Campus Hack 2026', date: 'Sep 14, 2026', mode: 'On-site' },
   { type: 'Meetup', title: 'Cloud & DevOps Community Night', date: 'Sep 28, 2026', mode: 'Online' },
 ]
 
@@ -220,7 +220,7 @@ export const techStack = [
 ]
 
 export const navLinks = [
-  { label: 'Why Gomotrix', href: '#why' },
+  { label: 'Why Trimugo', href: '#why' },
   { label: 'Industries', href: '#industries' },
   { label: 'Solutions', href: '#solutions' },
   { label: 'AI', href: '#ai' },
