@@ -6,7 +6,7 @@ const contactInfo = [
   { icon: Mail, label: 'Email', value: 'trimugoitsolutions@gmail.com', href: 'mailto:trimugoitsolutions@gmail.com' },
   { icon: Phone, label: 'Phone', value: '+91 85000 98088', href: 'tel:+918500098088' },
   { icon: MessageCircle, label: 'WhatsApp', value: 'Chat with us', href: 'https://wa.me/918500098088' },
-  { icon: MapPin, label: 'Office', value: '100 Innovation Ave, Tech City', href: '#contact' },
+  { icon: MapPin, label: 'Office', value: 'Remote', href: '#contact' },
 ]
 
 // Web3Forms access key — routes submissions to the configured inbox.
@@ -91,11 +91,11 @@ export default function Contact() {
               ))}
             </div>
 
-            {/* Map placeholder */}
+            {/* Remote note */}
             <div className="mt-4 flex items-center gap-3 overflow-hidden rounded-xl border border-slate-200 bg-gradient-to-br from-slate-100 to-slate-50 p-4 dark:border-white/10 dark:from-ink-800 dark:to-ink-700">
               <MapPin size={20} className="text-brand-500" />
               <p className="text-sm text-slate-500 dark:text-slate-400">
-                Find us on Google Maps — 100 Innovation Ave, Tech City
+                We're a remote-first team — working with clients everywhere.
               </p>
             </div>
           </div>
