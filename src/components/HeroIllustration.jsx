@@ -83,7 +83,7 @@ export default function HeroIllustration() {
         </span>
         <div>
           <p className="text-[10px] font-medium text-slate-400">AI tickets resolved</p>
-          <p className="text-sm font-bold text-ink-900 dark:text-white">70%</p>
+          <p className="text-sm font-bold text-ink-900 dark:text-white">3</p>
         </div>
       </motion.div>
 
@@ -97,7 +97,7 @@ export default function HeroIllustration() {
         </span>
         <div>
           <p className="text-[10px] font-medium text-slate-400">Efficiency</p>
-          <p className="text-sm font-bold text-ink-900 dark:text-white">+63%</p>
+          <p className="text-sm font-bold text-ink-900 dark:text-white">98%</p>
         </div>
       </motion.div>
     </div>
