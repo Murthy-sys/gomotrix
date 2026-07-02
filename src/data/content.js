@@ -266,12 +266,12 @@ export const articles = [
 ]
 
 export const resources = [
-  { name: 'ROI Calculator', icon: 'Calculator', desc: 'Estimate savings before you invest.' },
-  { name: 'Digital Readiness Checklist', icon: 'ListChecks', desc: 'Score your readiness in 5 minutes.' },
-  { name: 'Free Templates', icon: 'FileText', desc: 'Requirement & project templates.' },
-  { name: 'Business Assessment Tools', icon: 'Gauge', desc: 'Diagnose operational gaps fast.' },
-  { name: 'Technology Comparison Guides', icon: 'GitCompare', desc: 'Pick the right stack with confidence.' },
-  { name: 'Downloadable PDFs', icon: 'Download', desc: 'Guides and reports, ready offline.' },
+  { name: 'ROI Calculator', icon: 'Calculator', desc: 'Estimate savings before you invest.', tool: 'roi' },
+  { name: 'Digital Readiness Checklist', icon: 'ListChecks', desc: 'Score your readiness in 5 minutes.', tool: 'checklist' },
+  { name: 'Business Assessment Tools', icon: 'Gauge', desc: 'Diagnose operational gaps fast.', tool: 'checklist' },
+  { name: 'Free Templates', icon: 'FileText', desc: 'Requirement & project templates.', tool: 'request' },
+  { name: 'Technology Comparison Guides', icon: 'GitCompare', desc: 'Pick the right stack with confidence.', tool: 'request' },
+  { name: 'Downloadable PDFs', icon: 'Download', desc: 'Guides and reports, ready offline.', tool: 'request' },
 ]
 
 export const communityEvents = [
