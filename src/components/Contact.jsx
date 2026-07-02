@@ -9,14 +9,46 @@ const contactInfo = [
   { icon: MapPin, label: 'Office', value: '100 Innovation Ave, Tech City', href: '#contact' },
 ]
 
+// Web3Forms access key — routes submissions to the configured inbox.
+const WEB3FORMS_KEY = '992dcaed-fdcf-4e47-a033-c6e23ac6a9c8'
+
 export default function Contact() {
   const [sent, setSent] = useState(false)
-  const [form, setForm] = useState({ name: '', email: '', company: '', message: '' })
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState('')
+  const [form, setForm] = useState({ name: '', email: '', company: '', message: '', botcheck: '' })
 
   const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
-    setSent(true)
+    if (form.botcheck) return // honeypot: silently ignore bots
+    setSending(true)
+    setError('')
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: `New consultation request from ${form.name || 'website visitor'}`,
+          from_name: 'Trimugo Website',
+          name: form.name,
+          email: form.email,
+          company: form.company,
+          message: form.message,
+        }),
+      })
+      const data = await res.json()
+      if (data.success) {
+        setSent(true)
+      } else {
+        setError(data.message || 'Something went wrong. Please try again.')
+      }
+    } catch {
+      setError('Network error. Please check your connection and try again.')
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -79,13 +111,30 @@ export default function Contact() {
                     Your request is in. A Trimugo consultant will reach out within one business day to schedule
                     your free consultation.
                   </p>
-                  <button onClick={() => setSent(false)} className="btn-ghost mt-6">
+                  <button
+                    onClick={() => {
+                      setSent(false)
+                      setForm({ name: '', email: '', company: '', message: '', botcheck: '' })
+                    }}
+                    className="btn-ghost mt-6"
+                  >
                     Send another message
                   </button>
                 </div>
               ) : (
                 <form onSubmit={onSubmit} className="space-y-4">
                   <h3 className="text-lg font-extrabold text-ink-900 dark:text-white">Schedule a consultation</h3>
+                  {/* honeypot — hidden from users, catches bots */}
+                  <input
+                    type="checkbox"
+                    name="botcheck"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    checked={!!form.botcheck}
+                    onChange={(e) => setForm({ ...form, botcheck: e.target.checked ? '1' : '' })}
+                    className="hidden"
+                    aria-hidden="true"
+                  />
                   <div className="grid gap-4 sm:grid-cols-2">
                     <Input label="Full name" name="name" value={form.name} onChange={onChange} required placeholder="Jane Cooper" />
                     <Input
@@ -113,8 +162,21 @@ export default function Contact() {
                       className="w-full resize-none rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-ink-900 outline-none transition-colors focus:border-brand-400 focus:ring-2 focus:ring-brand-400/30 dark:border-white/10 dark:bg-ink-700 dark:text-white"
                     />
                   </div>
-                  <button type="submit" className="btn-primary w-full text-base">
-                    <Calendar size={18} /> Book Free Consultation
+                  {error && (
+                    <p className="rounded-lg bg-red-50 px-3 py-2 text-center text-xs font-medium text-red-600 dark:bg-red-500/10 dark:text-red-400">
+                      {error}
+                    </p>
+                  )}
+                  <button type="submit" disabled={sending} className="btn-primary w-full text-base disabled:cursor-not-allowed disabled:opacity-70">
+                    {sending ? (
+                      <>
+                        <Send size={18} className="animate-pulse" /> Sending…
+                      </>
+                    ) : (
+                      <>
+                        <Calendar size={18} /> Book Free Consultation
+                      </>
+                    )}
                   </button>
                   <p className="text-center text-xs text-slate-400">
                     We reply within one business day. No spam, ever.
