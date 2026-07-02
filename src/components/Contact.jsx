@@ -3,9 +3,9 @@ import { Mail, Phone, MessageCircle, MapPin, Calendar, CheckCircle2, Send } from
 import Reveal from './Reveal.jsx'
 
 const contactInfo = [
-  { icon: Mail, label: 'Email', value: 'hello@trimugo.io', href: 'mailto:hello@trimugo.io' },
-  { icon: Phone, label: 'Phone', value: '+1 (555) 012-3456', href: 'tel:+15550123456' },
-  { icon: MessageCircle, label: 'WhatsApp', value: 'Chat with us', href: '#contact' },
+  { icon: Mail, label: 'Email', value: 'trimugoitsolutions@gmail.com', href: 'mailto:trimugoitsolutions@gmail.com' },
+  { icon: Phone, label: 'Phone', value: '+91 85000 98088', href: 'tel:+918500098088' },
+  { icon: MessageCircle, label: 'WhatsApp', value: 'Chat with us', href: 'https://wa.me/918500098088' },
   { icon: MapPin, label: 'Office', value: '100 Innovation Ave, Tech City', href: '#contact' },
 ]
 
@@ -76,6 +76,8 @@ export default function Contact() {
                 <a
                   key={c.label}
                   href={c.href}
+                  target={c.href.startsWith('http') ? '_blank' : undefined}
+                  rel={c.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                   className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 transition-colors hover:border-brand-400 dark:border-white/10 dark:bg-ink-800"
                 >
                   <span className="grid h-10 w-10 place-items-center rounded-lg bg-brand-50 text-brand-600 transition-colors group-hover:bg-brand-600 group-hover:text-white dark:bg-brand-500/10 dark:text-brand-300">
