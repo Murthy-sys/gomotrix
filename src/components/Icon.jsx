@@ -56,6 +56,8 @@ import {
   TrendingUp,
   LineChart,
   ScanText,
+  // students
+  Cpu,
 } from 'lucide-react'
 
 const registry = {
@@ -109,6 +111,7 @@ const registry = {
   TrendingUp,
   LineChart,
   ScanText,
+  Cpu,
 }
 
 export default function Icon({ name, ...props }) {

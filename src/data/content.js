@@ -265,6 +265,27 @@ export const articles = [
   },
 ]
 
+export const educationalProjects = [
+  { name: 'Web Development', icon: 'Globe', desc: 'Full-stack web apps with modern frameworks and a clean UI.' },
+  { name: 'Mobile Applications', icon: 'Smartphone', desc: 'Android & iOS apps built with React Native or Flutter.' },
+  { name: 'AI & Machine Learning', icon: 'Brain', desc: 'Prediction, classification, NLP and computer-vision models.' },
+  { name: 'Data Science & Analytics', icon: 'BarChart3', desc: 'Dashboards and data-driven mini and major projects.' },
+  { name: 'IoT Projects', icon: 'Cpu', desc: 'Sensor-based hardware integrated with a software dashboard.' },
+  { name: 'Cloud & DevOps', icon: 'Cloud', desc: 'Deployment, CI/CD, and cloud-hosted project setups.' },
+  { name: 'Cybersecurity', icon: 'ShieldCheck', desc: 'Security tools, encryption, and vulnerability demos.' },
+  { name: 'Blockchain', icon: 'Boxes', desc: 'Smart contracts and decentralized app (dApp) projects.' },
+  { name: 'Chatbots & Generative AI', icon: 'Bot', desc: 'LLM-powered chatbots and GenAI-based applications.' },
+]
+
+export const studentIncludes = [
+  'Complete source code',
+  'Project report & documentation',
+  'Live demo & deployment',
+  '1:1 guidance & code walkthrough',
+  'Viva & presentation prep',
+  'Original, plagiarism-free work',
+]
+
 export const resources = [
   { name: 'ROI Calculator', icon: 'Calculator', desc: 'Estimate savings before you invest.', tool: 'roi' },
   { name: 'Digital Readiness Checklist', icon: 'ListChecks', desc: 'Score your readiness in 5 minutes.', tool: 'checklist' },
@@ -318,5 +339,6 @@ export const navLinks = [
   { label: 'AI', href: '#ai' },
   { label: 'Products', href: '#products' },
   { label: 'Work', href: '#cases' },
+  { label: 'Students', href: '#students' },
   { label: 'Resources', href: '#resources' },
 ]
