@@ -106,48 +106,47 @@ export const products = [
   { name: 'AI Knowledge Portal', icon: 'Brain', tag: 'AI', price: 'from ₹2,499/mo' },
 ]
 
-// Real client projects. Descriptions are placeholders — replace with accurate
-// scope, services, live URLs and (where available) results/testimonials.
+// Real projects delivered by the Trimugo team.
 export const projects = [
   {
     name: 'Lumo Rentals',
     initials: 'LR',
-    category: 'Rentals / PropTech',
-    desc: 'End-to-end rentals platform with listings, bookings, and secure online payments.',
-    tags: ['Web App', 'Payments', 'Dashboard'],
-    url: '',
+    category: 'Full-Stack · Mobile',
+    year: '2025',
+    desc: 'A travel platform for booking bikes, cars, and tempo vehicles — with web and mobile apps live on Android and iOS.',
+    tags: ['React.js', 'React Native', 'Java', 'Postgres', 'Payments'],
+    links: {
+      live: 'https://www.lumo.rentals/',
+      playstore: 'https://play.google.com/store/apps/details?id=com.lumo&pcampaignid=web_share',
+      appstore: 'https://apps.apple.com/in/app/lumo-rentals/id6747010129',
+    },
   },
   {
-    name: 'FishChick',
-    initials: 'FC',
-    category: 'E-commerce',
-    desc: 'Mobile-first online store and ordering experience with a fast, clean checkout.',
-    tags: ['E-commerce', 'Branding', 'Mobile'],
-    url: '',
+    name: 'Profile Evaluator',
+    initials: 'PE',
+    category: 'Web Application',
+    year: '2026',
+    desc: 'A career platform where users check scores, build resumes, access learning material, and take assessments and certifications — all in one portal.',
+    tags: ['React.js', 'Node.js', 'MongoDB', 'Express', 'JWT', 'Tailwind'],
+    links: { live: 'https://profile-evalutor-ui.onrender.com/' },
   },
   {
-    name: 'GreenPlastics',
+    name: 'Good Plastics',
     initials: 'GP',
-    category: 'Manufacturing',
-    desc: 'Corporate website and digital presence for a sustainable plastics business.',
-    tags: ['Website', 'SEO', 'CMS'],
-    url: '',
+    category: 'Web Application',
+    year: '2026',
+    desc: 'A website for a bioplastic manufacturer making biodegradable PHA alternatives to regular plastic — covering products, services, and consulting.',
+    tags: ['React.js', 'TypeScript', 'Tailwind', 'Vite'],
+    links: { live: 'https://good-plastics.onrender.com' },
   },
   {
     name: 'Spark',
     initials: 'SP',
-    category: 'Startup',
-    desc: 'Product website and web platform to launch and scale a growing startup.',
-    tags: ['Product', 'Web App', 'Cloud'],
-    url: '',
-  },
-  {
-    name: 'StudioLane',
-    initials: 'SL',
-    category: 'Creative Studio',
-    desc: 'Portfolio and enquiry site built to showcase a creative studio’s work.',
-    tags: ['Portfolio', 'Design', 'Website'],
-    url: '',
+    category: 'Mobile App',
+    year: '2026',
+    desc: 'A dating mobile app with swipe-based matching, chat, profile management, and location-based suggestions.',
+    tags: ['React Native', 'Node.js', 'MongoDB', 'Tailwind'],
+    links: {},
   },
 ]
 
