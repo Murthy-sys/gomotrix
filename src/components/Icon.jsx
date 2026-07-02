@@ -52,6 +52,10 @@ import {
   Gauge,
   GitCompare,
   Download,
+  // ai
+  TrendingUp,
+  LineChart,
+  ScanText,
 } from 'lucide-react'
 
 const registry = {
@@ -102,6 +106,9 @@ const registry = {
   Gauge,
   GitCompare,
   Download,
+  TrendingUp,
+  LineChart,
+  ScanText,
 }
 
 export default function Icon({ name, ...props }) {

@@ -63,19 +63,19 @@ export const solutions = [
 ]
 
 export const aiSolutions = [
-  'Business Chatbots',
-  'Voice Assistants',
-  'Document AI',
-  'OCR',
-  'Knowledge Base AI',
-  'Customer Support AI',
-  'Sales Assistant',
-  'HR Assistant',
-  'Workflow Automation',
-  'Business Intelligence',
-  'Predictive Analytics',
-  'Generative AI Integration',
-  'Large Language Model Integration',
+  { name: 'Business Chatbots', icon: 'Bot', desc: '24/7 AI chat that answers questions, qualifies leads, and routes conversations.' },
+  { name: 'Voice Assistants', icon: 'Mic', desc: 'Natural voice AI for calls, IVR, and hands-free workflows.' },
+  { name: 'Document AI', icon: 'FileText', desc: 'Extract, classify, and summarize documents automatically.' },
+  { name: 'OCR', icon: 'ScanText', desc: 'Turn scanned files and images into searchable, structured data.' },
+  { name: 'Knowledge Base AI', icon: 'BookOpen', desc: 'Instant answers grounded in your own docs, policies, and data.' },
+  { name: 'Customer Support AI', icon: 'MessageCircle', desc: 'Deflect tickets and assist agents with AI copilots.' },
+  { name: 'Sales Assistant', icon: 'TrendingUp', desc: 'AI that drafts outreach, scores leads, and books meetings.' },
+  { name: 'HR Assistant', icon: 'Users', desc: 'Automate FAQs, onboarding, and policy questions for staff.' },
+  { name: 'Workflow Automation', icon: 'Workflow', desc: 'Connect your apps and let AI handle repetitive steps end to end.' },
+  { name: 'Business Intelligence', icon: 'BarChart3', desc: 'Ask questions in plain English and get answers from live data.' },
+  { name: 'Predictive Analytics', icon: 'LineChart', desc: 'Forecast demand, churn, and risk from your historical data.' },
+  { name: 'Generative AI', icon: 'Sparkles', desc: 'Embed GPT-class models into your products and internal tools.' },
+  { name: 'LLM Integration', icon: 'Brain', desc: 'Fine-tune and deploy large language models securely on your stack.' },
 ]
 
 export const processSteps = [

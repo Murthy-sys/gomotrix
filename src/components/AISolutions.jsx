@@ -1,5 +1,6 @@
-import { Brain, Sparkles } from 'lucide-react'
+import { Sparkles } from 'lucide-react'
 import Reveal from './Reveal.jsx'
+import Icon from './Icon.jsx'
 import { aiSolutions } from '../data/content.js'
 
 export default function AISolutions() {
@@ -26,13 +27,18 @@ export default function AISolutions() {
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-3">
-          {aiSolutions.map((name, i) => (
-            <Reveal i={i % 6} key={name}>
-              <span className="group flex items-center gap-2.5 rounded-xl border border-white/10 bg-white/[0.05] px-5 py-3 text-sm font-semibold text-slate-200 transition-all hover:border-amber-400/50 hover:bg-white/[0.09] hover:text-white">
-                <Brain size={16} className="text-amber-400 transition-transform group-hover:scale-110" />
-                {name}
-              </span>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {aiSolutions.map((s, i) => (
+            <Reveal i={i % 3} key={s.name}>
+              <div className="group flex h-full items-start gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition-all hover:-translate-y-1 hover:border-amber-400/40 hover:bg-white/[0.07]">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-amber-400/10 text-amber-400 transition-colors group-hover:bg-amber-400 group-hover:text-ink-900">
+                  <Icon name={s.icon} size={20} />
+                </span>
+                <div>
+                  <h3 className="text-base font-bold text-white">{s.name}</h3>
+                  <p className="mt-1 text-sm leading-relaxed text-slate-400">{s.desc}</p>
+                </div>
+              </div>
             </Reveal>
           ))}
         </div>
