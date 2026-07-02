@@ -11,7 +11,7 @@ import Products from './components/Products.jsx'
 import Work from './components/Work.jsx'
 import KnowledgeCenter from './components/KnowledgeCenter.jsx'
 import Resources from './components/Resources.jsx'
-import Community from './components/Community.jsx'
+// import Community from './components/Community.jsx' // hidden for now
 // import Careers from './components/Careers.jsx' // hidden for now
 import CTABanner from './components/CTABanner.jsx'
 import Contact from './components/Contact.jsx'
@@ -66,7 +66,7 @@ export default function App() {
           <Work />
           <KnowledgeCenter />
           <Resources />
-          <Community />
+          {/* <Community /> hidden for now */}
           {/* <Careers /> hidden for now */}
           <CTABanner />
           <Contact />
