@@ -12,7 +12,7 @@ import Work from './components/Work.jsx'
 import KnowledgeCenter from './components/KnowledgeCenter.jsx'
 import Resources from './components/Resources.jsx'
 import Community from './components/Community.jsx'
-import Careers from './components/Careers.jsx'
+// import Careers from './components/Careers.jsx' // hidden for now
 import CTABanner from './components/CTABanner.jsx'
 import Contact from './components/Contact.jsx'
 import Footer from './components/Footer.jsx'
@@ -67,7 +67,7 @@ export default function App() {
           <KnowledgeCenter />
           <Resources />
           <Community />
-          <Careers />
+          {/* <Careers /> hidden for now */}
           <CTABanner />
           <Contact />
         </main>
