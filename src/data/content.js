@@ -198,8 +198,7 @@ export const careers = [
 ]
 
 export const stats = [
-  { value: '250+', label: 'Projects delivered' },
-  { value: '15', label: 'Industries served' },
+  { value: '6', label: 'Projects delivered' },
   { value: '98%', label: 'Client retention' },
   { value: '24/7', label: 'Support & monitoring' },
 ]
