@@ -106,42 +106,48 @@ export const products = [
   { name: 'AI Knowledge Portal', icon: 'Brain', tag: 'AI', price: 'from ₹2,499/mo' },
 ]
 
-export const caseStudies = [
+// Real client projects. Descriptions are placeholders — replace with accurate
+// scope, services, live URLs and (where available) results/testimonials.
+export const projects = [
   {
-    industry: 'Healthcare',
-    problem: 'A 200-bed hospital lost hours daily to paper records and double-booked appointments.',
-    solution: 'Unified Hospital Management System with patient portal and AI scheduling.',
-    tech: ['React', 'Node.js', 'PostgreSQL', 'AI Scheduling'],
-    results: [
-      { metric: '63%', label: 'less admin time' },
-      { metric: '4.8/5', label: 'patient satisfaction' },
-    ],
-    quote: 'Trimugo gave our staff their time back. It transformed how we run the hospital.',
-    author: 'Dr. A. Mehta, Medical Director',
+    name: 'Lumo Rentals',
+    initials: 'LR',
+    category: 'Rentals / PropTech',
+    desc: 'End-to-end rentals platform with listings, bookings, and secure online payments.',
+    tags: ['Web App', 'Payments', 'Dashboard'],
+    url: '',
   },
   {
-    industry: 'Retail',
-    problem: 'A 30-store retail chain had no real-time visibility into stock or sales.',
-    solution: 'Cloud Retail POS + Inventory with live analytics dashboards across all stores.',
-    tech: ['Next.js', 'Cloud', 'Analytics', 'API Integrations'],
-    results: [
-      { metric: '28%', label: 'revenue growth' },
-      { metric: '41%', label: 'fewer stockouts' },
-    ],
-    quote: 'We finally run the business on data, not guesswork. Game changer.',
-    author: 'R. Khanna, Operations Head',
+    name: 'FishChick',
+    initials: 'FC',
+    category: 'E-commerce',
+    desc: 'Mobile-first online store and ordering experience with a fast, clean checkout.',
+    tags: ['E-commerce', 'Branding', 'Mobile'],
+    url: '',
   },
   {
-    industry: 'Logistics',
-    problem: 'Manual dispatch and customer calls overwhelmed a growing logistics firm.',
-    solution: 'WhatsApp automation + AI chatbot + workflow automation for live tracking.',
-    tech: ['AI Chatbot', 'WhatsApp API', 'Automation', 'Cloud'],
-    results: [
-      { metric: '5x', label: 'faster support' },
-      { metric: '70%', label: 'tickets automated' },
-    ],
-    quote: 'Our customers get instant answers and our team focuses on real work.',
-    author: 'S. Iyer, Founder',
+    name: 'GreenPlastics',
+    initials: 'GP',
+    category: 'Manufacturing',
+    desc: 'Corporate website and digital presence for a sustainable plastics business.',
+    tags: ['Website', 'SEO', 'CMS'],
+    url: '',
+  },
+  {
+    name: 'Spark',
+    initials: 'SP',
+    category: 'Startup',
+    desc: 'Product website and web platform to launch and scale a growing startup.',
+    tags: ['Product', 'Web App', 'Cloud'],
+    url: '',
+  },
+  {
+    name: 'StudioLane',
+    initials: 'SL',
+    category: 'Creative Studio',
+    desc: 'Portfolio and enquiry site built to showcase a creative studio’s work.',
+    tags: ['Portfolio', 'Design', 'Website'],
+    url: '',
   },
 ]
 
@@ -224,6 +230,6 @@ export const navLinks = [
   { label: 'Solutions', href: '#solutions' },
   { label: 'AI', href: '#ai' },
   { label: 'Products', href: '#products' },
-  { label: 'Case Studies', href: '#cases' },
+  { label: 'Work', href: '#cases' },
   { label: 'Resources', href: '#resources' },
 ]

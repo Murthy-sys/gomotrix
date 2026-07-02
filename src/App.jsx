@@ -7,7 +7,7 @@ import Solutions from './components/Solutions.jsx'
 import AISolutions from './components/AISolutions.jsx'
 import Process from './components/Process.jsx'
 import Products from './components/Products.jsx'
-import CaseStudies from './components/CaseStudies.jsx'
+import Work from './components/Work.jsx'
 import KnowledgeCenter from './components/KnowledgeCenter.jsx'
 import Resources from './components/Resources.jsx'
 import Community from './components/Community.jsx'
@@ -29,7 +29,7 @@ export default function App() {
         <AISolutions />
         <Process />
         <Products />
-        <CaseStudies />
+        <Work />
         <KnowledgeCenter />
         <Resources />
         <Community />
