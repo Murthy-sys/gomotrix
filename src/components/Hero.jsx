@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { Calendar, ArrowRight, Sparkles } from 'lucide-react'
 import HeroIllustration from './HeroIllustration.jsx'
 import { stats, techStack } from '../data/content.js'
@@ -15,39 +14,28 @@ export default function Hero() {
 
       <div className="container-x grid items-center gap-12 lg:grid-cols-2 lg:gap-10">
         <div>
-          <motion.span
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="chip"
-          >
+          <span className="chip animate-fade-up">
             <Sparkles size={14} /> Your long-term technology partner
-          </motion.span>
+          </span>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.05 }}
-            className="mt-5 font-display text-4xl font-bold leading-[1.05] tracking-tight text-ink-900 dark:text-white sm:text-5xl lg:text-6xl"
+          <h1
+            className="mt-5 animate-fade-up font-display text-4xl font-bold leading-[1.05] tracking-tight text-ink-900 dark:text-white sm:text-5xl lg:text-6xl"
+            style={{ animationDelay: '0.05s' }}
           >
             Technology that <span className="accent-text">drives</span> real business growth
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.12 }}
-            className="mt-6 max-w-xl text-lg leading-relaxed text-slate-600 dark:text-slate-300"
+          <p
+            className="mt-6 max-w-xl animate-fade-up text-lg leading-relaxed text-slate-600 dark:text-slate-300"
+            style={{ animationDelay: '0.12s' }}
           >
             We help businesses simplify operations, automate workflows, and improve customer experience
             using AI, software, and digital transformation — built to last.
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.18 }}
-            className="mt-8 flex flex-col gap-3 sm:flex-row"
+          <div
+            className="mt-8 flex animate-fade-up flex-col gap-3 sm:flex-row"
+            style={{ animationDelay: '0.18s' }}
           >
             <a href="#contact" className="btn-primary text-base">
               <Calendar size={18} /> Book Free Consultation
@@ -55,13 +43,11 @@ export default function Hero() {
             <a href="#solutions" className="btn-ghost text-base">
               Explore Solutions <ArrowRight size={18} />
             </a>
-          </motion.div>
+          </div>
 
-          <motion.dl
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-12 grid max-w-lg grid-cols-3 gap-x-6 gap-y-7"
+          <dl
+            className="mt-12 grid max-w-lg animate-fade-up grid-cols-3 gap-x-6 gap-y-7"
+            style={{ animationDelay: '0.24s' }}
           >
             {stats.map((s) => (
               <div key={s.label} className="border-l-2 border-amber-400 pl-3">
@@ -69,17 +55,12 @@ export default function Hero() {
                 <dd className="mt-1 text-xs font-medium text-slate-500 dark:text-slate-400">{s.label}</dd>
               </div>
             ))}
-          </motion.dl>
+          </dl>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.94, y: 10 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="relative"
-        >
+        <div className="relative animate-fade-up" style={{ animationDelay: '0.2s' }}>
           <HeroIllustration />
-        </motion.div>
+        </div>
       </div>
 
       {/* Tech stack we build with — honest, concrete */}

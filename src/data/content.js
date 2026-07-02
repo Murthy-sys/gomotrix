@@ -89,23 +89,6 @@ export const processSteps = [
   { title: 'Continuous Improvement', desc: 'Iterate, optimize and scale as you grow.' },
 ]
 
-export const products = [
-  { name: 'Hospital Management System', icon: 'Hospital', tag: 'Healthcare', price: 'from ₹4,999/mo' },
-  { name: 'School ERP', icon: 'School', tag: 'Education', price: 'from ₹1,999/mo' },
-  { name: 'College Management', icon: 'GraduationCap', tag: 'Education', price: 'from ₹2,999/mo' },
-  { name: 'Builder CRM', icon: 'Building2', tag: 'Real Estate', price: 'from ₹1,499/mo' },
-  { name: 'Retail POS', icon: 'ShoppingCart', tag: 'Retail', price: 'from ₹799/mo' },
-  { name: 'Inventory Management', icon: 'PackageSearch', tag: 'Operations', price: 'from ₹999/mo' },
-  { name: 'HR Management', icon: 'Users', tag: 'Workforce', price: 'from ₹1,299/mo' },
-  { name: 'Attendance System', icon: 'CalendarCheck', tag: 'Workforce', price: 'from ₹499/mo' },
-  { name: 'Appointment Management', icon: 'CalendarClock', tag: 'Operations', price: 'from ₹599/mo' },
-  { name: 'Learning Management', icon: 'BookOpen', tag: 'Education', price: 'from ₹1,499/mo' },
-  { name: 'Visitor Management', icon: 'UserCheck', tag: 'Security', price: 'from ₹499/mo' },
-  { name: 'Digital Forms', icon: 'ClipboardList', tag: 'Operations', price: 'from ₹399/mo' },
-  { name: 'Asset Management', icon: 'Boxes', tag: 'Operations', price: 'from ₹899/mo' },
-  { name: 'AI Knowledge Portal', icon: 'Brain', tag: 'AI', price: 'from ₹2,499/mo' },
-]
-
 // Real projects delivered by the Trimugo team.
 export const projects = [
   {
@@ -290,10 +273,6 @@ export const resources = [
   { name: 'ROI Calculator', icon: 'Calculator', desc: 'Estimate savings before you invest.', tool: 'roi' },
   { name: 'Digital Readiness Checklist', icon: 'ListChecks', desc: 'Score your readiness in 5 minutes.', tool: 'checklist' },
   { name: 'Business Assessment Tools', icon: 'Gauge', desc: 'Diagnose operational gaps fast.', tool: 'checklist' },
-  // Hidden for now — enable once real files are ready:
-  // { name: 'Free Templates', icon: 'FileText', desc: 'Requirement & project templates.', tool: 'request' },
-  // { name: 'Technology Comparison Guides', icon: 'GitCompare', desc: 'Pick the right stack with confidence.', tool: 'request' },
-  // { name: 'Downloadable PDFs', icon: 'Download', desc: 'Guides and reports, ready offline.', tool: 'request' },
 ]
 
 export const communityEvents = [
@@ -337,7 +316,6 @@ export const navLinks = [
   { label: 'Industries', href: '#industries' },
   { label: 'Solutions', href: '#solutions' },
   { label: 'AI', href: '#ai' },
-  { label: 'Products', href: '#products' },
   { label: 'Work', href: '#cases' },
   { label: 'Students', href: '#students' },
   { label: 'Resources', href: '#resources' },

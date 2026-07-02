@@ -16,7 +16,7 @@ const columns = [
   },
   {
     title: 'Resources',
-    links: ['Knowledge Center', 'Products', 'ROI Calculator', 'Templates', 'Guides'],
+    links: ['Knowledge Center', 'Our Work', 'ROI Calculator', 'Readiness Checklist', 'Students'],
   },
 ]
 

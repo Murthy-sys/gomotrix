@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { TrendingUp, Bot, Zap, ArrowUpRight } from 'lucide-react'
 
 const bars = [42, 58, 50, 72, 64, 88, 78]
@@ -9,11 +8,7 @@ export default function HeroIllustration() {
       {/* soft navy panel behind for depth */}
       <div className="absolute inset-0 translate-x-5 translate-y-6 rounded-[1.75rem] bg-brand-700/10 dark:bg-brand-500/10" />
 
-      <motion.div
-        animate={{ y: [0, -10, 0] }}
-        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-        className="relative rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-card dark:border-white/10 dark:bg-ink-800"
-      >
+      <div className="relative animate-float rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-card dark:border-white/10 dark:bg-ink-800">
         {/* window chrome */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -56,28 +51,20 @@ export default function HeroIllustration() {
           </div>
           <div className="mt-4 flex h-28 items-end gap-2.5">
             {bars.map((h, i) => (
-              <motion.div
+              <div
                 key={i}
-                initial={{ height: '12%' }}
-                animate={{ height: `${h}%` }}
-                transition={{ duration: 0.9, delay: 0.3 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                className={`flex-1 rounded-md ${
-                  i === bars.length - 1
-                    ? 'bg-amber-400'
-                    : 'bg-brand-600/85 dark:bg-brand-400/80'
+                style={{ height: `${h}%`, animationDelay: `${0.3 + i * 0.08}s` }}
+                className={`flex-1 origin-bottom animate-draw-bar rounded-md ${
+                  i === bars.length - 1 ? 'bg-amber-400' : 'bg-brand-600/85 dark:bg-brand-400/80'
                 }`}
               />
             ))}
           </div>
         </div>
-      </motion.div>
+      </div>
 
       {/* floating chips */}
-      <motion.div
-        animate={{ y: [0, -9, 0] }}
-        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute -left-5 top-24 hidden items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 shadow-card dark:border-white/10 dark:bg-ink-700 sm:flex"
-      >
+      <div className="absolute -left-5 top-24 hidden animate-float items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 shadow-card dark:border-white/10 dark:bg-ink-700 sm:flex" style={{ animationDelay: '0.5s' }}>
         <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-700 text-white">
           <Bot size={17} />
         </span>
@@ -85,13 +72,9 @@ export default function HeroIllustration() {
           <p className="text-[10px] font-medium text-slate-400">AI tickets resolved</p>
           <p className="text-sm font-bold text-ink-900 dark:text-white">3</p>
         </div>
-      </motion.div>
+      </div>
 
-      <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute -right-4 bottom-10 hidden items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 shadow-card dark:border-white/10 dark:bg-ink-700 sm:flex"
-      >
+      <div className="absolute -right-4 bottom-10 hidden animate-float items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 shadow-card dark:border-white/10 dark:bg-ink-700 sm:flex" style={{ animationDelay: '1.2s' }}>
         <span className="grid h-9 w-9 place-items-center rounded-lg bg-amber-500 text-ink-900">
           <Zap size={17} />
         </span>
@@ -99,7 +82,7 @@ export default function HeroIllustration() {
           <p className="text-[10px] font-medium text-slate-400">Efficiency</p>
           <p className="text-sm font-bold text-ink-900 dark:text-white">98%</p>
         </div>
-      </motion.div>
+      </div>
     </div>
   )
 }

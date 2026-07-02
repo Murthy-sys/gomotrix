@@ -84,11 +84,17 @@ export default {
           '0%': { transform: 'scaleY(0.15)' },
           '100%': { transform: 'scaleY(1)' },
         },
+        'fade-up': {
+          '0%': { opacity: '0', transform: 'translateY(16px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
       },
       animation: {
         float: 'float 6s ease-in-out infinite',
         'pulse-ring': 'pulse-ring 3s ease-out infinite',
         marquee: 'marquee 32s linear infinite',
+        'fade-up': 'fade-up 0.5s ease both',
+        'draw-bar': 'draw-bar 0.8s cubic-bezier(0.22,1,0.36,1) both',
       },
     },
   },
