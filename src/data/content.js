@@ -90,20 +90,20 @@ export const processSteps = [
 ]
 
 export const products = [
-  { name: 'Hospital Management System', icon: 'Hospital', tag: 'Healthcare', price: 'from ₹1,24,999/mo' },
-  { name: 'School ERP', icon: 'School', tag: 'Education', price: 'from ₹32,999/mo' },
-  { name: 'College Management', icon: 'GraduationCap', tag: 'Education', price: 'from ₹57,999/mo' },
-  { name: 'Builder CRM', icon: 'Building2', tag: 'Real Estate', price: 'from ₹24,999/mo' },
-  { name: 'Retail POS', icon: 'ShoppingCart', tag: 'Retail', price: 'from ₹7,999/mo' },
-  { name: 'Inventory Management', icon: 'PackageSearch', tag: 'Operations', price: 'from ₹12,999/mo' },
-  { name: 'HR Management', icon: 'Users', tag: 'Workforce', price: 'from ₹16,999/mo' },
-  { name: 'Attendance System', icon: 'CalendarCheck', tag: 'Workforce', price: 'from ₹5,999/mo' },
-  { name: 'Appointment Management', icon: 'CalendarClock', tag: 'Operations', price: 'from ₹6,999/mo' },
-  { name: 'Learning Management', icon: 'BookOpen', tag: 'Education', price: 'from ₹19,999/mo' },
-  { name: 'Visitor Management', icon: 'UserCheck', tag: 'Security', price: 'from ₹4,999/mo' },
-  { name: 'Digital Forms', icon: 'ClipboardList', tag: 'Operations', price: 'from ₹3,999/mo' },
-  { name: 'Asset Management', icon: 'Boxes', tag: 'Operations', price: 'from ₹9,999/mo' },
-  { name: 'AI Knowledge Portal', icon: 'Brain', tag: 'AI', price: 'from ₹28,999/mo' },
+  { name: 'Hospital Management System', icon: 'Hospital', tag: 'Healthcare', price: 'from ₹4,999/mo' },
+  { name: 'School ERP', icon: 'School', tag: 'Education', price: 'from ₹1,999/mo' },
+  { name: 'College Management', icon: 'GraduationCap', tag: 'Education', price: 'from ₹2,999/mo' },
+  { name: 'Builder CRM', icon: 'Building2', tag: 'Real Estate', price: 'from ₹1,499/mo' },
+  { name: 'Retail POS', icon: 'ShoppingCart', tag: 'Retail', price: 'from ₹799/mo' },
+  { name: 'Inventory Management', icon: 'PackageSearch', tag: 'Operations', price: 'from ₹999/mo' },
+  { name: 'HR Management', icon: 'Users', tag: 'Workforce', price: 'from ₹1,299/mo' },
+  { name: 'Attendance System', icon: 'CalendarCheck', tag: 'Workforce', price: 'from ₹499/mo' },
+  { name: 'Appointment Management', icon: 'CalendarClock', tag: 'Operations', price: 'from ₹599/mo' },
+  { name: 'Learning Management', icon: 'BookOpen', tag: 'Education', price: 'from ₹1,499/mo' },
+  { name: 'Visitor Management', icon: 'UserCheck', tag: 'Security', price: 'from ₹499/mo' },
+  { name: 'Digital Forms', icon: 'ClipboardList', tag: 'Operations', price: 'from ₹399/mo' },
+  { name: 'Asset Management', icon: 'Boxes', tag: 'Operations', price: 'from ₹899/mo' },
+  { name: 'AI Knowledge Portal', icon: 'Brain', tag: 'AI', price: 'from ₹2,499/mo' },
 ]
 
 export const caseStudies = [
