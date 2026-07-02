@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Menu, X, Moon, Sun, Calendar } from 'lucide-react'
 import { useTheme } from '../context/ThemeContext.jsx'
 import { navLinks } from '../data/content.js'
-import Logo from './Logo.jsx'
+import BrandLockup from './BrandLockup.jsx'
 
 export default function Navbar() {
   const { theme, toggle } = useTheme()
@@ -25,11 +25,8 @@ export default function Navbar() {
       }`}
     >
       <nav className="container-x flex h-16 items-center justify-between md:h-20">
-        <a href="#top" className="flex items-center gap-2.5" aria-label="Trimugo home">
-          <Logo className="h-9 w-9" />
-          <span className="text-lg font-extrabold tracking-tight text-ink-900 dark:text-white">
-            Tri<span className="gradient-text">mugo</span>
-          </span>
+        <a href="#top" aria-label="Trimugo home">
+          <BrandLockup markClass="h-10 w-10" />
         </a>
 
         <ul className="hidden items-center gap-1 lg:flex">

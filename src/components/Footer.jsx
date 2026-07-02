@@ -1,5 +1,5 @@
 import { Github, Linkedin, Twitter, Youtube, ArrowUp } from 'lucide-react'
-import Logo from './Logo.jsx'
+import BrandLockup from './BrandLockup.jsx'
 
 const columns = [
   {
@@ -34,11 +34,8 @@ export default function Footer() {
         <div className="grid gap-10 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
           {/* Brand */}
           <div>
-            <a href="#top" className="flex items-center gap-2.5">
-              <Logo className="h-9 w-9" />
-              <span className="text-lg font-extrabold tracking-tight text-ink-900 dark:text-white">
-                Tri<span className="gradient-text">mugo</span>
-              </span>
+            <a href="#top" className="inline-flex">
+              <BrandLockup markClass="h-10 w-10" />
             </a>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate-500 dark:text-slate-400">
               Your long-term technology partner — delivering affordable, scalable, and intelligent solutions
