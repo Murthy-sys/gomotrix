@@ -42,7 +42,7 @@ export default function KnowledgeCenter() {
           {featured && (
             <Reveal>
               <a
-                href="#knowledge"
+                href={`#/insights/${featured.slug}`}
                 className="group relative flex h-full min-h-[280px] flex-col justify-end overflow-hidden rounded-2xl border border-slate-200 p-7 dark:border-white/10"
               >
                 <div className="absolute inset-0 bg-brand-900" />
@@ -55,7 +55,7 @@ export default function KnowledgeCenter() {
                   <h3 className="mt-4 font-display text-2xl font-bold leading-tight text-white">{featured.title}</h3>
                   <p className="mt-2 max-w-md text-sm text-slate-300">{featured.excerpt}</p>
                   <p className="mt-4 flex items-center gap-2 text-xs font-semibold text-amber-300">
-                    <Clock size={14} /> {featured.read}
+                    {featured.date} · {featured.read}
                     <ArrowUpRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
                   </p>
                 </div>
@@ -68,7 +68,7 @@ export default function KnowledgeCenter() {
             {rest.map((a, i) => (
               <Reveal i={i} key={a.title}>
                 <a
-                  href="#knowledge"
+                  href={`#/insights/${a.slug}`}
                   className="group card flex items-center justify-between gap-4 p-5 hover:-translate-y-0.5 hover:border-amber-400"
                 >
                   <div>
@@ -76,7 +76,7 @@ export default function KnowledgeCenter() {
                     <h3 className="mt-1 font-bold text-ink-900 dark:text-white">{a.title}</h3>
                     <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">{a.excerpt}</p>
                     <p className="mt-2 flex items-center gap-1.5 text-xs font-medium text-slate-400">
-                      <Clock size={13} /> {a.read}
+                      <Clock size={13} /> {a.date} · {a.read}
                     </p>
                   </div>
                   <ArrowUpRight
