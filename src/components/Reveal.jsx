@@ -1,25 +1,24 @@
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 
-const variants = {
-  hidden: { opacity: 0, y: 28 },
-  show: (i = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] },
-  }),
-}
-
-// Lightweight scroll-reveal wrapper.
+// Lightweight reveal wrapper.
+// Content is ALWAYS rendered visible (initial={false}) so it can never get
+// stuck hidden behind a scroll observer on mobile. On capable devices we add a
+// gentle fade-in on mount; reduced-motion devices get plain content instantly.
 export default function Reveal({ children, i = 0, className = '', as = 'div' }) {
+  const reduce = useReducedMotion()
+
+  if (reduce) {
+    const Tag = as
+    return <Tag className={className}>{children}</Tag>
+  }
+
   const MotionTag = motion[as] || motion.div
   return (
     <MotionTag
       className={className}
-      variants={variants}
-      custom={i}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: '-60px' }}
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, delay: Math.min(i * 0.05, 0.25), ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </MotionTag>
