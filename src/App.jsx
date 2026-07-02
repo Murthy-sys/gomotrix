@@ -1,24 +1,20 @@
-import { lazy, Suspense } from 'react'
 import Navbar from './components/Navbar.jsx'
 import ScrollProgress from './components/ScrollProgress.jsx'
 import Hero from './components/Hero.jsx'
-
-// Below-the-fold sections are code-split so the initial bundle stays small
-// and the hero paints as fast as possible.
-const WhyTrimugo = lazy(() => import('./components/WhyTrimugo.jsx'))
-const Industries = lazy(() => import('./components/Industries.jsx'))
-const Solutions = lazy(() => import('./components/Solutions.jsx'))
-const AISolutions = lazy(() => import('./components/AISolutions.jsx'))
-const Process = lazy(() => import('./components/Process.jsx'))
-const Products = lazy(() => import('./components/Products.jsx'))
-const Work = lazy(() => import('./components/Work.jsx'))
-const KnowledgeCenter = lazy(() => import('./components/KnowledgeCenter.jsx'))
-const Resources = lazy(() => import('./components/Resources.jsx'))
-const Community = lazy(() => import('./components/Community.jsx'))
-const Careers = lazy(() => import('./components/Careers.jsx'))
-const CTABanner = lazy(() => import('./components/CTABanner.jsx'))
-const Contact = lazy(() => import('./components/Contact.jsx'))
-const Footer = lazy(() => import('./components/Footer.jsx'))
+import WhyTrimugo from './components/WhyTrimugo.jsx'
+import Industries from './components/Industries.jsx'
+import Solutions from './components/Solutions.jsx'
+import AISolutions from './components/AISolutions.jsx'
+import Process from './components/Process.jsx'
+import Products from './components/Products.jsx'
+import Work from './components/Work.jsx'
+import KnowledgeCenter from './components/KnowledgeCenter.jsx'
+import Resources from './components/Resources.jsx'
+import Community from './components/Community.jsx'
+import Careers from './components/Careers.jsx'
+import CTABanner from './components/CTABanner.jsx'
+import Contact from './components/Contact.jsx'
+import Footer from './components/Footer.jsx'
 
 export default function App() {
   return (
@@ -27,25 +23,21 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
-        <Suspense fallback={null}>
-          <WhyTrimugo />
-          <Industries />
-          <Solutions />
-          <AISolutions />
-          <Process />
-          <Products />
-          <Work />
-          <KnowledgeCenter />
-          <Resources />
-          <Community />
-          <Careers />
-          <CTABanner />
-          <Contact />
-        </Suspense>
+        <WhyTrimugo />
+        <Industries />
+        <Solutions />
+        <AISolutions />
+        <Process />
+        <Products />
+        <Work />
+        <KnowledgeCenter />
+        <Resources />
+        <Community />
+        <Careers />
+        <CTABanner />
+        <Contact />
       </main>
-      <Suspense fallback={null}>
-        <Footer />
-      </Suspense>
+      <Footer />
     </div>
   )
 }
