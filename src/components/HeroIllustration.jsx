@@ -33,7 +33,7 @@ export default function HeroIllustration() {
         <div className="mt-5 grid grid-cols-3 gap-3">
           {[
             { label: 'Revenue', value: '₹8.4Cr', delta: '+28%' },
-            { label: 'Automated', value: '12.4k', delta: '+63%' },
+            { label: 'Workflows', value: '1', delta: '98% acc' },
             { label: 'Uptime', value: '99.9%', delta: 'SLA' },
           ].map((k) => (
             <div key={k.label} className="rounded-xl border border-slate-100 bg-slate-50 p-3 dark:border-white/5 dark:bg-white/5">
