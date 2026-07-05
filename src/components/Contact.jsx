@@ -16,7 +16,14 @@ export default function Contact() {
   const [sent, setSent] = useState(false)
   const [sending, setSending] = useState(false)
   const [error, setError] = useState('')
-  const [form, setForm] = useState({ name: '', email: '', company: '', message: '', botcheck: '' })
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    projectType: '',
+    budget: '',
+    message: '',
+    botcheck: '',
+  })
 
   const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
   const onSubmit = async (e) => {
@@ -30,11 +37,12 @@ export default function Contact() {
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           access_key: WEB3FORMS_KEY,
-          subject: `New consultation request from ${form.name || 'website visitor'}`,
+          subject: `New lead: ${form.projectType || 'Project'} — ${form.name || 'website visitor'}`,
           from_name: 'Trimugo Website',
           name: form.name,
           email: form.email,
-          company: form.company,
+          project_type: form.projectType,
+          budget: form.budget,
           message: form.message,
         }),
       })
@@ -116,7 +124,7 @@ export default function Contact() {
                   <button
                     onClick={() => {
                       setSent(false)
-                      setForm({ name: '', email: '', company: '', message: '', botcheck: '' })
+                      setForm({ name: '', email: '', projectType: '', budget: '', message: '', botcheck: '' })
                     }}
                     className="btn-ghost mt-6"
                   >
@@ -125,7 +133,7 @@ export default function Contact() {
                 </div>
               ) : (
                 <form onSubmit={onSubmit} className="space-y-4">
-                  <h3 className="text-lg font-extrabold text-ink-900 dark:text-white">Schedule a consultation</h3>
+                  <h3 className="text-lg font-extrabold text-ink-900 dark:text-white">Tell us about your project</h3>
                   {/* honeypot — hidden from users, catches bots */}
                   <input
                     type="checkbox"
@@ -140,7 +148,7 @@ export default function Contact() {
                   <div className="grid gap-4 sm:grid-cols-2">
                     <Input label="Full name" name="name" value={form.name} onChange={onChange} required placeholder="Jane Cooper" />
                     <Input
-                      label="Work email"
+                      label="Email"
                       name="email"
                       type="email"
                       value={form.email}
@@ -149,18 +157,41 @@ export default function Contact() {
                       placeholder="jane@company.com"
                     />
                   </div>
-                  <Input label="Company" name="company" value={form.company} onChange={onChange} placeholder="Company Inc." />
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <Select
+                      label="Project type"
+                      name="projectType"
+                      value={form.projectType}
+                      onChange={onChange}
+                      required
+                      options={[
+                        'Website / Web app',
+                        'Mobile app',
+                        'AI / Automation',
+                        'ERP / CRM',
+                        'College / Student project',
+                        'Free tech audit',
+                        'Something else',
+                      ]}
+                    />
+                    <Select
+                      label="Budget (optional)"
+                      name="budget"
+                      value={form.budget}
+                      onChange={onChange}
+                      options={['Under ₹25k', '₹25k – ₹1L', '₹1L – ₹5L', '₹5L+', 'Not sure yet']}
+                    />
+                  </div>
                   <div>
                     <label className="mb-1.5 block text-sm font-semibold text-ink-800 dark:text-slate-200">
-                      How can we help?
+                      Anything else? <span className="font-normal text-slate-400">(optional)</span>
                     </label>
                     <textarea
                       name="message"
                       value={form.message}
                       onChange={onChange}
-                      rows={4}
-                      required
-                      placeholder="Tell us about your business challenge…"
+                      rows={3}
+                      placeholder="Tell us about your goals or challenge…"
                       className="w-full resize-none rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-ink-900 outline-none transition-colors focus:border-brand-400 focus:ring-2 focus:ring-brand-400/30 dark:border-white/10 dark:bg-ink-700 dark:text-white"
                     />
                   </div>
@@ -176,12 +207,12 @@ export default function Contact() {
                       </>
                     ) : (
                       <>
-                        <Calendar size={18} /> Book Free Consultation
+                        <Calendar size={18} /> Book My Free Strategy Call
                       </>
                     )}
                   </button>
                   <p className="text-center text-xs text-slate-400">
-                    We reply within one business day. No spam, ever.
+                    Free, no-obligation. We reply within one business day. No spam, ever.
                   </p>
                 </form>
               )}
@@ -201,6 +232,25 @@ function Input({ label, ...props }) {
         {...props}
         className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-ink-900 outline-none transition-colors focus:border-brand-400 focus:ring-2 focus:ring-brand-400/30 dark:border-white/10 dark:bg-ink-700 dark:text-white"
       />
+    </div>
+  )
+}
+
+function Select({ label, options, ...props }) {
+  return (
+    <div>
+      <label className="mb-1.5 block text-sm font-semibold text-ink-800 dark:text-slate-200">{label}</label>
+      <select
+        {...props}
+        className="w-full appearance-none rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-ink-900 outline-none transition-colors focus:border-brand-400 focus:ring-2 focus:ring-brand-400/30 dark:border-white/10 dark:bg-ink-700 dark:text-white"
+      >
+        <option value="">Select…</option>
+        {options.map((o) => (
+          <option key={o} value={o}>
+            {o}
+          </option>
+        ))}
+      </select>
     </div>
   )
 }

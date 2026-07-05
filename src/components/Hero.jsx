@@ -15,22 +15,22 @@ export default function Hero() {
       <div className="container-x grid items-center gap-12 lg:grid-cols-2 lg:gap-10">
         <div>
           <span className="chip animate-fade-up">
-            <Sparkles size={14} /> Your long-term technology partner
+            <Sparkles size={14} /> Remote software, AI &amp; automation partner
           </span>
 
           <h1
             className="mt-5 animate-fade-up font-display text-4xl font-bold leading-[1.05] tracking-tight text-ink-900 dark:text-white sm:text-5xl lg:text-6xl"
             style={{ animationDelay: '0.05s' }}
           >
-            Technology that <span className="accent-text">drives</span> real business growth
+            Custom software &amp; AI that <span className="accent-text">drive</span> real business growth
           </h1>
 
           <p
             className="mt-6 max-w-xl animate-fade-up text-lg leading-relaxed text-slate-600 dark:text-slate-300"
             style={{ animationDelay: '0.12s' }}
           >
-            We help businesses simplify operations, automate workflows, and improve customer experience
-            using AI, software, and digital transformation — built to last.
+            We design, build, and ship web, mobile, AI, and automation solutions for growing businesses —
+            cutting manual work, speeding up decisions, and turning your operations into an advantage.
           </p>
 
           <div
@@ -38,10 +38,10 @@ export default function Hero() {
             style={{ animationDelay: '0.18s' }}
           >
             <a href="#contact" className="btn-primary text-base">
-              <Calendar size={18} /> Book Free Consultation
+              <Calendar size={18} /> Book a Free Strategy Call
             </a>
-            <a href="#solutions" className="btn-ghost text-base">
-              Explore Solutions <ArrowRight size={18} />
+            <a href="#contact" className="btn-ghost text-base">
+              Get a Free Audit <ArrowRight size={18} />
             </a>
           </div>
 
