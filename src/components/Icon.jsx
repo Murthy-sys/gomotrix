@@ -58,6 +58,10 @@ import {
   ScanText,
   // students
   Cpu,
+  // about
+  Target,
+  Handshake,
+  Coins,
 } from 'lucide-react'
 
 const registry = {
@@ -112,6 +116,9 @@ const registry = {
   LineChart,
   ScanText,
   Cpu,
+  Target,
+  Handshake,
+  Coins,
 }
 
 export default function Icon({ name, ...props }) {

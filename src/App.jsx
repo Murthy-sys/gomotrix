@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Navbar from './components/Navbar.jsx'
 import ScrollProgress from './components/ScrollProgress.jsx'
 import Hero from './components/Hero.jsx'
+import About from './components/About.jsx'
 import WhyTrimugo from './components/WhyTrimugo.jsx'
 import Industries from './components/Industries.jsx'
 import Solutions from './components/Solutions.jsx'
@@ -55,6 +56,7 @@ export default function App() {
       ) : (
         <main>
           <Hero />
+          <About />
           <WhyTrimugo />
           <Industries />
           <Solutions />

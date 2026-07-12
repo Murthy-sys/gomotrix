@@ -27,7 +27,7 @@ export default function HeroIllustration() {
         {/* KPI tiles */}
         <div className="mt-5 grid grid-cols-3 gap-3">
           {[
-            { label: 'Revenue', value: '₹8.4Cr', delta: '+28%' },
+            { label: 'Automations', value: '24', delta: 'Active' },
             { label: 'Workflows', value: '1', delta: '98% acc' },
             { label: 'Uptime', value: '99.9%', delta: 'SLA' },
           ].map((k) => (

@@ -290,6 +290,29 @@ export const careers = [
   { role: 'Solutions Consultant', type: 'Full-time', location: 'On-site' },
 ]
 
+export const aboutValues = [
+  {
+    icon: 'Target',
+    title: 'Outcomes first',
+    desc: 'We measure success by business results — time saved, costs cut, and quality improved — not by lines of code shipped.',
+  },
+  {
+    icon: 'Handshake',
+    title: 'Long-term partnership',
+    desc: 'We stay after launch with support, training, and continuous improvement, so your systems keep getting better.',
+  },
+  {
+    icon: 'Coins',
+    title: 'Affordable & transparent',
+    desc: 'Clear scopes and honest pricing designed for startups, SMEs, and institutions — no surprise invoices.',
+  },
+  {
+    icon: 'ShieldCheck',
+    title: 'Built to last',
+    desc: 'Security, reliability, and scalability engineered in from day one — not bolted on later.',
+  },
+]
+
 export const stats = [
   { value: '6', label: 'Projects delivered' },
   { value: '98%', label: 'Client retention' },
@@ -312,6 +335,7 @@ export const techStack = [
 ]
 
 export const navLinks = [
+  { label: 'About', href: '#about' },
   { label: 'Why Trimugo', href: '#why' },
   { label: 'Industries', href: '#industries' },
   { label: 'Solutions', href: '#solutions' },

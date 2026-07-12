@@ -20,6 +20,27 @@ const columns = [
   },
 ]
 
+// Anchors for links whose section exists on the page; the rest fall back to #top.
+const hrefs = {
+  About: '#about',
+  Contact: '#contact',
+  'Custom Software': '#solutions',
+  'AI Chatbots': '#ai',
+  'Cloud Solutions': '#solutions',
+  Automation: '#solutions',
+  Cybersecurity: '#solutions',
+  Healthcare: '#industries',
+  Retail: '#industries',
+  Finance: '#industries',
+  Logistics: '#industries',
+  Government: '#industries',
+  'Knowledge Center': '#knowledge',
+  'Our Work': '#cases',
+  'ROI Calculator': '#resources',
+  'Readiness Checklist': '#resources',
+  Students: '#students',
+}
+
 const socials = [
   { icon: Linkedin, label: 'LinkedIn' },
   { icon: Twitter, label: 'Twitter' },
@@ -63,7 +84,7 @@ export default function Footer() {
                 {col.links.map((l) => (
                   <li key={l}>
                     <a
-                      href="#top"
+                      href={hrefs[l] || '#top'}
                       className="text-sm text-slate-500 transition-colors hover:text-brand-600 dark:text-slate-400 dark:hover:text-white"
                     >
                       {l}
