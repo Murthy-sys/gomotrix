@@ -1,0 +1,212 @@
+/* ── The Digital Universe · foundation ─────────────────────────────────────
+   Layout shell, type scale, buttons, preloader.
+   Deliberately plain CSS: this experience is one self-contained surface and
+   shouldn't inherit the marketing site's utility classes.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.uv-root {
+  --void: #050505;
+  --text: #ffffff;
+  --dim: rgba(255, 255, 255, 0.65);
+  --faint: rgba(255, 255, 255, 0.34);
+  --accent: #b7ff6a;
+  --glow: #a8ff60;
+  --glass: rgba(255, 255, 255, 0.08);
+  --hair: rgba(255, 255, 255, 0.12);
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --gut: clamp(1.5rem, 5vw, 5rem);
+
+  position: relative;
+  background: var(--void);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Scroll is driven by a tall spacer; the canvas is pinned behind it. */
+.uv-scroll { width: 100%; pointer-events: none; }
+
+.uv-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+.uv-stage canvas { display: block; touch-action: pan-y; }
+
+html.uv-active { background: #050505; }
+html.uv-active body { background: #050505; margin: 0; }
+/* Used by the preloader and the case-study modal. */
+html.uv-locked { overflow: hidden; }
+
+/* Screen-reader / crawler content: present in the DOM, off the screen. */
+.uv-sr {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────────────── */
+
+.uv-btn {
+  --pad-y: 0.95rem;
+  --pad-x: 1.9rem;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--pad-y) var(--pad-x);
+  border: 1px solid rgba(183, 255, 106, 0.45);
+  border-radius: 999px;
+  background: rgba(183, 255, 106, 0.07);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color 0.5s var(--ease), border-color 0.5s var(--ease),
+    transform 0.5s var(--ease), box-shadow 0.6s var(--ease);
+}
+.uv-btn > span { position: relative; z-index: 2; }
+
+/* The glow is a scaled pseudo-element, so hover costs no layout. */
+.uv-btn::before {
+  content: '';
+  position: absolute;
+  inset: -40%;
+  z-index: 1;
+  background: radial-gradient(circle at 50% 50%, rgba(183, 255, 106, 0.55), transparent 62%);
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.6s var(--ease), transform 0.7s var(--ease);
+}
+.uv-btn:hover {
+  color: #06110a;
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 1px rgba(183, 255, 106, 0.25), 0 18px 50px -12px rgba(168, 255, 96, 0.55);
+}
+.uv-btn:hover::before { opacity: 1; transform: scale(1); }
+.uv-btn:active { transform: translateY(0); }
+.uv-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.uv-btn--ghost {
+  border-color: var(--hair);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--dim);
+}
+.uv-btn--ghost:hover { color: var(--text); border-color: rgba(255, 255, 255, 0.4); box-shadow: none; }
+.uv-btn--ghost::before { background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.18), transparent 62%); }
+
+.uv-btn--sm { --pad-y: 0.6rem; --pad-x: 1.15rem; font-size: 0.7rem; }
+
+/* ── Preloader ───────────────────────────────────────────────────────────── */
+
+.uv-pre {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: #050505;
+  text-align: center;
+  padding: var(--gut);
+  transition: opacity 0.9s var(--ease), visibility 0.9s;
+}
+.uv-pre.is-leaving { opacity: 0; visibility: hidden; pointer-events: none; }
+
+/* The first mote of light — the same one that becomes the AI core. */
+.uv-pre__mote {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 6px; height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 30px 6px rgba(183, 255, 106, 0.6), 0 0 90px 20px rgba(168, 255, 96, 0.25);
+  animation: uv-pulse 2.6s ease-in-out infinite;
+}
+@keyframes uv-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50%      { transform: scale(2.2); opacity: 0.35; }
+}
+
+.uv-pre__inner {
+  position: relative;
+  max-width: 34rem;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 1.2s var(--ease) 0.15s, transform 1.2s var(--ease) 0.15s;
+}
+.uv-pre.is-ready .uv-pre__inner { opacity: 1; transform: none; }
+.uv-pre.is-ready .uv-pre__mote { opacity: 0; transition: opacity 0.8s var(--ease); }
+
+.uv-pre__brand {
+  font-size: 0.72rem;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 1.4rem;
+}
+.uv-pre__title {
+  font-family: 'Space Grotesk', Inter, sans-serif;
+  font-size: clamp(2.2rem, 6vw, 3.9rem);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  margin: 0 0 1.3rem;
+}
+.uv-pre__sub {
+  color: var(--dim);
+  font-size: 0.96rem;
+  line-height: 1.65;
+  margin: 0 0 2.6rem;
+}
+.uv-pre__actions {
+  display: flex;
+  gap: 0.85rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2.2rem;
+}
+.uv-pre__skip {
+  display: inline-block;
+  color: var(--faint);
+  font-size: 0.76rem;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+.uv-pre__skip:hover { color: var(--dim); border-color: var(--hair); }
+
+@media (prefers-reduced-motion: reduce) {
+  .uv-pre__mote { animation: none; }
+  .uv-btn, .uv-pre, .uv-pre__inner { transition-duration: 0.01ms !important; }
+}
+
+/* Brand lockup on the threshold screen. */
+.uv-pre__lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.6rem;
+}
+.uv-pre__mark {
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 10px 34px -10px rgba(0, 0, 0, 0.9);
+}
+.uv-pre__lockup .uv-pre__brand { margin: 0; }

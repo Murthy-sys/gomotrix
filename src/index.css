@@ -92,6 +92,15 @@
   transform: none;
 }
 
+/* Shown while the immersive experience's chunk is downloading. Solid black so
+   there is no white flash before the universe fades up. */
+.uv-boot {
+  position: fixed;
+  inset: 0;
+  background: #050505;
+  z-index: 200;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

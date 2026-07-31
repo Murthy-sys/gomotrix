@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { Suspense, lazy, useState, useEffect } from 'react'
 import Navbar from './components/Navbar.jsx'
 import ScrollProgress from './components/ScrollProgress.jsx'
 import Hero from './components/Hero.jsx'
@@ -18,6 +18,12 @@ import Footer from './components/Footer.jsx'
 import Article from './components/Article.jsx'
 import { articles } from './data/content.js'
 
+// The immersive experience is the default route, but it is a large bundle
+// (three.js + postprocessing). Loading it lazily keeps it out of the classic
+// site's payload entirely — visitors who go straight to #/classic never
+// download a byte of WebGL.
+const Universe = lazy(() => import('./universe/Universe.jsx'))
+
 function useHashRoute() {
   const [hash, setHash] = useState(() => (typeof window !== 'undefined' ? window.location.hash : ''))
   useEffect(() => {
@@ -30,20 +36,41 @@ function useHashRoute() {
 
 export default function App() {
   const hash = useHashRoute()
-  const match = hash.match(/^#\/insights\/([\w-]+)/)
-  const article = match ? articles.find((a) => a.slug === match[1]) : null
+
+  const articleMatch = hash.match(/^#\/insights\/([\w-]+)/)
+  const article = articleMatch ? articles.find((a) => a.slug === articleMatch[1]) : null
+
+  // #/classic          → the standard marketing site
+  // #/classic/contact  → the standard site, scrolled to a section
+  const classicMatch = hash.match(/^#\/classic(?:\/([\w-]+))?/)
+  const classic = Boolean(classicMatch) || Boolean(article)
+  const classicSection = classicMatch?.[1]
 
   // Scroll behavior on route/hash change: top for articles, to the anchor for
   // section links, top otherwise.
   useEffect(() => {
     if (article) {
       window.scrollTo(0, 0)
+    } else if (classicSection) {
+      // Wait a frame so the sections have mounted before seeking one.
+      requestAnimationFrame(() => {
+        const el = document.getElementById(classicSection)
+        el ? el.scrollIntoView() : window.scrollTo(0, 0)
+      })
     } else if (hash && !hash.startsWith('#/')) {
       const el = document.getElementById(hash.slice(1))
       if (el) el.scrollIntoView()
       else window.scrollTo(0, 0)
     }
-  }, [hash, article])
+  }, [hash, article, classicSection])
+
+  if (!classic) {
+    return (
+      <Suspense fallback={<div className="uv-boot" aria-label="Loading" />}>
+        <Universe />
+      </Suspense>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-white dark:bg-ink-900">

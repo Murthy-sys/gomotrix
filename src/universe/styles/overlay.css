@@ -1,0 +1,299 @@
+/* ── Narrative layer + minimal chrome ─────────────────────────────────────── */
+
+.uv-narrative {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Every beat occupies the same fixed frame; only one is visible at a time.
+   Opacity/transform are written imperatively from rAF — never by React. */
+.uv-beat {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(5rem, 12vh, 9rem) var(--gut);
+  will-change: opacity, transform, filter;
+}
+.uv-beat--left   { align-items: flex-start; text-align: left; }
+.uv-beat--right  { align-items: flex-end;   text-align: right; }
+.uv-beat--center { align-items: center;     text-align: center; }
+
+/* Type sits on top of a live particle field, so it needs its own darkness to
+   stay legible. A soft directional scrim reads as depth rather than as a panel —
+   an opaque box behind the text would flatten the whole shot. */
+.uv-beat::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  /* Hugs the type instead of blanketing the shot — it only needs to buy
+     contrast directly behind the words. */
+  background: radial-gradient(
+    46% 42% at var(--scrim-x, 50%) 50%,
+    rgba(5, 5, 5, 0.72) 0%,
+    rgba(5, 5, 5, 0.4) 46%,
+    rgba(5, 5, 5, 0) 74%
+  );
+}
+.uv-beat--left  { --scrim-x: 26%; }
+.uv-beat--right { --scrim-x: 74%; }
+
+/* Scenes whose subject is dead centre (the core, the finished ecosystem) would
+   otherwise have the headline sitting straight on top of the hero. Dropping the
+   copy into the lower third lets the world own the frame and the words sit
+   under it, the way a title card works in film. */
+.uv-beat--bottom {
+  justify-content: flex-end;
+  align-items: center;
+  text-align: center;
+  padding-bottom: clamp(3rem, 9vh, 6rem);
+}
+.uv-beat--bottom > * { max-width: 44rem; }
+.uv-beat--bottom .uv-beat__actions,
+.uv-beat--bottom .uv-beat__steps { justify-content: center; }
+.uv-beat--bottom::before {
+  background: linear-gradient(
+    to top,
+    rgba(5, 5, 5, 0.9) 0%,
+    rgba(5, 5, 5, 0.6) 28%,
+    rgba(5, 5, 5, 0.16) 52%,
+    rgba(5, 5, 5, 0) 74%
+  );
+}
+
+.uv-beat > * { max-width: 33rem; }
+.uv-beat--center > * { max-width: 44rem; }
+
+.uv-beat__kicker {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 1.5rem;
+}
+
+.uv-beat__title {
+  font-family: 'Space Grotesk', Inter, sans-serif;
+  font-size: clamp(2.3rem, 7vw, 5.2rem);
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.038em;
+  margin: 0 0 1.6rem;
+  /* A whisper of gradient stops large type from reading as flat paint. */
+  background: linear-gradient(178deg, #ffffff 30%, rgba(255, 255, 255, 0.72) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.uv-beat__title span { display: block; }
+
+.uv-beat__body {
+  font-size: clamp(0.98rem, 1.4vw, 1.16rem);
+  line-height: 1.62;
+  color: var(--dim);
+  margin: 0;
+  text-wrap: balance;
+}
+
+/* Process timelines — a hairline sequence, not a row of cards. */
+.uv-beat__steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.4rem;
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+  counter-reset: uv-step;
+}
+.uv-beat--right .uv-beat__steps { justify-content: flex-end; }
+.uv-beat--center .uv-beat__steps { justify-content: center; }
+
+.uv-beat__steps li {
+  counter-increment: uv-step;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.42rem 0.9rem;
+  border: 1px solid var(--hair);
+  border-radius: 999px;
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 0.72rem;
+  letter-spacing: 0.055em;
+  color: var(--dim);
+  white-space: nowrap;
+}
+.uv-beat__steps li::before {
+  content: counter(uv-step, decimal-leading-zero);
+  color: var(--accent);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  opacity: 0.85;
+}
+
+.uv-beat__actions {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-top: 2.6rem;
+  pointer-events: auto;
+}
+.uv-beat--center .uv-beat__actions { justify-content: center; }
+.uv-beat--right .uv-beat__actions { justify-content: flex-end; }
+
+/* ── Top chrome ──────────────────────────────────────────────────────────── */
+
+.uv-chrome {
+  position: fixed;
+  z-index: 20;
+  left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(1.1rem, 3vh, 2rem) var(--gut);
+  pointer-events: none;
+}
+.uv-chrome--top { top: 0; }
+.uv-chrome > * { pointer-events: auto; }
+
+.uv-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--text);
+  text-decoration: none;
+}
+.uv-brand__mark {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border-radius: 9px;
+  /* Lifts the navy/gold mark off a near-black field without recolouring it. */
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 6px 22px -6px rgba(0, 0, 0, 0.9);
+  transition: transform 0.55s var(--ease);
+}
+.uv-brand:hover .uv-brand__mark { transform: translateY(-1px) scale(1.04); }
+.uv-brand__text { display: flex; flex-direction: column; justify-content: center; line-height: 1; }
+.uv-brand__word {
+  font-family: 'Space Grotesk', Inter, sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+}
+.uv-brand__tag {
+  margin-top: 0.34rem;
+  font-size: 0.52rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #fbbf24;
+}
+
+.uv-sound {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 0.85rem 0.5rem 0.7rem;
+  border: 1px solid var(--hair);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
+  color: var(--faint);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: color 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+.uv-sound:hover { color: var(--text); border-color: rgba(255, 255, 255, 0.3); }
+.uv-sound.is-on { color: var(--accent); border-color: rgba(183, 255, 106, 0.35); }
+.uv-sound__bars { display: inline-flex; align-items: flex-end; gap: 2px; height: 13px; }
+.uv-sound__bars i {
+  display: block;
+  width: 2px;
+  height: 3px;
+  border-radius: 1px;
+  background: currentColor;
+  transition: height 0.3s var(--ease);
+}
+.uv-sound.is-on .uv-sound__bars i { animation: uv-eq 1.1s ease-in-out infinite; }
+.uv-sound.is-on .uv-sound__bars i:nth-child(2) { animation-delay: 0.18s; }
+.uv-sound.is-on .uv-sound__bars i:nth-child(3) { animation-delay: 0.36s; }
+.uv-sound.is-on .uv-sound__bars i:nth-child(4) { animation-delay: 0.1s; }
+@keyframes uv-eq {
+  0%, 100% { height: 3px; }
+  50%      { height: 13px; }
+}
+.uv-sound:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* ── Progress hairline ──────────────────────────────────────────────────── */
+/* All that remains of the chapter rail: a 1px line across the foot of the
+   frame. No numbers, no tick list, no labels. */
+
+.uv-progress {
+  position: fixed;
+  z-index: 20;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.07);
+  pointer-events: none;
+}
+.uv-progress__fill {
+  height: 100%;
+  background: linear-gradient(90deg, rgba(183, 255, 106, 0.25), var(--accent));
+  transform-origin: left;
+  transform: scaleX(0);
+  will-change: transform;
+}
+
+/* ── Scroll cue ──────────────────────────────────────────────────────────── */
+
+.uv-hint {
+  position: fixed;
+  z-index: 20;
+  bottom: clamp(1.4rem, 4vh, 2.6rem);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--faint);
+  font-size: 0.66rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  pointer-events: none;
+  will-change: opacity;
+}
+.uv-hint__line {
+  width: 1px;
+  height: 42px;
+  background: linear-gradient(180deg, var(--accent), transparent);
+  animation: uv-drop 2.4s var(--ease) infinite;
+}
+@keyframes uv-drop {
+  0%   { transform: scaleY(0); transform-origin: top; opacity: 0; }
+  40%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
+  60%  { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
+  100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+}
+
+@media (max-width: 860px) {
+  .uv-beat { padding-inline: clamp(1.25rem, 6vw, 2rem); }
+  .uv-beat--right { align-items: flex-start; text-align: left; }
+  .uv-beat--right .uv-beat__steps,
+  .uv-beat--right .uv-beat__actions { justify-content: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uv-hint__line, .uv-sound.is-on span { animation: none; }
+}
