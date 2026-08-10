@@ -5,7 +5,7 @@ export default function Reveal({ children, i = 0, className = '', as: Tag = 'div
   return (
     <Tag
       className={`animate-fade-up ${className}`}
-      style={{ animationDelay: `${Math.min(i * 0.05, 0.25)}s` }}
+      style={{ animationDelay: `${Math.min(i * 0.08, 0.42)}s` }}
     >
       {children}
     </Tag>

@@ -18,7 +18,7 @@ export default function Preloader({ onEnter }) {
 
     // The canvas compiles its shaders on the first frames; a short beat here
     // means the first thing the user sees is already running at full rate.
-    const t = setTimeout(() => setReady(true), 1100)
+    const t = setTimeout(() => setReady(true), 1300)
     return () => clearTimeout(t)
   }, [])
 
@@ -29,7 +29,7 @@ export default function Preloader({ onEnter }) {
     document.documentElement.classList.remove('uv-locked')
     set({ entered: true })
     // Matches the CSS fade so the panel is gone before scroll can begin.
-    setTimeout(() => onEnter?.(), 900)
+    setTimeout(() => onEnter?.(), 1400)
   }
 
   return (

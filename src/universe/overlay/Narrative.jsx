@@ -59,10 +59,11 @@ export default function Narrative() {
         const eased = a * a * (3 - 2 * a)
 
         // Text drifts against the camera — a parallax layer, not a card pinned
-        // to the glass.
-        const shift = dist * 46
-        const scale = 1 - Math.abs(dist) * 0.012
-        const blur = (1 - eased) * 5
+        // to the glass. The blur ramp is what sells the morph: type dissolves
+        // into soft light rather than popping in and out.
+        const shift = dist * 50
+        const scale = 1 - Math.abs(dist) * 0.015
+        const blur = (1 - eased) * 7
 
         el.style.opacity = String(eased)
         el.style.transform = `translate3d(0, ${shift.toFixed(2)}px, 0) scale(${scale.toFixed(4)})`
@@ -112,7 +113,7 @@ export default function Narrative() {
                   <button
                     type="button"
                     className="uv-btn"
-                    onClick={() => scrollToProgress(b.cta.to, 2.8)}
+                    onClick={() => scrollToProgress(b.cta.to, 3.8)}
                   >
                     <span>{b.cta.label}</span>
                   </button>

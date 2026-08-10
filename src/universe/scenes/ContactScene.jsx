@@ -38,7 +38,7 @@ export default function ContactScene() {
     [],
   )
 
-  useFrame(() => {
+  useFrame((_, dt) => {
     fade.current = d.current.band
     if (!d.current.active) return
     const t = d.current.local
@@ -57,14 +57,16 @@ export default function ContactScene() {
       }
     }
     if (core.current) {
-      core.current.position.y = 3.5 + Math.sin(d.current.t * 0.5) * 0.22
-      core.current.scale.setScalar(1.5 + Math.sin(d.current.t * 1.4) * 0.05)
+      core.current.position.y = 3.5 + Math.sin(d.current.t * 0.4) * 0.22
+      core.current.scale.setScalar(1.5 + Math.sin(d.current.t * 1.1) * 0.05)
       const u = core.current.material.uniforms
       if (u) u.uOpacity.value = rise * b
     }
     if (rings.current) {
-      rings.current.rotation.z += 0.0016
-      rings.current.rotation.x = 0.4 + Math.sin(d.current.t * 0.2) * 0.06
+      // Frame-rate independent: was a flat per-frame increment, so it spun
+      // faster on a 120Hz display than a 60Hz one. 0.1 rad/s ≈ the old feel.
+      rings.current.rotation.z += 0.1 * dt
+      rings.current.rotation.x = 0.4 + Math.sin(d.current.t * 0.16) * 0.06
       rings.current.children.forEach((m) => {
         if (m.material?.uniforms) m.material.uniforms.uOpacity.value = rise * b * 0.8
       })
@@ -92,7 +94,7 @@ export default function ContactScene() {
       <group position={[-9.5, 0, -2]}>
         <Orb ref={core} radius={1} detail={4} amp={0.13} position={[0, 3.5, 0]} />
       </group>
-      <Pulses links={links} perLink={7} speed={0.3} size={1.6} color="#d8ffb0" arc={1.1} fade={fade} />
+      <Pulses links={links} perLink={7} speed={0.24} size={1.6} color="#d8ffb0" arc={1.1} fade={fade} />
 
       <group ref={rings} position={[-9.5, 3.5, -2]}>
         <GlowRing radius={2.6} tube={0.012} speed={0.16} />

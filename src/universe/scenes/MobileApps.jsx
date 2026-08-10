@@ -92,7 +92,7 @@ vec4 sLogin(vec2 p, float t){
         i == 0 ? uAccent * 0.8 : vec3(0.18));
     put(o, fill(rbox(p - vec2(-0.10, y), vec2(0.055, 0.008), 0.008)), DIM());
   }
-  float caret = step(0.5, fract(t * 1.2));
+  float caret = step(0.5, fract(t * 1.0));
   put(o, fill(rbox(p - vec2(0.02, 0.16), vec2(0.002, 0.020), 0.001)) * caret, uAccent);
   put(o, fill(rbox(p - vec2(0.0, -0.16), vec2(0.185, 0.050), 0.024)), uAccent);
   put(o, fill(rbox(p - vec2(0.0, -0.16), vec2(0.055, 0.009), 0.009)), vec3(0.03, 0.06, 0.02));
@@ -147,7 +147,7 @@ vec4 sBooking(vec2 p, float t){
   vec2 a = vec2(-0.13, 0.18), b = vec2(-0.02, 0.42), c = vec2(0.12, 0.66);
   put(o, ring(seg(p, a, b), 0.004), uAccent * 0.9);
   put(o, ring(seg(p, b, c), 0.004), uAccent * 0.9);
-  float trav = fract(t * 0.35);
+  float trav = fract(t * 0.26);
   vec2 car = trav < 0.5 ? mix(a, b, trav * 2.0) : mix(b, c, (trav - 0.5) * 2.0);
   put(o, fill(length(p - car) - 0.017), vec3(1.0));
   put(o, ring(length(p - c) - 0.026, 0.004), uAccent);
@@ -168,7 +168,7 @@ vec4 sPayments(vec2 p, float t){
   vec2 cp = p - vec2(0.0, 0.52);
   float card = rbox(cp, vec2(0.195, 0.125), 0.030);
   put(o, fill(card), vec3(0.10, 0.13, 0.12));
-  float sheen = smoothstep(0.10, 0.0, abs(cp.x - cp.y * 0.6 - (fract(t * 0.25) * 0.7 - 0.35)));
+  float sheen = smoothstep(0.10, 0.0, abs(cp.x - cp.y * 0.6 - (fract(t * 0.18) * 0.7 - 0.35)));
   put(o, fill(card) * sheen * 0.5, uAccent * 0.5);
   put(o, fill(rbox(cp - vec2(-0.125, 0.055), vec2(0.030, 0.022), 0.008)), uAccent * 0.75);
   put(o, fill(rbox(cp - vec2(-0.045, -0.045), vec2(0.110, 0.010), 0.008)), vec3(0.70));
@@ -179,7 +179,7 @@ vec4 sPayments(vec2 p, float t){
   for (int i = 0; i < 12; i++){
     float cx = (mod(float(i), 3.0) - 1.0) * 0.115;
     float cy = -0.02 - floor(float(i) / 3.0) * 0.135;
-    float hot = step(0.5, 1.0 - abs(mod(t * 2.2, 12.0) - float(i)));
+    float hot = step(0.5, 1.0 - abs(mod(t * 1.6, 12.0) - float(i)));
     put(o, fill(length(p - vec2(cx, cy)) - 0.042), mix(SURF(), uAccent * 0.55, hot));
     put(o, fill(rbox(p - vec2(cx, cy), vec2(0.014, 0.011), 0.005)), mix(vec3(0.75), vec3(1.0), hot));
   }
@@ -195,8 +195,8 @@ vec4 sAnalytics(vec2 p, float t){
   for (int i = 0; i < 7; i++){
     float x0 = -0.18 + float(i) * 0.06;
     float x1 = x0 + 0.06;
-    float y0 = 0.42 + 0.11 * sin(float(i) * 0.9 + t * 0.5);
-    float y1 = 0.42 + 0.11 * sin(float(i + 1) * 0.9 + t * 0.5);
+    float y0 = 0.42 + 0.11 * sin(float(i) * 0.9 + t * 0.4);
+    float y1 = 0.42 + 0.11 * sin(float(i + 1) * 0.9 + t * 0.4);
     put(o, ring(seg(p, vec2(x0, y0), vec2(x1, y1)), 0.0035), uAccent);
     // Cheap area fill: a box from the baseline up to the midpoint.
     float ym = (y0 + y1) * 0.5;
@@ -207,7 +207,7 @@ vec4 sAnalytics(vec2 p, float t){
   // Bar chart.
   for (int i = 0; i < 6; i++){
     float x = -0.165 + float(i) * 0.066;
-    float h = 0.045 + 0.105 * (0.5 + 0.5 * sin(float(i) * 1.4 + t * 0.7));
+    float h = 0.045 + 0.105 * (0.5 + 0.5 * sin(float(i) * 1.4 + t * 0.55));
     vec3 c = i == 3 ? uAccent : vec3(0.26, 0.31, 0.30);
     put(o, fill(rbox(p - vec2(x, -0.34 + h * 0.5), vec2(0.021, h * 0.5), 0.010)), c);
   }
@@ -381,9 +381,9 @@ export default function MobileApps() {
     // device is never still and never spins fast enough to strobe.
     const spin = -0.9 + t * 2.2
     device.current.rotation.y = spin + state.smooth.x * 0.22
-    device.current.rotation.x = 0.06 + Math.sin(d.current.t * 0.35) * 0.05 - state.smooth.y * 0.12
-    device.current.rotation.z = Math.sin(d.current.t * 0.28) * 0.035
-    device.current.position.y = Math.sin(d.current.t * 0.5) * 0.16
+    device.current.rotation.x = 0.06 + Math.sin(d.current.t * 0.28) * 0.05 - state.smooth.y * 0.12
+    device.current.rotation.z = Math.sin(d.current.t * 0.22) * 0.035
+    device.current.position.y = Math.sin(d.current.t * 0.4) * 0.16
 
     if (glow.current?.material.uniforms) {
       glow.current.material.uniforms.uOpacity.value = 0.2 * d.current.band

@@ -76,7 +76,7 @@ void main(){
   vec3 p = position;
 
   // Slow structural drift — the network is thinking, not idling.
-  float n = snoise(p * 0.10 + vec3(0.0, 0.0, uTime * 0.07));
+  float n = snoise(p * 0.10 + vec3(0.0, 0.0, uTime * 0.055));
   p += vec3(n, snoise(p * 0.11 + 21.0), snoise(p * 0.09 + 47.0)) * 0.85;
 
   // Layers light up front-to-back, like activation sweeping through a net.
@@ -88,7 +88,7 @@ void main(){
   float dist = -mv.z;
 
   // Individual neurons fire on their own rhythm.
-  vFire = pow(0.5 + 0.5 * sin(uTime * 2.2 + aSeed * 42.0 + aLayer * 6.0), 6.0);
+  vFire = pow(0.5 + 0.5 * sin(uTime * 1.7 + aSeed * 42.0 + aLayer * 6.0), 6.0);
 
   vAlpha = gate * uOpacity * smoothstep(0.5, 6.0, dist) * (0.3 + aSeed * 0.45);
   gl_Position = projectionMatrix * mv;
@@ -208,10 +208,10 @@ function Agent({ agent, data, selected, onSelect }) {
     // Each agent bobs on its own frequency so the group never pulses in unison.
     const k = home.x * 0.7 + home.y
     wrap.current.position.set(
-      home.x + Math.sin(t * 0.34 + k) * 0.34,
-      home.y + Math.cos(t * 0.29 + k) * 0.30,
+      home.x + Math.sin(t * 0.27 + k) * 0.34,
+      home.y + Math.cos(t * 0.23 + k) * 0.30,
       // Selected agent comes toward the viewer.
-      home.z + Math.sin(t * 0.22 + k) * 0.22 + energy.current * 1.1,
+      home.z + Math.sin(t * 0.18 + k) * 0.22 + energy.current * 1.1,
     )
 
     const s = 0.62 * (1 + energy.current * 0.34)
@@ -306,7 +306,7 @@ export default function AIAgents() {
   useFrame(() => {
     fade.current = d.current.band
     if (!d.current.active || !group.current) return
-    group.current.rotation.y = state.smooth.x * 0.07 + Math.sin(d.current.t * 0.13) * 0.04
+    group.current.rotation.y = state.smooth.x * 0.07 + Math.sin(d.current.t * 0.1) * 0.04
     group.current.rotation.x = state.smooth.y * 0.05
   })
 
@@ -314,7 +314,7 @@ export default function AIAgents() {
     <group ref={group} position={ANCHORS.agents}>
       <Network data={d} />
       <Filaments links={links} color="#93a8c0" opacity={0.5} fade={fade} />
-      <Pulses links={links} perLink={4} speed={0.16} size={1.3} color="#d8ffb0" arc={1.4} fade={fade} />
+      <Pulses links={links} perLink={4} speed={0.13} size={1.3} color="#d8ffb0" arc={1.4} fade={fade} />
       {AGENTS.map((a) => (
         <Agent key={a.id} agent={a} data={d} selected={selected} onSelect={setSelected} />
       ))}

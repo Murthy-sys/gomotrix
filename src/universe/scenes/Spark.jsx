@@ -56,11 +56,11 @@ void main(){
   p += flow * flight * uTurb * (2.0 + aSeed * 5.0);
 
   // Once formed, the surface keeps churning — the core never sits still.
-  float breathe = snoise(aTarget * 1.5 + vec3(0.0, uTime * 0.35, 0.0));
+  float breathe = snoise(aTarget * 1.5 + vec3(0.0, uTime * 0.28, 0.0));
   p += normalize(aTarget + 1e-5) * breathe * 0.16 * form;
 
   // Slow rotation of the assembled body.
-  float ang = uTime * 0.12 * form;
+  float ang = uTime * 0.09 * form;
   float c = cos(ang), s = sin(ang);
   p.xz = mat2(c, -s, s, c) * p.xz;
 
@@ -215,7 +215,7 @@ export default function Spark() {
     seed.current += dt
     if (orb.current) {
       const birth = THREE.MathUtils.smoothstep(t, 0.0, 0.1)
-      const pulse = 1 + Math.sin(seed.current * 2.6) * 0.16 * (1 - assemble)
+      const pulse = 1 + Math.sin(seed.current * 2.1) * 0.16 * (1 - assemble)
       const s = THREE.MathUtils.lerp(0.05, 1, assemble) * pulse
       orb.current.scale.setScalar(s * CORE_R * 0.92)
       const ou = orb.current.material.uniforms
@@ -226,8 +226,8 @@ export default function Spark() {
       // Rings only appear once there is a core for them to orbit.
       const r = THREE.MathUtils.smoothstep(t, 0.6, 0.95)
       rings.current.scale.setScalar(THREE.MathUtils.lerp(0.4, 1, r))
-      rings.current.rotation.y += dt * 0.08
-      rings.current.rotation.z = Math.sin(seed.current * 0.2) * 0.12
+      rings.current.rotation.y += dt * 0.06
+      rings.current.rotation.z = Math.sin(seed.current * 0.15) * 0.12
       rings.current.children.forEach((m) => {
         if (m.material?.uniforms) m.material.uniforms.uOpacity.value = r * 0.9 * d.current.band
       })

@@ -86,9 +86,10 @@ export default function CameraRig() {
     }
 
     // Exponential damping, frame-rate independent. Look lags position slightly
-    // so turns read as "the camera arrives, then finds its subject".
-    const kPos = 1 - Math.exp(-3.6 * d)
-    const kLook = 1 - Math.exp(-2.9 * d)
+    // so turns read as "the camera arrives, then finds its subject". Lower
+    // rate constants = more inertia = a heavier, more deliberate camera.
+    const kPos = 1 - Math.exp(-2.2 * d)
+    const kLook = 1 - Math.exp(-1.7 * d)
     pos.current.lerp(vPos, kPos)
     look.current.lerp(vLook, kLook)
 

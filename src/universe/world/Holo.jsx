@@ -272,7 +272,10 @@ export const GlowRing = forwardRef(function GlowRing(
       }}
       {...props}
     >
-      <torusGeometry args={[radius, tube, 8, 128]} />
+      {/* 16 radial segments (was 8) — the tube reads as a machined rod instead
+          of a faceted octagon in profile. Cost is trivial: it's a handful of
+          rings on screen at once, not a particle system. */}
+      <torusGeometry args={[radius, tube, 16, 128]} />
       <meshStandardMaterial
         ref={(m) => attachUniforms(m, api)}
         color={C.metal}

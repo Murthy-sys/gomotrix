@@ -177,7 +177,7 @@ function ReadinessChecklist() {
           <span className="font-display text-lg font-bold text-amber-700 dark:text-amber-400">{pct}%</span>
         </div>
         <div className="mt-2 h-2 overflow-hidden rounded-full bg-slate-200 dark:bg-white/10">
-          <div className="h-full rounded-full bg-gradient-to-r from-brand-600 to-amber-400 transition-all duration-500" style={{ width: `${pct}%` }} />
+          <div className="h-full rounded-full bg-gradient-to-r from-brand-600 to-amber-400 transition-all duration-700" style={{ width: `${pct}%` }} />
         </div>
         {done && <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">{advice}</p>}
       </div>

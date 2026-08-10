@@ -67,6 +67,18 @@ export default {
         'grid-dark':
           'linear-gradient(to right, rgba(255,255,255,0.045) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.045) 1px, transparent 1px)',
       },
+      // Every unqualified `transition-*` utility in the codebase (there are
+      // dozens of bare `transition-colors` / `transition-transform` hovers)
+      // inherits these. Tailwind's stock default is 150ms `ease` — snappy to
+      // the point of feeling clipped. Raising the floor here, once, is what
+      // makes the whole site read as deliberate instead of twitchy, without
+      // hunting down every hover state individually.
+      transitionDuration: {
+        DEFAULT: '400ms',
+      },
+      transitionTimingFunction: {
+        DEFAULT: 'cubic-bezier(0.16, 1, 0.3, 1)',
+      },
       keyframes: {
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
@@ -85,7 +97,7 @@ export default {
           '100%': { transform: 'scaleY(1)' },
         },
         'fade-up': {
-          '0%': { opacity: '0', transform: 'translateY(16px)' },
+          '0%': { opacity: '0', transform: 'translateY(22px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
       },
@@ -93,8 +105,8 @@ export default {
         float: 'float 6s ease-in-out infinite',
         'pulse-ring': 'pulse-ring 3s ease-out infinite',
         marquee: 'marquee 32s linear infinite',
-        'fade-up': 'fade-up 0.5s ease both',
-        'draw-bar': 'draw-bar 0.8s cubic-bezier(0.22,1,0.36,1) both',
+        'fade-up': 'fade-up 0.85s cubic-bezier(0.16,1,0.3,1) both',
+        'draw-bar': 'draw-bar 1.1s cubic-bezier(0.16,1,0.3,1) both',
       },
     },
   },

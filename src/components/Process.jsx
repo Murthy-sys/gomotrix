@@ -21,7 +21,7 @@ export default function Process() {
                 </span>
                 <h3 className="-mt-6 text-base font-bold text-ink-900 dark:text-white">{step.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">{step.desc}</p>
-                <span className="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-brand-600 to-amber-400 transition-all duration-500 group-hover:w-full" />
+                <span className="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-brand-600 to-amber-400 transition-all duration-700 group-hover:w-full" />
               </div>
             </Reveal>
           ))}

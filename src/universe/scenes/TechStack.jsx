@@ -45,13 +45,13 @@ function Tile({ tech, data, onHover }) {
 
     const k = tech.index * 1.3
     wrap.current.position.set(
-      home.x + Math.sin(t * 0.3 + k) * 0.07,
-      home.y + Math.cos(t * 0.26 + k) * 0.09,
+      home.x + Math.sin(t * 0.24 + k) * 0.07,
+      home.y + Math.cos(t * 0.21 + k) * 0.09,
       // Slide in from behind the wall, then hover lifts it toward the lens.
       THREE.MathUtils.lerp(home.z - 9, home.z, enter) + e * 1.15,
     )
     wrap.current.rotation.y = tech.yaw + state.smooth.x * 0.05 * e
-    wrap.current.rotation.x = Math.sin(t * 0.22 + k) * 0.02 - state.smooth.y * 0.04 * e
+    wrap.current.rotation.x = Math.sin(t * 0.18 + k) * 0.02 - state.smooth.y * 0.04 * e
     wrap.current.scale.setScalar(THREE.MathUtils.lerp(0.8, 1, enter) * (1 + e * 0.085))
 
     fade.current = enter * data.current.band
@@ -138,7 +138,7 @@ export default function TechStack() {
   useFrame(() => {
     fade.current = d.current.band
     if (!d.current.active || !group.current) return
-    group.current.rotation.y = state.smooth.x * 0.045 + Math.sin(d.current.t * 0.11) * 0.015
+    group.current.rotation.y = state.smooth.x * 0.045 + Math.sin(d.current.t * 0.09) * 0.015
     group.current.rotation.x = state.smooth.y * 0.03
     if (glow.current?.material.uniforms) {
       glow.current.material.uniforms.uOpacity.value = 0.055 * d.current.band

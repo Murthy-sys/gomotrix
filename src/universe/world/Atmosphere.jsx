@@ -113,9 +113,9 @@ function Backdrop() {
  * with dark gaps either side is what produces the long specular streaks that
  * make a surface look expensive.
  */
-function Studio() {
+function Studio({ resolution }) {
   return (
-    <Environment resolution={256} frames={1}>
+    <Environment resolution={resolution} frames={1}>
       {/* Key softbox: large, bright, camera-left and high. */}
       <Lightformer
         form="rect"
@@ -161,7 +161,11 @@ export default function Atmosphere() {
       <fog attach="fog" args={[FOG.color, FOG.near, FOG.far]} />
       <Backdrop />
 
-      {q !== 'low' && <Studio />}
+      {/* Baked once (frames={1}), so a sharper map on capable machines is
+          essentially free after that first frame — it only pays back on
+          every clearcoat/metal surface that reflects it for the rest of
+          the session. */}
+      {q !== 'low' && <Studio resolution={q === 'high' ? 384 : 256} />}
 
       {/* Key: bright, barely warm, high and left. Casts the form. */}
       <directionalLight position={[-9, 13, 10]} intensity={3.1} color="#fff6ec" />

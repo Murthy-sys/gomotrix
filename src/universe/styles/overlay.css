@@ -123,8 +123,8 @@
   border: 1px solid var(--hair);
   border-radius: 999px;
   background: var(--glass);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
   font-size: 0.72rem;
   letter-spacing: 0.055em;
   color: var(--dim);
@@ -177,7 +177,7 @@
   border-radius: 9px;
   /* Lifts the navy/gold mark off a near-black field without recolouring it. */
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 6px 22px -6px rgba(0, 0, 0, 0.9);
-  transition: transform 0.55s var(--ease);
+  transition: transform 0.8s var(--ease);
 }
 .uv-brand:hover .uv-brand__mark { transform: translateY(-1px) scale(1.04); }
 .uv-brand__text { display: flex; flex-direction: column; justify-content: center; line-height: 1; }
@@ -205,14 +205,14 @@
   border: 1px solid var(--hair);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
   cursor: pointer;
   color: var(--faint);
   font-size: 0.62rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  transition: color 0.4s var(--ease), border-color 0.4s var(--ease);
+  transition: color 0.6s var(--ease), border-color 0.6s var(--ease);
 }
 .uv-sound:hover { color: var(--text); border-color: rgba(255, 255, 255, 0.3); }
 .uv-sound.is-on { color: var(--accent); border-color: rgba(183, 255, 106, 0.35); }

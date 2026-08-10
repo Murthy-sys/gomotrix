@@ -164,14 +164,14 @@ function Card({ project, slot, index, data }) {
 
     const k = index * 2.1
     wrap.current.position.set(
-      home.x + Math.sin(t * 0.23 + k) * 0.20,
+      home.x + Math.sin(t * 0.18 + k) * 0.20,
       // Hover lifts the card. Drift keeps it alive when it doesn't.
-      home.y + Math.cos(t * 0.19 + k) * 0.24 + e * 0.55,
+      home.y + Math.cos(t * 0.15 + k) * 0.24 + e * 0.55,
       THREE.MathUtils.lerp(home.z - 16, home.z, enter) + e * 0.9,
     )
     wrap.current.rotation.set(
-      slot.rot[0] + Math.sin(t * 0.17 + k) * 0.035 - state.smooth.y * 0.05 * e,
-      slot.rot[1] + Math.cos(t * 0.14 + k) * 0.04 + state.smooth.x * 0.09 * e,
+      slot.rot[0] + Math.sin(t * 0.14 + k) * 0.035 - state.smooth.y * 0.05 * e,
+      slot.rot[1] + Math.cos(t * 0.11 + k) * 0.04 + state.smooth.x * 0.09 * e,
       slot.rot[2] * (1 - e * 0.6),
     )
     wrap.current.scale.setScalar(THREE.MathUtils.lerp(0.85, 1, enter) * (1 + e * 0.055))
@@ -243,7 +243,7 @@ export default function Showcase() {
 
   useFrame(() => {
     if (!d.current.active || !group.current) return
-    group.current.rotation.y = state.smooth.x * 0.06 + Math.sin(d.current.t * 0.1) * 0.025
+    group.current.rotation.y = state.smooth.x * 0.06 + Math.sin(d.current.t * 0.08) * 0.025
     group.current.rotation.x = state.smooth.y * 0.04
   })
 

@@ -186,9 +186,9 @@ export default function WebPlatform() {
     if (!d.current.active || !group.current) return
     // Turns gently to face the viewer as they arrive, never enough to make the
     // interface hard to read.
-    group.current.rotation.y = -0.15 + state.smooth.x * 0.045 + Math.sin(d.current.t * 0.16) * 0.02
+    group.current.rotation.y = -0.15 + state.smooth.x * 0.045 + Math.sin(d.current.t * 0.13) * 0.02
     group.current.rotation.x = state.smooth.y * 0.025
-    group.current.position.y = ANCHORS.web.y + Math.sin(d.current.t * 0.4) * 0.12
+    group.current.position.y = ANCHORS.web.y + Math.sin(d.current.t * 0.32) * 0.12
 
     if (glow.current?.material.uniforms) {
       glow.current.material.uniforms.uOpacity.value = 0.13 * d.current.band

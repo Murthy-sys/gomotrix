@@ -26,7 +26,7 @@ const MODULES = [
     radius: 5.4,
     tilt: [Math.PI / 2, 0, 0],
     phase: 0,
-    speed: 0.16,
+    speed: 0.13,
     color: '#dbe6f2',
   },
   {
@@ -36,7 +36,7 @@ const MODULES = [
     radius: 7.1,
     tilt: [Math.PI / 2.35, 0.6, 0.3],
     phase: 2.1,
-    speed: -0.12,
+    speed: -0.1,
     color: '#dbe6f2',
   },
   {
@@ -46,7 +46,7 @@ const MODULES = [
     radius: 8.9,
     tilt: [Math.PI / 1.8, -0.5, -0.35],
     phase: 4.0,
-    speed: 0.09,
+    speed: 0.07,
     color: '#cfe0ff',
   },
   {
@@ -56,7 +56,7 @@ const MODULES = [
     radius: 10.8,
     tilt: [Math.PI / 2.6, 1.2, 0.15],
     phase: 5.4,
-    speed: -0.07,
+    speed: -0.055,
     color: '#dbe6f2',
   },
 ]
@@ -113,7 +113,7 @@ function Module({ mod, sceneData, index }) {
       const u = orb.current.material.uniforms
       u.uHover.value = energy.current
       u.uOpacity.value = bloom * sceneData.current.band
-      const s = 0.62 * (1 + energy.current * 0.3 + Math.sin(sceneData.current.t * 1.6 + index) * 0.04)
+      const s = 0.62 * (1 + energy.current * 0.3 + Math.sin(sceneData.current.t * 1.3 + index) * 0.04)
       orb.current.scale.setScalar(s)
     }
 
@@ -155,7 +155,7 @@ function Module({ mod, sceneData, index }) {
           ref={pulses}
           links={links}
           perLink={9}
-          speed={0.2}
+          speed={0.16}
           size={1.5}
           color={mod.color}
           arc={0.6}
@@ -211,7 +211,7 @@ export default function Ecosystem() {
     }
     // A slow yaw on the whole system, plus a lean toward the cursor.
     if (group.current) {
-      group.current.rotation.y = d.current.t * 0.04 + state.smooth.x * 0.06
+      group.current.rotation.y = d.current.t * 0.032 + state.smooth.x * 0.06
       group.current.rotation.x = state.smooth.y * 0.04
     }
   })

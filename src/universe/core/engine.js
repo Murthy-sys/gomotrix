@@ -38,14 +38,14 @@ export function startEngine() {
   Object.assign(state, { quality, dpr, reduced })
 
   const lenis = new Lenis({
-    duration: reduced ? 0.1 : 1.35,
+    duration: reduced ? 0.1 : 2.3,
     // Long, heavy exponential-out: momentum with a slow settle. This is where
     // most of the "expensive" feel of the scroll comes from.
     easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
     smoothWheel: !reduced,
     syncTouch: false,
-    touchMultiplier: 1.6,
-    wheelMultiplier: 0.85,
+    touchMultiplier: 1.25,
+    wheelMultiplier: 0.7,
   })
   lenisRef = lenis
 
@@ -95,8 +95,10 @@ export function startEngine() {
     last = time
 
     // A second, gentler smoothing pass on top of Lenis. Two-stage easing is
-    // what stops the camera from ever tracking the wheel 1:1.
-    const k = reduced ? 1 : 1 - Math.exp(-6 * dt)
+    // what stops the camera from ever tracking the wheel 1:1. A lower rate
+    // constant here is the single biggest lever on "does this feel slow and
+    // weighty" — it widens the lag between input and the world's response.
+    const k = reduced ? 1 : 1 - Math.exp(-3.1 * dt)
     state.progress += (state.raw - state.progress) * k
 
     state.velocity = (state.progress - lastProgress) / (dt || 1 / 60)
@@ -122,9 +124,9 @@ export function startEngine() {
 }
 
 /** Fly the page to a scene's scroll position, letting Lenis ease the travel. */
-export function scrollToProgress(p, duration = 2.4) {
+export function scrollToProgress(p, duration = 3.4) {
   const max = document.documentElement.scrollHeight - window.innerHeight
   const top = p * max
-  if (lenisRef) lenisRef.scrollTo(top, { duration, easing: (t) => 1 - Math.pow(1 - t, 4) })
+  if (lenisRef) lenisRef.scrollTo(top, { duration, easing: (t) => 1 - Math.pow(1 - t, 5) })
   else window.scrollTo({ top, behavior: 'smooth' })
 }
