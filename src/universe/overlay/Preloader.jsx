@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Logo from '../../components/Logo.jsx'
-import { set } from '../core/store'
+import { set, state } from '../core/store'
+import { syncScrollTo } from '../core/engine'
 import { start as startAudio } from './audio'
 
 // The threshold. The experience opens in darkness with a single point of light —
@@ -22,11 +23,15 @@ export default function Preloader({ onEnter }) {
     return () => clearTimeout(t)
   }, [])
 
-  const enter = (withSound) => {
+  const enter = () => {
     if (leaving) return
     setLeaving(true)
-    if (withSound) startAudio()
+    startAudio()
     document.documentElement.classList.remove('uv-locked')
+    // Belt-and-suspenders: startEngine already tried this while still locked;
+    // redo it now that overflow is free so the journey opens on its starting
+    // beat instead of snapping to the top on the first real scroll event.
+    syncScrollTo(state.progress)
     set({ entered: true })
     // Matches the CSS fade so the panel is gone before scroll can begin.
     setTimeout(() => onEnter?.(), 1400)
@@ -54,11 +59,8 @@ export default function Preloader({ onEnter }) {
         </p>
 
         <div className="uv-pre__actions">
-          <button type="button" className="uv-btn" onClick={() => enter(true)}>
-            <span>Enter with music</span>
-          </button>
-          <button type="button" className="uv-btn uv-btn--ghost" onClick={() => enter(false)}>
-            <span>Enter silently</span>
+          <button type="button" className="uv-btn" onClick={enter}>
+            <span>Enter</span>
           </button>
         </div>
 

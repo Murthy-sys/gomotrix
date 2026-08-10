@@ -1,19 +1,13 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import Logo from '../../components/Logo.jsx'
 import { state } from '../core/store'
-import { toggle as toggleAudio, isPlaying, onChange as onAudioChange } from './audio'
 
-// Minimal UI: the brand mark, a chapter rail, a sound toggle. Nothing else is
-// allowed on screen — the world is the interface.
+// Minimal UI: the brand mark, a chapter rail. Nothing else is allowed on
+// screen — the world is the interface.
 
 export default function Chrome() {
-  const [sound, setSound] = useState(isPlaying())
   const bar = useRef()
   const hint = useRef()
-
-  // The audio module is the source of truth: playback can stop on its own when
-  // a tab is backgrounded or the browser refuses to start it.
-  useEffect(() => onAudioChange(setSound), [])
 
   useEffect(() => {
     let raf
@@ -40,19 +34,6 @@ export default function Chrome() {
             <span className="uv-brand__tag">Smart Solutions. Real Results.</span>
           </span>
         </a>
-
-        <button
-          type="button"
-          className={`uv-sound ${sound ? 'is-on' : ''}`}
-          onClick={() => setSound(toggleAudio())}
-          aria-pressed={sound}
-          aria-label={sound ? 'Mute music' : 'Play music'}
-        >
-          <span className="uv-sound__bars" aria-hidden="true">
-            <i /><i /><i /><i />
-          </span>
-          <span className="uv-sound__label">{sound ? 'Sound on' : 'Muted'}</span>
-        </button>
       </header>
 
       {/* No chapter list, no ticks, no numbers. A single hairline across the

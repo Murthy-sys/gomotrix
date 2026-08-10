@@ -51,6 +51,12 @@ export function startEngine() {
 
   const maxScroll = () => Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
 
+  // The journey opens mid-story (see store.js) rather than at the top, so the
+  // native scroll position has to be moved to match before anything reads it —
+  // otherwise the first real scroll event reports 0 and every value in `state`
+  // snaps back to the void.
+  lenis.scrollTo(state.progress * maxScroll(), { immediate: true })
+
   lenis.on('scroll', ({ scroll }) => {
     state.raw = Math.min(Math.max(scroll / maxScroll(), 0), 1)
   })
@@ -85,7 +91,7 @@ export function startEngine() {
 
   let raf
   let last = performance.now()
-  let lastProgress = 0
+  let lastProgress = state.progress
 
   const tick = (time) => {
     raf = requestAnimationFrame(tick)
@@ -121,6 +127,22 @@ export function startEngine() {
     window.removeEventListener('pointermove', onPointer)
     window.removeEventListener('touchmove', onTouch)
   }
+}
+
+/**
+ * Snap the native scroll (and state.raw/progress with it) to a 0..1 position
+ * with no animation. Used once, the instant the preloader unlocks scroll, so
+ * the journey opens already at its starting beat instead of visibly snapping
+ * back to the top — `startEngine` tries this too, but it runs while the
+ * preloader still has `overflow: hidden` applied, which some browsers ignore
+ * programmatic scrollTo under, so this is the guaranteed-safe second call.
+ */
+export function syncScrollTo(p) {
+  if (!lenisRef) return
+  const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
+  lenisRef.scrollTo(p * max, { immediate: true })
+  state.raw = p
+  state.progress = p
 }
 
 /** Fly the page to a scene's scroll position, letting Lenis ease the travel. */

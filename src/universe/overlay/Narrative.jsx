@@ -24,8 +24,13 @@ export default function Narrative() {
 
   useEffect(() => {
     let raf
-    // How much scroll either side of the peak the beat remains visible.
-    const HALF = 0.052
+    // How much scroll either side of the peak the beat remains visible. Wide
+    // enough that consecutive beats' windows overlap at every scene boundary
+    // (the widest gap between beat centres is 0.15, at web→mobile) — so the
+    // next headline is already growing in, blurred, before the current one
+    // has finished dissolving. A narrower window here is what read as "empty
+    // space" mid-scroll: both beats near-zero opacity at once.
+    const HALF = 0.09
 
     const tick = () => {
       raf = requestAnimationFrame(tick)

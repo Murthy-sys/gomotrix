@@ -6,10 +6,18 @@
 // handful of genuinely discrete values (active scene, focused module) get a
 // subscription channel for the DOM overlay.
 
+// The journey opens already on the headline beat ("Ideas Become Intelligent
+// Products") instead of the void-and-single-mote intro. Derived from BEATS'
+// spark entry (overlay/copy.js, at: 0.62) crossed with SCENES.spark's range
+// (core/world.js, 0..0.1): 0 + 0.1 * 0.62. Kept as a literal rather than an
+// import so this dependency-free store stays that way — update this if
+// either of those two numbers changes.
+const START_PROGRESS = 0.062
+
 export const state = {
   // Scroll
-  progress: 0, // eased 0..1 across the whole journey
-  raw: 0, // unsmoothed 0..1
+  progress: START_PROGRESS, // eased 0..1 across the whole journey
+  raw: START_PROGRESS, // unsmoothed 0..1
   velocity: 0, // signed, normalised-ish scroll speed
   // Pointer
   pointer: { x: 0, y: 0 }, // -1..1, raw
