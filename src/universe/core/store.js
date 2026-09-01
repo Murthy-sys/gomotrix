@@ -18,6 +18,7 @@ export const state = {
   // Scroll
   progress: START_PROGRESS, // eased 0..1 across the whole journey
   raw: START_PROGRESS, // unsmoothed 0..1
+  scroll: 0, // native scroll position in px — the journey is only the first slice
   velocity: 0, // signed, normalised-ish scroll speed
   // Pointer
   pointer: { x: 0, y: 0 }, // -1..1, raw
@@ -32,6 +33,14 @@ export const state = {
   quality: 'high', // 'high' | 'medium' | 'low'
   reduced: false, // prefers-reduced-motion
   entered: false, // user has passed the preloader
+  // The business story track below the journey is on screen. Overlays pinned to
+  // the journey (the finale, the progress hairline) use this as a hard stop:
+  // `progress` saturates at 1 for the whole length of the track, so the scroll
+  // band alone would leave them floating over the reader's page.
+  story: false,
+  // The track has scrolled up far enough to cover the canvas completely, so
+  // there is nothing on screen for the render loop to draw.
+  covered: false,
   dpr: 1,
 }
 

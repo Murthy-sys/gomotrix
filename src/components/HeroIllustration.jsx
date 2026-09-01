@@ -24,12 +24,15 @@ export default function HeroIllustration() {
           </span>
         </div>
 
-        {/* KPI tiles */}
+        {/* KPI tiles. Illustrative only — this is a drawing of the kind of
+            console we build, not a report on one. The figures that used to sit
+            here ("98% acc", "99.9% SLA") were invented, and an invented number
+            on a hero is indistinguishable from a claim. */}
         <div className="mt-5 grid grid-cols-3 gap-3">
           {[
             { label: 'Automations', value: '4', delta: 'Active' },
-            { label: 'Workflows', value: '1', delta: '98% acc' },
-            { label: 'Uptime', value: '99.9%', delta: 'SLA' },
+            { label: 'Workflows', value: '1', delta: 'Running' },
+            { label: 'Queue', value: '0', delta: 'Clear' },
           ].map((k) => (
             <div key={k.label} className="rounded-xl border border-slate-100 bg-slate-50 p-3 dark:border-white/5 dark:bg-white/5">
               <p className="text-[10px] font-medium text-slate-400">{k.label}</p>
@@ -79,8 +82,8 @@ export default function HeroIllustration() {
           <Zap size={17} />
         </span>
         <div>
-          <p className="text-[10px] font-medium text-slate-400">Efficiency</p>
-          <p className="text-sm font-bold text-ink-900 dark:text-white">98%</p>
+          <p className="text-[10px] font-medium text-slate-400">Manual step</p>
+          <p className="text-sm font-bold text-ink-900 dark:text-white">Automated</p>
         </div>
       </div>
     </div>

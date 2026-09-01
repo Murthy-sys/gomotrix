@@ -1,8 +1,15 @@
+import { useEffect, useRef } from 'react'
 import { Calendar, ArrowRight, Sparkles } from 'lucide-react'
 import HeroIllustration from './HeroIllustration.jsx'
 import { stats, techStack } from '../data/content.js'
+import { magneticHover } from '../lib/motion.js'
 
 export default function Hero() {
+  // One focal magnetic element per screen, not every button — past that it
+  // reads as noisy rather than premium.
+  const ctaRef = useRef(null)
+  useEffect(() => magneticHover(ctaRef.current), [])
+
   return (
     <section id="top" className="relative overflow-hidden pt-28 md:pt-36">
       {/* Background — restrained: faint grid + one soft navy wash + a touch of amber */}
@@ -15,33 +22,33 @@ export default function Hero() {
       <div className="container-x grid items-center gap-12 lg:grid-cols-2 lg:gap-10">
         <div>
           <span className="chip animate-fade-up">
-            <Sparkles size={14} /> Remote software, AI &amp; automation partner
+            <Sparkles size={14} /> AI &amp; workflow engineering partner
           </span>
 
           <h1
             className="mt-5 animate-fade-up font-display text-4xl font-bold leading-[1.05] tracking-tight text-ink-900 dark:text-white sm:text-5xl lg:text-6xl"
             style={{ animationDelay: '0.05s' }}
           >
-            Custom software &amp; AI that <span className="accent-text">drive</span> real business growth
+            Turn complex business workflows into <span className="accent-text">intelligent</span> software
           </h1>
 
           <p
             className="mt-6 max-w-xl animate-fade-up text-lg leading-relaxed text-slate-600 dark:text-slate-300"
             style={{ animationDelay: '0.12s' }}
           >
-            We design, build, and ship web, mobile, AI, and automation solutions for growing businesses —
-            cutting manual work, speeding up decisions, and turning your operations into an advantage.
+            Trimugo designs and builds AI-powered software that automates repetitive operations,
+            connects business processes and helps teams work more efficiently.
           </p>
 
           <div
             className="mt-8 flex animate-fade-up flex-col gap-3 sm:flex-row"
             style={{ animationDelay: '0.18s' }}
           >
-            <a href="#contact" className="btn-primary text-base">
-              <Calendar size={18} /> Book a Free Strategy Call
+            <a ref={ctaRef} href="#contact" className="btn-primary text-base">
+              <Calendar size={18} /> Discuss Your Project
             </a>
-            <a href="#contact" className="btn-ghost text-base">
-              Get a Free Audit <ArrowRight size={18} />
+            <a href="#cases" className="btn-ghost text-base">
+              Explore Our Work <ArrowRight size={18} />
             </a>
           </div>
 

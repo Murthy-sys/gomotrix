@@ -138,6 +138,22 @@
   opacity: 0.85;
 }
 
+/* Capability line. Sits between the promise and the buttons: the visitor who
+   reads one line and nothing else should still learn the four things we do.
+   Hairline-separated rather than boxed — a card here would fight the world. */
+.uv-beat__meta {
+  margin: 1.5rem 0 0;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--hair);
+  font-size: clamp(0.68rem, 1vw, 0.76rem);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+  line-height: 1.9;
+}
+.uv-beat--center .uv-beat__meta { max-width: 38rem; }
+
 .uv-beat__actions {
   display: flex;
   gap: 0.8rem;
@@ -161,6 +177,21 @@
   pointer-events: none;
 }
 .uv-chrome--top { top: 0; }
+/* Over the world the header floats on nothing — that is the point. Over the
+   story track, copy scrolls underneath it and needs separating from it, so a
+   soft scrim fades in for the length of the track and nowhere else. */
+.uv-chrome--top::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 180%;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(5, 5, 5, 0.92) 0%, rgba(5, 5, 5, 0.72) 42%, rgba(5, 5, 5, 0) 100%);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease);
+}
+.uv-chrome--top.is-over-content::before { opacity: 1; }
 .uv-chrome > * { pointer-events: auto; }
 
 .uv-brand {
@@ -197,6 +228,59 @@
   color: #fbbf24;
 }
 
+/* ── Primary nav ─────────────────────────────────────────────────────────── */
+/* Held back until the opening beat has landed, then it stays. Three
+   destinations and one action — enough to convert, small enough that the world
+   is still the interface. */
+
+.uv-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2rem);
+  transform: translate3d(0, -6px, 0);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+}
+.uv-nav__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.9rem, 2vw, 1.8rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.uv-nav__links a {
+  position: relative;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: rgba(255, 255, 255, 0.62);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.5s var(--ease);
+}
+.uv-nav__links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -5px;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.55s var(--ease);
+}
+.uv-nav__links a:hover { color: #fff; }
+.uv-nav__links a:hover::after { transform: scaleX(1); }
+.uv-nav__links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+@media (max-width: 860px) {
+  /* The three text links are the first thing to go: the CTA is what matters
+     on a phone, and the footer carries the full set. */
+  .uv-nav__links { display: none; }
+  .uv-brand__tag { display: none; }
+}
+
 /* ── Progress hairline ──────────────────────────────────────────────────── */
 /* All that remains of the chapter rail: a 1px line across the foot of the
    frame. No numbers, no tick list, no labels. */
@@ -211,6 +295,7 @@
 }
 .uv-progress__fill {
   height: 100%;
+  transition: opacity 0.6s var(--ease);
   background: linear-gradient(90deg, rgba(183, 255, 106, 0.25), var(--accent));
   transform-origin: left;
   transform: scaleX(0);

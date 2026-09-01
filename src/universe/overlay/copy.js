@@ -6,15 +6,24 @@
 //
 // `at` is the point within the scene's scroll range where the text is fully
 // present; it fades in before and out after.
+//
+// Positioning note: the words carry the business story (workflow → AI →
+// software → automation); the world carries the demonstration. Neither
+// duplicates the other, and the copy stays short enough that it never covers
+// the thing it is describing.
 
 export const BEATS = [
   {
     scene: 'spark',
     at: 0.62,
-    kicker: 'Trimugo',
-    title: 'Ideas Become\nIntelligent Products',
-    body: 'We build AI-powered Web, Mobile, Enterprise and Automation platforms.',
-    cta: { label: 'Explore Our Universe', to: 0.115 },
+    kicker: 'AI & Workflow Engineering',
+    title: 'Turn Complex Business\nWorkflows Into\nIntelligent Software',
+    body: 'Trimugo designs and builds AI-powered software that automates repetitive operations, connects business processes and helps teams work more efficiently.',
+    meta: 'AI Engineering · Workflow Automation · Custom Software · System Integration',
+    // Primary flies the camera to the contact scene rather than leaving the
+    // world — the CTA is part of the journey, not an exit from it.
+    cta: { label: 'Discuss Your Project', to: 0.94 },
+    secondary: { label: 'Explore Our Work', to: 0.71 },
     align: 'center',
   },
   {
@@ -22,15 +31,15 @@ export const BEATS = [
     at: 0.5,
     kicker: 'The Ecosystem',
     title: 'One core.\nFour disciplines.',
-    body: 'Every capability orbits the same intelligence. Choose one to travel into it.',
+    body: 'Platforms, mobile, AI agents and automation built on one connected foundation — so a process stops living in six disconnected tools. Select one to travel into it.',
     align: 'left',
   },
   {
     scene: 'web',
     at: 0.5,
-    kicker: '01 — Web Platforms',
-    title: 'Watch it\nbuild itself.',
-    body: 'Business sites, enterprise portals and dashboards — from idea to deployment.',
+    kicker: '01 — Business Platforms',
+    title: 'Software shaped\naround your process.',
+    body: 'Operational portals, internal platforms and dashboards designed around how your business actually runs — not around a template.',
     steps: ['Idea', 'Research', 'Wireframe', 'Design', 'Development', 'Deployment'],
     align: 'left',
   },
@@ -38,8 +47,8 @@ export const BEATS = [
     scene: 'mobile',
     at: 0.5,
     kicker: '02 — Mobile Apps',
-    title: 'Native quality.\nBoth platforms.',
-    body: 'iOS and Android products people actually keep on their home screen.',
+    title: 'The workflow,\nin their hand.',
+    body: 'iOS and Android products for field teams, customers and operations — native quality on both platforms.',
     steps: ['Splash', 'Login', 'Dashboard', 'Booking', 'Payments', 'Analytics'],
     align: 'right',
   },
@@ -48,7 +57,7 @@ export const BEATS = [
     at: 0.5,
     kicker: '03 — AI Agents',
     title: 'Intelligence\nthat does the work.',
-    body: 'Not chatbots that answer questions — agents that complete tasks. Select one.',
+    body: 'Not chatbots that answer questions — agents that retrieve information, reason over your business data and complete defined tasks. Select one.',
     align: 'left',
   },
   {
@@ -56,15 +65,15 @@ export const BEATS = [
     at: 0.45,
     kicker: 'Selected Work',
     title: 'Shipped,\nnot mocked up.',
-    body: 'Live products on the web, the App Store and Google Play. Open one.',
+    body: 'Live products on the web, the App Store and Google Play. Open one for the full case study.',
     align: 'left',
   },
   {
     scene: 'tech',
     at: 0.42,
-    kicker: 'The Stack',
+    kicker: 'Engineering Capability',
     title: 'Proven tools.\nNo experiments.',
-    body: 'The stack we actually ship with — not whatever is trending. Hover any mark.',
+    body: 'The stack we actually ship and support in production — not whatever is trending this quarter. Hover any mark.',
     align: 'left',
   },
 ]

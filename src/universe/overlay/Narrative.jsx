@@ -19,8 +19,30 @@ function beatCentre(beat) {
   return s.start + (s.end - s.start) * beat.at
 }
 
+/**
+ * A beat's call to action. `href` leaves the world; `to` stays inside it and
+ * flies the camera to another point on the journey — the long, eased travel is
+ * the whole reason a CTA here doesn't feel like a link.
+ */
+function Action({ action, ghost }) {
+  const cls = `uv-btn${ghost ? ' uv-btn--ghost' : ''}`
+  if (action.href) {
+    return (
+      <a className={cls} href={action.href}>
+        <span>{action.label}</span>
+      </a>
+    )
+  }
+  return (
+    <button type="button" className={cls} onClick={() => scrollToProgress(action.to, 3.8)}>
+      <span>{action.label}</span>
+    </button>
+  )
+}
+
 export default function Narrative() {
   const refs = useRef([])
+  const shell = useRef(null)
 
   useEffect(() => {
     let raf
@@ -32,9 +54,26 @@ export default function Narrative() {
     // space" mid-scroll: both beats near-zero opacity at once.
     const HALF = 0.09
 
+    let parked = false
+
     const tick = () => {
       raf = requestAnimationFrame(tick)
       const p = state.progress
+
+      // Hard stop once the story track is on screen. The beats live in a fixed,
+      // full-viewport layer that sits above the track, and `progress` saturates
+      // at 1 for the track's whole length — so without this the last headline
+      // would hang over the reader's page for eleven sections. Parking the
+      // whole layer also skips the per-beat style writes entirely.
+      if (state.story !== parked) {
+        parked = state.story
+        // `display`, not `visibility`: each beat writes its own inline
+        // `visibility: visible` every frame, and a child's visible beats a
+        // parent's hidden. `display: none` is the only one the children cannot
+        // override — and it takes the whole layer out of the a11y tree too.
+        if (shell.current) shell.current.style.display = parked ? 'none' : ''
+      }
+      if (parked) return
 
       for (let i = 0; i < BEATS.length; i++) {
         const el = refs.current[i]
@@ -81,7 +120,7 @@ export default function Narrative() {
   }, [])
 
   return (
-    <div className="uv-narrative">
+    <div className="uv-narrative" ref={shell}>
       {BEATS.map((b, i) => (
         <section
           key={b.scene}
@@ -99,6 +138,10 @@ export default function Narrative() {
 
           <p className="uv-beat__body">{b.body}</p>
 
+          {/* The capability line: what we do, in four words, for the visitor
+              who reads exactly one line before deciding whether to stay. */}
+          {b.meta && <p className="uv-beat__meta">{b.meta}</p>}
+
           {b.steps && (
             <ol className="uv-beat__steps">
               {b.steps.map((s) => (
@@ -109,25 +152,8 @@ export default function Narrative() {
 
           {(b.cta || b.secondary) && (
             <div className="uv-beat__actions">
-              {b.cta &&
-                (b.cta.href ? (
-                  <a className="uv-btn" href={b.cta.href}>
-                    <span>{b.cta.label}</span>
-                  </a>
-                ) : (
-                  <button
-                    type="button"
-                    className="uv-btn"
-                    onClick={() => scrollToProgress(b.cta.to, 3.8)}
-                  >
-                    <span>{b.cta.label}</span>
-                  </button>
-                ))}
-              {b.secondary && (
-                <a className="uv-btn uv-btn--ghost" href={b.secondary.href}>
-                  <span>{b.secondary.label}</span>
-                </a>
-              )}
+              {b.cta && <Action action={b.cta} />}
+              {b.secondary && <Action action={b.secondary} ghost />}
             </div>
           )}
         </section>

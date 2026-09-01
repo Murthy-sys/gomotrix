@@ -8,12 +8,36 @@ export default function Navbar() {
   const { theme, toggle } = useTheme()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const [active, setActive] = useState('')
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // Which section is "current" — a thin detection band a fifth of the way
+  // down the viewport, so the active link updates around where the reader's
+  // eye actually is, not the instant a section's top pixel appears.
+  useEffect(() => {
+    const sections = navLinks.map((l) => document.getElementById(l.href.slice(1))).filter(Boolean)
+    if (!sections.length) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((e) => e.isIntersecting)
+        if (!visible.length) return
+        const topMost = visible.reduce((a, b) =>
+          a.boundingClientRect.top < b.boundingClientRect.top ? a : b,
+        )
+        setActive(`#${topMost.target.id}`)
+      },
+      { rootMargin: '-20% 0px -70% 0px', threshold: 0 },
+    )
+
+    sections.forEach((s) => observer.observe(s))
+    return () => observer.disconnect()
   }, [])
 
   return (
@@ -34,9 +58,17 @@ export default function Navbar() {
             <li key={l.href}>
               <a
                 href={l.href}
-                className="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-ink-900 dark:text-slate-300 dark:hover:bg-white/5 dark:hover:text-white"
+                aria-current={active === l.href ? 'true' : undefined}
+                className={`relative rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                  active === l.href
+                    ? 'text-brand-700 dark:text-amber-300'
+                    : 'text-slate-600 hover:bg-slate-100 hover:text-ink-900 dark:text-slate-300 dark:hover:bg-white/5 dark:hover:text-white'
+                }`}
               >
                 {l.label}
+                {active === l.href && (
+                  <span className="absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-amber-500" />
+                )}
               </a>
             </li>
           ))}

@@ -1,14 +1,15 @@
 import { Suspense, lazy, useEffect, useState } from 'react'
-import { Canvas } from '@react-three/fiber'
+import { Canvas, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { AdaptiveEvents, Preload } from '@react-three/drei'
 
 import './styles/base.css'
 import './styles/overlay.css'
 import './styles/world.css'
+import './styles/story.css'
 
 import { startEngine, SCROLL_VH, detectQuality } from './core/engine'
-import { state } from './core/store'
+import { state, subscribe } from './core/store'
 import CameraRig from './core/CameraRig'
 import Atmosphere from './world/Atmosphere'
 import Effects from './world/Effects'
@@ -17,7 +18,8 @@ import Preloader from './overlay/Preloader'
 import Chrome from './overlay/Chrome'
 import Narrative from './overlay/Narrative'
 import CaseStudy from './overlay/CaseStudy'
-import ContactForm from './overlay/ContactForm'
+import Finale from './overlay/Finale'
+import Story from './story/Story'
 import { stop as stopAudio } from './overlay/audio'
 
 import Spark from './scenes/Spark'
@@ -33,8 +35,33 @@ const Showcase = lazy(() => import('./scenes/Showcase'))
 const TechStack = lazy(() => import('./scenes/TechStack'))
 const ContactScene = lazy(() => import('./scenes/ContactScene'))
 
+/**
+ * Guarantees the render loop comes back.
+ *
+ * `frameloop="never"` is the documented way to park R3F, and switching the prop
+ * back to "always" is meant to restart it on its own. This does not depend on
+ * that: React still renders while the loop is stopped, so the effect below runs
+ * on the way out and kicks a frame by hand. If the prop does its job this is a
+ * harmless no-op; if it ever does not, the world still wakes up instead of
+ * leaving a frozen frame behind the reader as they scroll back into it.
+ */
+function LoopGuard({ covered }) {
+  const invalidate = useThree((s) => s.invalidate)
+  const advance = useThree((s) => s.advance)
+  useEffect(() => {
+    if (covered) return
+    invalidate()
+    advance(performance.now())
+  }, [covered, invalidate, advance])
+  return null
+}
+
 export default function Universe() {
   const [entered, setEntered] = useState(false)
+  // True once the story track has scrolled up over the canvas completely.
+  // Holding a render loop for a world nobody can see is the one piece of the
+  // 3D budget that buys nothing, so it is the one piece we stop.
+  const [covered, setCovered] = useState(false)
 
   // Must land in the store *during render*, before any scene mounts: every
   // scene reads `state.quality` to size its particle buffers, and those are
@@ -57,6 +84,11 @@ export default function Universe() {
     }
   }, [])
 
+  // The engine already sees every scroll value; it decides when the story track
+  // has covered the canvas. This only has to mirror that one boolean into React
+  // so the Canvas can be told to stop.
+  useEffect(() => subscribe((s) => setCovered(s.covered)), [])
+
   return (
     <div className="uv-root">
       {/* The scroll surface. The canvas is fixed behind it; this element exists
@@ -66,6 +98,10 @@ export default function Universe() {
       <div className="uv-stage">
         <Canvas
           dpr={tier.dpr}
+          // 'never' parks the loop entirely while the reader is in the story
+          // track; it resumes the moment any part of the world is on screen
+          // again, with every scene's local clock exactly where it was left.
+          frameloop={covered ? 'never' : 'always'}
           gl={{
             antialias: false, // the composer handles AA; MSAA on the canvas is wasted
             alpha: false,
@@ -84,6 +120,7 @@ export default function Universe() {
             gl.toneMappingExposure = 1.0
           }}
         >
+          <LoopGuard covered={covered} />
           <CameraRig />
           <Atmosphere />
 
@@ -110,22 +147,28 @@ export default function Universe() {
       </div>
 
       <Narrative />
-      <ContactForm />
+      <Finale />
       <Chrome />
       <CaseStudy />
 
       {!entered && <Preloader onEnter={() => setEntered(true)} />}
 
-      {/* Real content for crawlers and screen readers. The journey above is
-          visual; this is the same information as text. */}
+      {/* The document's h1. The journey states the headline visually and the
+          story track argues it; this is the one canonical text version, and it
+          is what a crawler and a screen reader read first. */}
       <div className="uv-sr">
-        <h1>Trimugo — AI-powered web, mobile, enterprise and automation platforms</h1>
+        <h1>Turn complex business workflows into intelligent software — Trimugo</h1>
         <p>
-          Trimugo is a remote-first IT partner building custom software, AI chatbots and agents,
-          workflow automation, cloud, ERP and CRM solutions for startups, SMEs and enterprises.
+          Trimugo is an AI and workflow engineering partner. We design and build AI-powered
+          software that automates repetitive operations, connects business processes and helps
+          teams work more efficiently — AI workflow systems, AI agents, document intelligence,
+          business applications, process automation and system integration.
         </p>
         <a href="#/classic">View the standard accessible site</a>
       </div>
+
+      {/* The business case, below the journey. */}
+      <Story />
     </div>
   )
 }

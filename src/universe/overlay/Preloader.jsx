@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Logo from '../../components/Logo.jsx'
 import { set, state } from '../core/store'
-import { syncScrollTo } from '../core/engine'
+import { scrollToElement, syncScrollTo } from '../core/engine'
 import { start as startAudio } from './audio'
 
 // The threshold. The experience opens in darkness with a single point of light —
@@ -37,6 +37,15 @@ export default function Preloader({ onEnter }) {
     setTimeout(() => onEnter?.(), 1400)
   }
 
+  // For the visitor who did not come here to be taken on a journey. Enters
+  // first — the preloader holds `overflow: hidden` while it is up, and some
+  // browsers swallow a programmatic scroll under it — then drops them at the
+  // first section of the business case on this same page.
+  const skipToOverview = () => {
+    enter()
+    setTimeout(() => scrollToElement('#problem', { duration: 1.2 }), 180)
+  }
+
   return (
     <div
       ref={shell}
@@ -51,22 +60,33 @@ export default function Preloader({ onEnter }) {
           <Logo className="uv-pre__mark" />
           <span className="uv-pre__brand">Trimugo</span>
         </span>
-        <h1 className="uv-pre__title">The Digital Universe</h1>
-        <p className="uv-pre__sub">
-          A scroll-driven journey through everything we build.
+        {/* The threshold is the real first screen, so it carries the company
+            line. The headline proper waits for the first beat — saying the
+            same sentence twice in three seconds reads as a stutter. */}
+        <h1 className="uv-pre__title">
+          AI &amp; Workflow
           <br />
-          Best with sound on.
+          Engineering Partner
+        </h1>
+        <p className="uv-pre__sub">
+          We design and build AI-powered software that automates repetitive operations and connects
+          business processes. What follows is a scroll-driven journey through how we work — best
+          with sound on.
+        </p>
+
+        <p className="uv-pre__meta">
+          AI Engineering · Workflow Automation · Custom Software · System Integration
         </p>
 
         <div className="uv-pre__actions">
           <button type="button" className="uv-btn" onClick={enter}>
-            <span>Enter</span>
+            <span>Enter the Journey</span>
           </button>
         </div>
 
-        <a className="uv-pre__skip" href="#/classic">
-          Skip to the standard site
-        </a>
+        <button type="button" className="uv-pre__skip" onClick={skipToOverview}>
+          Skip the experience — read the business overview
+        </button>
       </div>
     </div>
   )

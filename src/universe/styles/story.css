@@ -1,0 +1,941 @@
+/* ── The business story track ───────────────────────────────────────────────
+   Sits below the journey, in the same document and the same design language:
+   near-black ground, hairlines instead of cards, one accent used as an event
+   rather than a wash. Tokens cascade from .uv-root.
+
+   Everything here composites on top of a live WebGL canvas, so the rules are
+   deliberately cheap: no filters on large areas, no backdrop-filter outside
+   the two small panels that earn it, and exactly one continuous animation.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.st-track {
+  position: relative;
+  z-index: 6; /* above .uv-stage (0), below the fixed chrome (20) */
+}
+
+/* The seam. The journey dissolves into the page rather than being cut off by
+   an edge — the canvas is still rendering behind this gradient. */
+.st-seam {
+  height: 46vh;
+  background: linear-gradient(to bottom, rgba(5, 5, 5, 0) 0%, rgba(5, 5, 5, 0.72) 46%, var(--void) 88%);
+  pointer-events: none;
+}
+
+.st-section {
+  position: relative;
+  background: var(--void);
+  padding: clamp(4.5rem, 11vh, 8.5rem) var(--gut);
+  /* Belt to scrollToElement's braces: native anchor jumps and browser scroll
+     restoration do not go through Lenis, and would land under the header. */
+  scroll-margin-top: 5.5rem;
+}
+.st-section + .st-section { border-top: 1px solid rgba(255, 255, 255, 0.07); }
+
+.st-wrap {
+  width: 100%;
+  max-width: 78rem;
+  margin-inline: auto;
+}
+
+/* ── Reveal ──────────────────────────────────────────────────────────────── */
+
+/* Visible by default. Only `.st-anim` — added from JS once the observer is
+   known to exist — takes it away again, so no failure mode leaves the reader
+   looking at an empty page. */
+.st-anim .st-reveal {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+  transition-delay: var(--d, 0ms);
+}
+.st-anim .st-reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Section openers ─────────────────────────────────────────────────────── */
+
+.st-head { margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+.st-head--center { text-align: center; }
+
+.st-kicker {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 1.15rem;
+}
+
+.st-title {
+  font-family: 'Space Grotesk', Inter, sans-serif;
+  font-size: clamp(1.95rem, 4.2vw, 3.3rem);
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -0.032em;
+  margin: 0;
+  max-width: 22ch;
+  text-wrap: balance;
+  background: linear-gradient(176deg, #ffffff 34%, rgba(255, 255, 255, 0.74) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.st-head--center .st-title { margin-inline: auto; }
+
+.st-lead {
+  margin: 1.4rem 0 0;
+  max-width: 46rem;
+  font-size: clamp(0.98rem, 1.25vw, 1.08rem);
+  line-height: 1.68;
+  color: var(--dim);
+  text-wrap: pretty;
+}
+.st-head--center .st-lead { margin-inline: auto; }
+
+/* A quiet caveat / footnote block. */
+.st-note {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  padding-left: 1.1rem;
+  border-left: 1px solid rgba(183, 255, 106, 0.35);
+  max-width: 52rem;
+}
+.st-note p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--faint);
+}
+
+/* ── 01 · The problem ────────────────────────────────────────────────────── */
+
+.st-problem {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: start;
+}
+
+/* The manual queue. Each link steps further right than the last: the handoff
+   is the cost, so the layout keeps making the eye travel sideways to follow it.
+   The connector is dashed because the chain is not actually connected. */
+.st-chain {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.st-chain__link {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  padding: 0.72rem 0 0.72rem 1.75rem;
+  /* Capped so the last link does not walk off the column. */
+  margin-left: min(calc(var(--i) * 1.05rem), 7rem);
+}
+.st-chain__link::before {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 1.5rem;
+  bottom: -0.35rem;
+  border-left: 1px dashed rgba(255, 255, 255, 0.22);
+}
+.st-chain__link:last-child::before { display: none; }
+
+.st-chain__dot {
+  position: absolute;
+  left: 0;
+  top: 1.05rem;
+  width: 7px;
+  height: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 50%;
+}
+.st-chain__step {
+  font-family: 'Space Grotesk', Inter, sans-serif;
+  font-size: clamp(1rem, 1.5vw, 1.16rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  white-space: nowrap;
+}
+.st-chain__note {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--faint);
+}
+
+.st-problem__aside { padding-top: 0.4rem; }
+.st-problem__label {
+  margin: 0 0 1.1rem;
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.st-costs {
+  list-style: none;
+  margin: 0;
+  padding: 1.4rem 0 0;
+  border-top: 1px solid var(--hair);
+}
+.st-costs li {
+  padding: 0.85rem 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--dim);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.st-costs li:last-child { border-bottom: 0; }
+
+/* The resolution: one unbroken line where the chain was broken. */
+.st-turn {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.2rem, 3vw, 2.4rem);
+  margin-top: clamp(3rem, 7vw, 5.5rem);
+  padding-top: clamp(2.4rem, 5vw, 3.6rem);
+  border-top: 1px solid var(--hair);
+}
+.st-turn__rail {
+  flex: none;
+  width: clamp(2.5rem, 9vw, 7rem);
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(183, 255, 106, 0), var(--accent));
+}
+.st-turn__text {
+  margin: 0;
+  font-family: 'Space Grotesk', Inter, sans-serif;
+  font-size: clamp(1.15rem, 2.4vw, 1.85rem);
+  font-weight: 500;
+  line-height: 1.32;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-wrap: balance;
+}
+
+/* ── 02 · The pipeline ───────────────────────────────────────────────────── */
+
+.st-pipe {
+  --rail: 7px;
+  position: relative;
+  padding-left: 2.9rem;
+}
+.st-pipe__rail {
+  position: absolute;
+  left: var(--rail);
+  top: 0.6rem;
+  bottom: 0.6rem;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.22) 12%,
+    rgba(255, 255, 255, 0.22) 88%,
+    rgba(255, 255, 255, 0.05)
+  );
+  overflow: hidden;
+}
+/* The only continuous motion in the track: data moving down the pipeline. */
+.st-pipe__pulse {
+  position: absolute;
+  left: -1px;
+  width: 3px;
+  height: 15%;
+  border-radius: 3px;
+  background: linear-gradient(180deg, rgba(183, 255, 106, 0), var(--accent), rgba(183, 255, 106, 0));
+  animation: st-flow 7s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+@keyframes st-flow {
+  0%   { top: -18%; opacity: 0; }
+  12%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { top: 103%; opacity: 0; }
+}
+
+.st-pipe__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.st-node {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0.4rem 1rem;
+  padding: 1.05rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.st-node:last-child { border-bottom: 0; }
+/* The node's dot, sitting on the rail. */
+.st-node::before {
+  content: '';
+  position: absolute;
+  left: calc(-2.9rem + var(--rail) - 3px);
+  top: 1.5rem;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--void);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+/* Model stages are marked. The boundary between "a model decides" and "code
+   decides" is the argument this diagram exists to make. */
+.st-node--model::before {
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: 0 0 0 3px rgba(183, 255, 106, 0.14);
+}
+
+.st-node__index {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+.st-node__body { min-width: 0; }
+.st-node__label {
+  margin: 0 0 0.3rem;
+  font-family: 'Space Grotesk', Inter, sans-serif;
+  font-size: clamp(1rem, 1.4vw, 1.14rem);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--text);
+}
+.st-node__note {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.58;
+  color: var(--dim);
+  max-width: 48ch;
+}
+.st-node__kind {
+  justify-self: end;
+  padding: 0.28rem 0.7rem;
+  border: 1px solid var(--hair);
+  border-radius: 999px;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+  white-space: nowrap;
+}
+.st-node--model .st-node__kind {
+  border-color: rgba(183, 255, 106, 0.4);
+  color: var(--accent);
+}
+.st-node--code .st-node__kind { color: rgba(255, 255, 255, 0.78); border-color: rgba(255, 255, 255, 0.26); }
+
+/* ── Grids of cells (03, 07, 08, 10) ─────────────────────────────────────── */
+
+.st-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+.st-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.st-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.st-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+/* Hairline cells rather than floating cards: one continuous surface reads as a
+   system, a row of rounded boxes reads as a template. */
+.st-cell {
+  background: var(--void);
+  padding: clamp(1.5rem, 2.6vw, 2.3rem);
+  transition: background 0.6s var(--ease), opacity 0.85s var(--ease), transform 0.85s var(--ease);
+}
+.st-cell:hover { background: rgba(255, 255, 255, 0.028); }
+.st-cell--tight { padding: clamp(1.3rem, 2.2vw, 1.85rem); }
+
+.st-cell__n {
+  display: block;
+  margin-bottom: 1.5rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.st-cell__title {
+  margin: 0 0 0.7rem;
+  font-family: 'Space Grotesk', Inter, sans-serif;
+  font-size: clamp(1.02rem, 1.4vw, 1.18rem);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.018em;
+  color: var(--text);
+}
+.st-cell__body {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--dim);
+}
+
+/* ── 05 · Process ────────────────────────────────────────────────────────── */
+
+.st-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(1rem, 2.4vw, 2rem);
+}
+.st-step {
+  padding-top: 1.3rem;
+  border-top: 1px solid var(--hair);
+}
+.st-step__n {
+  display: block;
+  margin-bottom: 1.1rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.st-step__title {
+  margin: 0 0 0.55rem;
+  font-family: 'Space Grotesk', Inter, sans-serif;
+  font-size: clamp(1rem, 1.4vw, 1.16rem);
+  font-weight: 500;
+  letter-spacing: -0.018em;
+}
+.st-step__body {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--dim);
+}
+
+/* ── Chips ───────────────────────────────────────────────────────────────── */
+
+.st-chips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+.st-chips li {
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--hair);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.035);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: var(--dim);
+  white-space: nowrap;
+}
+.st-chips--lg li { padding: 0.55rem 1.05rem; font-size: 0.8rem; }
+
+/* ── 06 · Capabilities ───────────────────────────────────────────────────── */
+
+.st-caps { margin: 0; }
+.st-caps__row {
+  display: grid;
+  grid-template-columns: minmax(0, 11rem) minmax(0, 1fr);
+  gap: 1rem 2rem;
+  align-items: start;
+  padding: 1.35rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+.st-caps__row:first-child { border-top: 1px solid rgba(255, 255, 255, 0.07); }
+.st-caps__row dt {
+  font-family: 'Space Grotesk', Inter, sans-serif;
+  font-size: 0.94rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--text);
+}
+.st-caps__row dd { margin: 0; }
+
+/* ── 04 · Case studies ───────────────────────────────────────────────────── */
+
+.st-studies {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(3rem, 7vw, 5.5rem);
+}
+
+.st-study {
+  padding: clamp(1.6rem, 3vw, 2.6rem);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 18px;
+  background: linear-gradient(168deg, rgba(255, 255, 255, 0.026), rgba(255, 255, 255, 0.006));
+}
+
+.st-study__head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem 1.2rem;
+  padding-bottom: 1.3rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.st-study__index {
+  font-family: 'Space Grotesk', Inter, sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+  font-weight: 500;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.16);
+  font-variant-numeric: tabular-nums;
+}
+.st-study__name {
+  margin: 0 0 0.28rem;
+  font-family: 'Space Grotesk', Inter, sans-serif;
+  font-size: clamp(1.35rem, 2.6vw, 1.95rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.028em;
+}
+.st-study__cat {
+  margin: 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: var(--faint);
+}
+.st-study__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dim);
+  white-space: nowrap;
+}
+.st-study__status span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex: none;
+}
+.st-study__status .is-done { background: rgba(255, 255, 255, 0.5); }
+.st-study__status .is-live {
+  background: var(--accent);
+  box-shadow: 0 0 0 3px rgba(183, 255, 106, 0.15);
+}
+
+.st-study__summary {
+  margin: 1.5rem 0 0;
+  max-width: 62ch;
+  font-size: clamp(0.98rem, 1.25vw, 1.08rem);
+  line-height: 1.66;
+  color: var(--dim);
+}
+
+/* The workflow the system runs, as a node chain. */
+/* One unbroken chain, always. Wrapping split it across two lines and left a
+   connector dangling off the end of the first — and a chain that visibly breaks
+   is the opposite of what this diagram is claiming. It scrolls sideways in its
+   own box instead, so the page itself never scrolls horizontally. */
+.st-flow {
+  list-style: none;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 1.8rem 0 0;
+  padding: 1.3rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+}
+.st-flow::-webkit-scrollbar { height: 3px; }
+.st-flow::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.18); border-radius: 3px; }
+.st-flow::-webkit-scrollbar-track { background: transparent; }
+.st-flow li { flex: none; }
+.st-flow li {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.42rem 0.9rem;
+  border: 1px solid var(--hair);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.035);
+  font-size: 0.74rem;
+  letter-spacing: 0.045em;
+  color: var(--text);
+  white-space: nowrap;
+}
+/* The connector spans the gap BETWEEN two pills. As an in-flow child it was
+   drawn inside the pill's own border and background, which read as a stray dash
+   in the label rather than as a link in a chain; absolute positioning past the
+   right edge puts it where it belongs. */
+.st-flow li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 0.4rem);
+  width: 0.7rem;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.st-study__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 0.4rem;
+}
+.st-field {
+  padding: 1.5rem 1.6rem 1.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.st-study__grid > .st-field:nth-child(even) { padding-left: 1.6rem; border-left: 1px solid rgba(255, 255, 255, 0.06); }
+.st-field__label {
+  margin: 0 0 0.7rem;
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.st-field__body p {
+  margin: 0 0 0.6rem;
+  font-size: 0.9rem;
+  line-height: 1.66;
+  color: var(--dim);
+}
+.st-field__body p:last-child { margin-bottom: 0; }
+.st-field__body ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.st-field__body li {
+  position: relative;
+  padding-left: 1.05rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--dim);
+}
+.st-field__body li:last-child { margin-bottom: 0; }
+.st-field__body li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 5px;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0.7;
+}
+/* "We deliberately did not use AI here" is a claim worth its own tone. */
+.st-field__none { color: var(--faint); font-style: italic; }
+
+.st-study__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  padding-top: 1.6rem;
+}
+.st-study__links { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+.st-also { margin-top: clamp(3rem, 6vw, 4.5rem); }
+.st-also__label {
+  margin: 0 0 1rem;
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.st-also__list { list-style: none; margin: 0; padding: 0; }
+.st-also__list li {
+  display: grid;
+  grid-template-columns: minmax(0, 14rem) minmax(0, 12rem) minmax(0, 1fr);
+  gap: 0.3rem 1.5rem;
+  align-items: baseline;
+  padding: 0.95rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+.st-also__list li:last-child { border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
+.st-also__name { font-size: 0.95rem; color: var(--text); }
+.st-also__name a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--hair); }
+.st-also__name a:hover { color: var(--accent); border-color: rgba(183, 255, 106, 0.5); }
+.st-also__cat { font-size: 0.82rem; color: var(--dim); }
+.st-also__wip {
+  display: block;
+  margin-top: 0.2rem;
+  font-style: normal;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.st-also__stack { font-size: 0.78rem; color: var(--faint); }
+
+/* ── 11 · FAQ ────────────────────────────────────────────────────────────── */
+
+.st-faq { border-top: 1px solid rgba(255, 255, 255, 0.07); }
+.st-faq__item { border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
+.st-faq__item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.4rem 0;
+  cursor: pointer;
+  list-style: none;
+  font-family: 'Space Grotesk', Inter, sans-serif;
+  font-size: clamp(1rem, 1.5vw, 1.14rem);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--text);
+  transition: color 0.4s var(--ease);
+}
+.st-faq__item summary::-webkit-details-marker { display: none; }
+.st-faq__item summary:hover { color: var(--accent); }
+.st-faq__item summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* A hairline plus that becomes a minus. */
+.st-faq__mark {
+  position: relative;
+  flex: none;
+  width: 13px;
+  height: 13px;
+}
+.st-faq__mark::before,
+.st-faq__mark::after {
+  content: '';
+  position: absolute;
+  inset: 50% 0 auto;
+  height: 1px;
+  background: var(--accent);
+  transition: transform 0.45s var(--ease), opacity 0.45s var(--ease);
+}
+.st-faq__mark::after { transform: rotate(90deg); }
+.st-faq__item[open] .st-faq__mark::after { transform: rotate(0deg); opacity: 0; }
+
+.st-faq__item p {
+  margin: 0;
+  padding: 0 3rem 1.6rem 0;
+  max-width: 68ch;
+  font-size: 0.94rem;
+  line-height: 1.72;
+  color: var(--dim);
+}
+
+/* ── Final CTA ───────────────────────────────────────────────────────────── */
+
+.st-section--cta { text-align: center; }
+.st-cta { max-width: 46rem; margin-inline: auto; }
+.st-cta__title {
+  margin: 0 0 1.3rem;
+  font-family: 'Space Grotesk', Inter, sans-serif;
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+  background: linear-gradient(176deg, #ffffff 32%, rgba(255, 255, 255, 0.72) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.st-cta__body {
+  margin: 0 auto 2.6rem;
+  max-width: 40rem;
+  font-size: clamp(0.98rem, 1.3vw, 1.1rem);
+  line-height: 1.68;
+  color: var(--dim);
+  text-wrap: pretty;
+}
+.st-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  justify-content: center;
+}
+
+/* ── Contact ─────────────────────────────────────────────────────────────── */
+
+.st-contact {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+.st-contact__intro .st-title { max-width: 16ch; }
+.st-contact__channels {
+  list-style: none;
+  margin: 2.4rem 0 0;
+  padding: 0;
+  border-top: 1px solid var(--hair);
+}
+.st-contact__channels li { border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
+.st-contact__channels a {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.9rem 0;
+  color: var(--dim);
+  font-size: 0.92rem;
+  text-decoration: none;
+  transition: color 0.45s var(--ease);
+}
+.st-contact__channels a:hover { color: var(--accent); }
+.st-contact__channels em {
+  flex: none;
+  width: 6rem;
+  font-style: normal;
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.st-contact__panel {
+  padding: clamp(1.5rem, 3vw, 2.4rem);
+  border: 1px solid rgba(183, 255, 106, 0.16);
+  border-radius: 20px;
+  background: linear-gradient(160deg, rgba(10, 16, 12, 0.9), rgba(5, 8, 6, 0.86));
+  box-shadow: 0 40px 120px -50px rgba(0, 0, 0, 0.95);
+}
+
+.st-form__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.4rem;
+  margin-top: 0.6rem;
+}
+.st-form__foot .uv-btn:disabled { opacity: 0.6; cursor: progress; }
+.st-form__note { margin: 0; font-size: 0.78rem; color: var(--faint); }
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+
+.st-foot {
+  position: relative;
+  background: var(--void);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  padding: clamp(2.5rem, 6vh, 4rem) var(--gut);
+}
+.st-foot__inner {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.5rem 2.5rem;
+}
+.st-foot__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text);
+  text-decoration: none;
+}
+.st-foot__mark { width: 32px; height: 32px; border-radius: 9px; flex: none; }
+.st-foot__brand span { display: flex; flex-direction: column; line-height: 1.25; }
+.st-foot__brand strong {
+  font-family: 'Space Grotesk', Inter, sans-serif;
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.st-foot__brand em {
+  font-style: normal;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.st-foot__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.5rem;
+  justify-content: center;
+}
+.st-foot__nav a {
+  font-size: 0.82rem;
+  color: var(--dim);
+  text-decoration: none;
+  transition: color 0.45s var(--ease);
+}
+.st-foot__nav a:hover { color: var(--accent); }
+.st-foot__legal { margin: 0; font-size: 0.74rem; color: var(--faint); white-space: nowrap; }
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 1080px) {
+  .st-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .st-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 2rem; }
+  .st-also__list li { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .st-also__stack { grid-column: 1 / -1; }
+}
+
+@media (max-width: 900px) {
+  .st-problem { grid-template-columns: minmax(0, 1fr); }
+  .st-contact { grid-template-columns: minmax(0, 1fr); }
+  .st-grid--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .st-study__grid { grid-template-columns: minmax(0, 1fr); }
+  .st-study__grid > .st-field:nth-child(even) { padding-left: 0; border-left: 0; }
+  .st-foot__inner { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
+}
+
+@media (max-width: 680px) {
+  .st-seam { height: 30vh; }
+  .st-grid--2,
+  .st-grid--3,
+  .st-grid--4 { grid-template-columns: minmax(0, 1fr); }
+  .st-steps { grid-template-columns: minmax(0, 1fr); }
+  .st-caps__row { grid-template-columns: minmax(0, 1fr); gap: 0.7rem; }
+  .st-chain__link {
+    /* The staggered walk costs too much width on a phone; the dashed rail
+       still carries the "queue" reading on its own. */
+    margin-left: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+  .st-chain__step { white-space: normal; }
+  .st-node {
+    grid-template-columns: 2rem minmax(0, 1fr);
+    row-gap: 0.55rem;
+  }
+  .st-node__kind { grid-column: 2; justify-self: start; }
+  .st-turn { flex-direction: column; align-items: flex-start; gap: 1.2rem; }
+  .st-study__head { grid-template-columns: auto minmax(0, 1fr); }
+  .st-study__status { grid-column: 1 / -1; }
+  .st-also__list li { grid-template-columns: minmax(0, 1fr); }
+  .st-faq__item p { padding-right: 0; }
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .st-anim .st-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .st-pipe__pulse { animation: none; opacity: 0.55; top: 42%; }
+  .st-cell,
+  .st-faq__mark::before,
+  .st-faq__mark::after { transition-duration: 0.01ms; }
+}

@@ -3,11 +3,12 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Trimugo — Technology Solutions That Drive Business Growth",
+  "description": "Trimugo \u2014 Technology Solutions That Drive Business Growth",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check:gallery": "node scripts/check-gallery.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^9.122.0",

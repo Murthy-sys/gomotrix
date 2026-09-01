@@ -29,6 +29,32 @@ export function detectQuality() {
 
 let lenisRef = null
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Journey scroll space.
+//
+// The camera spline is driven by the height of the journey's own spacer, NOT by
+// the height of the document. The business story track that follows the journey
+// adds thousands of pixels below it; measuring the document would compress the
+// entire eight-scene flight into the top fraction of the page and leave the
+// camera stranded mid-spline while the user reads. Measuring the spacer keeps
+// the flight pixel-for-pixel identical to what it was before the track existed,
+// and simply parks the camera on its last keyframe once the story begins.
+// ─────────────────────────────────────────────────────────────────────────────
+
+let journeyMaxCache = 0
+
+function measureJourney() {
+  const spacer = document.querySelector('.uv-scroll')
+  const h = spacer ? spacer.offsetHeight : (SCROLL_VH / 100) * window.innerHeight
+  journeyMaxCache = Math.max(1, h - window.innerHeight)
+  return journeyMaxCache
+}
+
+/** Scroll distance, in px, that the camera flight occupies. Cached; resize-aware. */
+function journeyMax() {
+  return journeyMaxCache || measureJourney()
+}
+
 /**
  * Boots smooth scrolling, pointer tracking and the master clock.
  * Returns a teardown function.
@@ -49,17 +75,24 @@ export function startEngine() {
   })
   lenisRef = lenis
 
-  const maxScroll = () => Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
+  measureJourney()
+  state.scroll = window.scrollY || 0
 
   // The journey opens mid-story (see store.js) rather than at the top, so the
   // native scroll position has to be moved to match before anything reads it —
   // otherwise the first real scroll event reports 0 and every value in `state`
   // snaps back to the void.
-  lenis.scrollTo(state.progress * maxScroll(), { immediate: true })
+  lenis.scrollTo(state.progress * journeyMax(), { immediate: true })
 
   lenis.on('scroll', ({ scroll }) => {
-    state.raw = Math.min(Math.max(scroll / maxScroll(), 0), 1)
+    state.scroll = scroll
+    // Clamped, so scrolling on into the story track holds the camera on its
+    // final keyframe instead of running off the end of the spline.
+    state.raw = Math.min(Math.max(scroll / journeyMax(), 0), 1)
   })
+
+  const onResize = () => measureJourney()
+  window.addEventListener('resize', onResize, { passive: true })
 
   const onPointer = (e) => {
     state.pointer.x = (e.clientX / window.innerWidth) * 2 - 1
@@ -82,7 +115,7 @@ export function startEngine() {
       state,
       lenis,
       jump(p) {
-        lenis.scrollTo(p * maxScroll(), { immediate: true })
+        lenis.scrollTo(p * journeyMax(), { immediate: true })
         state.raw = p
         state.progress = p
       },
@@ -117,6 +150,17 @@ export function startEngine() {
 
     const scene = sceneIndexAt(state.progress)
     if (scene !== state.scene) set({ scene })
+
+    // Where the reader is relative to the story track. Derived here rather than
+    // from an IntersectionObserver because an instant jump — an anchor link, a
+    // restored scroll position — can step clean over a sentinel without ever
+    // changing its intersection state, and then the journey's pinned overlays
+    // stay pinned over the reader's page. This runs off the scroll value
+    // itself, so there is no position it can miss.
+    const past = state.scroll - journeyMax()
+    const story = past > 0
+    const covered = past >= window.innerHeight
+    if (story !== state.story || covered !== state.covered) set({ story, covered })
   }
   raf = requestAnimationFrame(tick)
 
@@ -124,6 +168,7 @@ export function startEngine() {
     cancelAnimationFrame(raf)
     lenis.destroy()
     lenisRef = null
+    window.removeEventListener('resize', onResize)
     window.removeEventListener('pointermove', onPointer)
     window.removeEventListener('touchmove', onTouch)
   }
@@ -139,16 +184,33 @@ export function startEngine() {
  */
 export function syncScrollTo(p) {
   if (!lenisRef) return
-  const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
-  lenisRef.scrollTo(p * max, { immediate: true })
+  lenisRef.scrollTo(p * journeyMax(), { immediate: true })
   state.raw = p
   state.progress = p
 }
 
 /** Fly the page to a scene's scroll position, letting Lenis ease the travel. */
 export function scrollToProgress(p, duration = 3.4) {
-  const max = document.documentElement.scrollHeight - window.innerHeight
-  const top = p * max
+  const top = p * journeyMax()
   if (lenisRef) lenisRef.scrollTo(top, { duration, easing: (t) => 1 - Math.pow(1 - t, 5) })
   else window.scrollTo({ top, behavior: 'smooth' })
+}
+
+/**
+ * Fly the page to a DOM node in the story track below the journey. Lenis owns
+ * the scroll position, so a native `scrollIntoView` would be fought and undone
+ * on the next frame.
+ */
+export function scrollToElement(target, { duration = 1.6, offset } = {}) {
+  const el = typeof target === 'string' ? document.querySelector(target) : target
+  if (!el) return
+  // The header is fixed and has no height in the flow, so an exact landing puts
+  // the section's kicker underneath it. Back off by its height (capped, so a
+  // short viewport does not lose a third of the screen to the allowance).
+  const clear = offset ?? -Math.min(96, window.innerHeight * 0.12)
+  if (lenisRef) {
+    lenisRef.scrollTo(el, { duration, offset: clear, easing: (t) => 1 - Math.pow(1 - t, 4) })
+  } else {
+    el.scrollIntoView({ behavior: 'smooth' })
+  }
 }

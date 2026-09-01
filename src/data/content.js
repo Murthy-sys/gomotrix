@@ -105,6 +105,29 @@ export const projects = [
     },
   },
   {
+    name: 'WanderLux Journeys',
+    initials: 'WJ',
+    category: 'Tourism · 3D Experience',
+    year: '2026',
+    desc: 'A scroll-driven 3D site for a travel and tourist-management brand — a five-chapter journey through India rendered in WebGL.',
+    tags: ['React.js', 'Three.js', 'WebGL', 'Vite'],
+    links: { live: 'https://tourism-3d.onrender.com' },
+  },
+  {
+    name: 'Lisno India',
+    initials: 'LI',
+    category: 'Full-Stack · Mobile',
+    year: '2026',
+    status: 'In development',
+    desc: 'A full-stack platform with a mobile app for a Bangalore interiors and engineering studio, in development alongside the live public site — services, a filterable project portfolio and 3D room walkthroughs.',
+    // TODO(trimugo): confirm the platform + mobile stack. These four are the
+    // technologies the live site at lisno.co.in demonstrably loads; the
+    // full-stack and mobile side has not been verified from anything in this
+    // repository, so nothing has been guessed on its behalf.
+    tags: ['JavaScript', 'Tailwind CSS', 'GSAP', 'ScrollTrigger'],
+    links: { live: 'https://lisno.co.in/' },
+  },
+  {
     name: 'Profile Evaluator',
     initials: 'PE',
     category: 'Web Application',
@@ -112,6 +135,15 @@ export const projects = [
     desc: 'A career platform where users check scores, build resumes, access learning material, and take assessments and certifications — all in one portal.',
     tags: ['React.js', 'Node.js', 'MongoDB', 'Express', 'JWT', 'Tailwind'],
     links: { live: 'https://profile-evalutor-ui.onrender.com/' },
+  },
+  {
+    name: "Suresh's Yogalaya",
+    initials: 'SY',
+    category: 'Web Application',
+    year: '2026',
+    desc: 'A scroll-driven site for a yoga studio in Anantapur — online and offline classes, kids yoga, workshops, and instructor profiles.',
+    tags: ['React.js', 'Tailwind', 'Vite'],
+    links: { live: 'https://www.sureshyogalaya.in/' },
   },
   {
     name: 'Good Plastics',
@@ -127,6 +159,7 @@ export const projects = [
     initials: 'SP',
     category: 'Mobile App',
     year: '2026',
+    status: 'In development',
     desc: 'A dating mobile app with swipe-based matching, chat, profile management, and location-based suggestions.',
     tags: ['React Native', 'Node.js', 'MongoDB', 'Tailwind'],
     links: {},
@@ -313,10 +346,14 @@ export const aboutValues = [
   },
 ]
 
+// Derived from `projects` above, not estimated — and derived rather than typed
+// so the numbers cannot drift the next time a project is added. The previous set
+// claimed "98% client retention" and "24/7 support"; neither was measured, and an
+// invented percentage is the fastest way to lose a technical buyer who checks.
 export const stats = [
-  { value: '6', label: 'Projects delivered' },
-  { value: '98%', label: 'Client retention' },
-  { value: '24/7', label: 'Support & monitoring' },
+  { value: String(projects.length), label: 'Products shipped' },
+  { value: String(projects.filter((p) => p.links?.live).length), label: 'Live in production' },
+  { value: '3', label: 'Platforms — web, iOS, Android' },
 ]
 
 export const techStack = [

@@ -42,7 +42,7 @@ export default function CaseStudy() {
         <header className="uv-case__head">
           <div>
             <p className="uv-case__kicker">
-              {project.category} · {project.year}
+              {project.category} · {project.status || project.year}
             </p>
             <h2 className="uv-case__title">{project.name}</h2>
           </div>
