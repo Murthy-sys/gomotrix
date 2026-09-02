@@ -1,6 +1,6 @@
 import { useId } from 'react'
 
-export default function Logo({ className = 'h-9 w-9' }) {
+export default function Logo({ className = '' }) {
   const uid = useId().replace(/:/g, '')
   const badge = `badge-${uid}`
   const gold = `gold-${uid}`

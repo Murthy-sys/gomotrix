@@ -882,6 +882,264 @@
 
 /* ── Responsive ──────────────────────────────────────────────────────────── */
 
+/* ── 08 · Who builds it ──────────────────────────────────────────────────────
+   One person, so the section is a single block rather than a grid of cards.
+   The asymmetric split is the point: the name gets the weight, the disciplines
+   and the working hours sit beside it as supporting detail. */
+
+.st-person {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+  padding: clamp(1.8rem, 3.4vw, 2.8rem);
+  border: 1px solid var(--hair);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.018);
+}
+
+.st-person__name {
+  margin: 0;
+  font-family: 'Space Grotesk', Inter, sans-serif;
+  font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--text);
+}
+
+.st-person__role {
+  margin: 0.7rem 0 0;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.st-person__body {
+  margin: 1.4rem 0 0;
+  max-width: 34rem;
+  font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+  line-height: 1.72;
+  color: var(--dim);
+}
+
+.st-person__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1.9rem;
+}
+
+/* Icon-only profile links. Circular rather than the pill uv-btn uses, because
+   a pill around a single glyph reads as a button with a missing label. The
+   44px box is the touch-target floor, kept even though the glyph is 18px. */
+.st-social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--hair);
+  border-radius: 50%;
+  color: var(--dim);
+  text-decoration: none;
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease),
+    background 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.st-social:hover {
+  color: var(--accent);
+  border-color: rgba(183, 255, 106, 0.45);
+  background: rgba(183, 255, 106, 0.07);
+  transform: translateY(-2px);
+}
+.st-social:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.st-social__glyph { width: 18px; height: 18px; display: block; }
+
+.st-person__aside { padding-top: 0.4rem; }
+
+.st-person__label {
+  margin: 0 0 1rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.st-person__focus {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.st-person__focus li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--dim);
+}
+.st-person__focus li:first-child { border-top: 1px solid rgba(255, 255, 255, 0.07); }
+
+.st-person__hours {
+  margin: 1.5rem 0 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--accent);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--dim);
+}
+
+/* ── Privacy policy · #/privacy ──────────────────────────────────────────────
+   A plain reading surface. No canvas behind it, no reveal on scroll: someone
+   arrives here to find one clause, so every word is on screen at first paint. */
+
+.st-legal {
+  min-height: 100vh;
+  background: var(--void);
+}
+
+.st-legal__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.4rem var(--gut);
+  border-bottom: 1px solid var(--hair);
+}
+
+.st-legal__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+}
+.st-legal__mark { width: 32px; height: 32px; border-radius: 9px; flex: none; }
+.st-legal__brand span { display: flex; flex-direction: column; line-height: 1.25; }
+.st-legal__brand strong {
+  font-family: 'Space Grotesk', Inter, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text);
+}
+.st-legal__brand em {
+  font-style: normal;
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+/* Prose measure, not the 78rem the grids use — long legal text needs a line
+   length somebody can actually read down. */
+.st-legal__body { max-width: 48rem; }
+
+.st-legal__meta {
+  margin: 1.6rem 0 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.st-legal__controller {
+  margin: 2.6rem 0 0;
+  padding: clamp(1.3rem, 2.4vw, 1.8rem);
+  border: 1px solid var(--hair);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.02);
+}
+.st-legal__label {
+  margin: 0;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.st-legal__name {
+  margin: 0.6rem 0 0;
+  font-size: 1.06rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.st-legal__controller ul {
+  margin: 0.9rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.92rem;
+  color: var(--dim);
+}
+.st-legal__controller a { color: var(--dim); text-decoration: none; border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
+.st-legal__controller a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+.st-legal__sections { margin-top: clamp(2.5rem, 5vw, 4rem); }
+.st-legal__sections section { padding: 2.2rem 0; border-top: 1px solid rgba(255, 255, 255, 0.07); }
+
+.st-legal__sections h2 {
+  margin: 0 0 1rem;
+  font-family: 'Space Grotesk', Inter, sans-serif;
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.st-legal__sections p {
+  margin: 0 0 1rem;
+  font-size: 0.98rem;
+  line-height: 1.78;
+  color: var(--dim);
+}
+.st-legal__sections p:last-child { margin-bottom: 0; }
+
+.st-legal__list {
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+.st-legal__list li {
+  position: relative;
+  padding: 0.6rem 0 0.6rem 1.4rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--dim);
+}
+.st-legal__list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 1.22rem;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.7;
+}
+
+.st-legal__note {
+  padding-left: 1rem;
+  border-left: 2px solid rgba(255, 255, 255, 0.18);
+  color: var(--faint) !important;
+}
+
+.st-legal__foot {
+  margin-top: 2.6rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--dim);
+}
+.st-legal__foot a { color: var(--accent); text-decoration: none; }
+.st-legal__foot a:hover { text-decoration: underline; }
+
 @media (max-width: 1080px) {
   .st-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .st-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 2rem; }
@@ -890,6 +1148,8 @@
 }
 
 @media (max-width: 900px) {
+  .st-person { grid-template-columns: minmax(0, 1fr); }
+  .st-person__aside { padding-top: 0; }
   .st-problem { grid-template-columns: minmax(0, 1fr); }
   .st-contact { grid-template-columns: minmax(0, 1fr); }
   .st-grid--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -900,6 +1160,7 @@
 
 @media (max-width: 680px) {
   .st-seam { height: 30vh; }
+  .st-legal__bar { flex-direction: column; align-items: flex-start; gap: 1rem; }
   .st-grid--2,
   .st-grid--3,
   .st-grid--4 { grid-template-columns: minmax(0, 1fr); }
@@ -938,4 +1199,5 @@
   .st-cell,
   .st-faq__mark::before,
   .st-faq__mark::after { transition-duration: 0.01ms; }
+  .st-social:hover { transform: none; }
 }

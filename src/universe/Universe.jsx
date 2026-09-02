@@ -164,7 +164,6 @@ export default function Universe() {
           teams work more efficiently — AI workflow systems, AI agents, document intelligence,
           business applications, process automation and system integration.
         </p>
-        <a href="#/classic">View the standard accessible site</a>
       </div>
 
       {/* The business case, below the journey. */}

@@ -136,7 +136,7 @@ export default function CaseStudies() {
     <Section id="work" label="Selected work">
       <Head
         kicker="Section 04 — Selected Work"
-        title="Two systems, in full."
+        title={caseStudies.length === 1 ? 'One system, in full.' : `${caseStudies.length} systems, in full.`}
         body="Real production software, written up the way an engineering buyer would want to read it. Where a number has not been measured, there is no number."
       />
 
@@ -165,7 +165,9 @@ export default function CaseStudies() {
                   {p.category}
                   {p.status && <em className="st-also__wip">{p.status}</em>}
                 </span>
-                <span className="st-also__stack">{p.tags.slice(0, 4).join(' · ')}</span>
+                {/* Every tag, not the first four: the old cap silently dropped
+                    the tail of a longer stack — Lumo's "Payments" among them. */}
+                <span className="st-also__stack">{p.tags.join(' · ')}</span>
               </li>
             ))}
           </ul>

@@ -10,8 +10,9 @@ import { buildOptions, contactChannels, timelines } from '../../data/business.js
 // Those four answers are what make the reply useful instead of a request for
 // more information.
 //
-// Posts to the same Web3Forms endpoint the classic route uses, so every lead —
-// whichever surface it came from — lands in one inbox.
+// Posts to Web3Forms, which relays the submission to the inbox. Nothing is
+// stored on this site — there is no backend here — which is also what the
+// privacy policy at #/privacy tells the reader.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const WEB3FORMS_KEY = '992dcaed-fdcf-4e47-a033-c6e23ac6a9c8'

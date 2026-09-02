@@ -1,10 +1,10 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // BUSINESS CONTENT
 //
-// Everything the story track below the journey renders. Kept apart from
-// content.js (which serves the classic route) because this is positioning copy
-// for a specific audience — European operations, engineering and founder-level
-// buyers — and it should be editable without touching the marketing site.
+// Everything the story track below the journey renders. Positioning copy for
+// a specific audience — European operations, engineering and founder-level
+// buyers. content.js holds the shorter project record that the 3D gallery and
+// the "also shipped" list read from; this file holds the argument.
 //
 // RULE FOR THIS FILE: nothing here may be invented. No percentages, no revenue,
 // no user counts, no client names, no testimonials, no awards, no productivity
@@ -113,7 +113,7 @@ export const process = [
 ]
 
 // ── 06 · Engineering capabilities ───────────────────────────────────────────
-// Only what the team genuinely ships with. Cross-checked against the stacks
+// Only what is genuinely shipped with. Cross-checked against the stacks
 // listed on the delivered projects in content.js.
 
 export const capabilities = [
@@ -154,7 +154,7 @@ export const differentiators = [
   },
   {
     title: 'Direct engineering communication',
-    body: 'You talk to the people building the system. There is no account layer between you and the work.',
+    body: 'You talk to the engineer building the system. There is no account layer, no delivery manager and no relay between you and the work.',
   },
   {
     title: 'Long-term partnership',
@@ -165,14 +165,38 @@ export const differentiators = [
 // ── 08 · Team ───────────────────────────────────────────────────────────────
 
 export const team = {
-  line: 'Small team. Senior execution. Direct communication.',
-  body: 'Trimugo is a focused engineering team, not a resourcing pool. The people in the first call are the people who build the system.',
-  roles: [
-    { title: 'Founder / Solution Architect', body: 'Process discovery, architecture and delivery ownership.' },
-    { title: 'Full-Stack Engineer', body: 'Application, API and data layer.' },
-    { title: 'AI / Backend Engineer', body: 'Model integration, retrieval, extraction and workflow services.' },
-    { title: 'Frontend / Mobile Engineer', body: 'Web interfaces and React Native applications.' },
-  ],
+  line: 'One engineer. No handoffs.',
+  body: 'Trimugo is run by a single full-stack engineer. The person on the first call is the person who designs the system, writes the code, ships the release and answers the message afterwards.',
+  person: {
+    name: 'Malisetti Obulamurthy',
+    role: 'Founder · Full-Stack Engineer',
+    body: 'Process discovery, architecture, implementation and delivery ownership — the web application, the mobile app, the API and the AI layer are all built by the same person.',
+    // Named as disciplines rather than as job titles: this is what one person
+    // covers, not four people pretending to be one.
+    focus: [
+      'Discovery, architecture and delivery ownership',
+      'Application, API and data layer',
+      'AI integration, retrieval and document extraction',
+      'React and React Native interfaces',
+    ],
+    hours:
+      'Working hours are flexible across Indian and European time — IST and CET/CEST — so a full European working day is covered, including your morning stand-up and your afternoon review.',
+    // Rendered as brand marks, so `label` is what a screen reader announces and
+    // what the tooltip shows — it is the accessible name, not decoration.
+    //
+    // TODO(trimugo): the LinkedIn href below is a *messaging thread* URL. It
+    // only resolves for someone already in that conversation; every other
+    // visitor lands in their own inbox. Replace it with the public profile
+    // (linkedin.com/in/…) before this goes out.
+    links: [
+      { id: 'github', label: 'GitHub', href: 'https://github.com/Murthy-sys?tab=repositories' },
+      {
+        id: 'linkedin',
+        label: 'LinkedIn',
+        href: 'https://www.linkedin.com/messaging/thread/2-ZDdiN2JlN2YtNjVjOC00MTc0LWI4YTMtM2EyNjE1MTA5MDM5XzEwMA==/',
+      },
+    ],
+  },
 }
 
 // ── 09 · Security & privacy ─────────────────────────────────────────────────
@@ -204,11 +228,15 @@ export const delivery = {
   line: 'Remote delivery. Structured communication. Direct engineering access.',
   body: 'We work with European companies remotely, on a rhythm that makes progress visible without turning into a meeting schedule.',
   points: [
+    {
+      title: 'European working hours',
+      body: 'Available across Indian and European time — IST and CET/CEST. A full European working day is covered, so stand-ups, reviews and calls run at your hours, not ours.',
+    },
     { title: 'Milestone-based delivery', body: 'Scope agreed and invoiced against defined milestones.' },
     { title: 'Regular demos', body: 'Working software shown on a fixed cadence, not slides.' },
     { title: 'Documentation', body: 'Architecture, integrations and operational runbooks written down.' },
     { title: 'Transparent communication', body: 'Progress, blockers and estimates reported as they change.' },
-    { title: 'Direct engineering access', body: 'Your team can talk to ours without an intermediary.' },
+    { title: 'Direct engineering access', body: 'You talk to the engineer doing the work, with no intermediary.' },
     { title: 'Post-launch support', body: 'Maintenance and continued development after go-live.' },
   ],
 }
@@ -226,7 +254,15 @@ export const faq = [
   },
   {
     q: 'Can you work alongside our internal development team?',
-    a: 'Yes. We work as an engineering partner inside your process — your repositories, your review standards, your release cadence — or as a self-contained delivery team, whichever fits.',
+    a: 'Yes. We work as an engineering partner inside your process — your repositories, your review standards, your release cadence — or take a scope end to end, whichever fits.',
+  },
+  {
+    q: 'Who actually does the work?',
+    a: 'Malisetti Obulamurthy — the founder and engineer behind Trimugo. There is no team behind the name and no subcontracting: the person you scope the project with is the person who writes the code, ships the release and supports it afterwards.',
+  },
+  {
+    q: 'What hours do you work, and how does that overlap with Europe?',
+    a: 'Working hours are flexible across Indian and European time — IST and CET/CEST. A full European working day is covered, so stand-ups, reviews and calls run at your hours rather than at the edge of them.',
   },
   {
     q: 'Do you build MVPs or production systems?',
@@ -242,7 +278,7 @@ export const faq = [
   },
   {
     q: 'Can you work remotely with European companies?',
-    a: 'Yes. Delivery is remote and structured around milestones, scheduled demos and written documentation, with direct access to the engineers doing the work.',
+    a: 'Yes. Delivery is remote and structured around milestones, scheduled demos and written documentation, with direct access to the engineer doing the work.',
   },
 ]
 
@@ -271,7 +307,7 @@ export const contactChannels = [
 
 // ── 04 · Selected work · case studies ───────────────────────────────────────
 //
-// Two real systems, written up as case studies. Every claim below is derived
+// One real system, written up as a case study. Every claim below is derived
 // from the delivered product itself — the platforms it runs on, the stack it
 // was built with, and what it does. Nothing is quantified, because nothing has
 // been measured and verified. `existingWorkflow` and `outcomeMetrics` are left
@@ -321,44 +357,85 @@ export const caseStudies = [
       appstore: 'https://apps.apple.com/in/app/lumo-rentals/id6747010129',
     },
   },
-  {
-    id: 'profile-evaluator',
-    name: 'Profile Evaluator',
-    initials: 'PE',
-    status: 'In active development',
-    category: 'Career assessment platform · Web',
-    year: '2026',
-    summary:
-      'A career platform where a candidate’s profile is scored, their resume is built, learning material is delivered, and assessments and certifications are taken — in one portal instead of four tools.',
-    challenge:
-      'Assessing readiness, delivering the material that closes the gap, and certifying the result are normally three disconnected systems. Nothing carries a candidate’s state from one to the next, so the evaluation has to be repeated by hand at every stage.',
-    existingWorkflow: null,
-    solution:
-      'One portal that holds the candidate’s state end to end: profile scoring, resume building, learning material, assessment delivery and certification, all against the same record.',
-    ai: 'Automated evaluation — profiles and assessment submissions are scored by the system rather than reviewed manually, so the result is immediate and consistent across candidates.',
-    aiNote: null,
-    automation: [
-      'Profile scoring produced by the system instead of assessed by hand',
-      'Assessment delivery and grading run without manual intervention',
-      'Certification issued from the assessment result rather than tracked separately',
-    ],
-    engineering: [
-      'JWT authentication with role separation across candidate and administrative access',
-      'Assessment engine with scoring and certification issuance',
-      'Node.js and Express API over MongoDB',
-      'Resume builder generating structured, exportable output',
-    ],
-    outcome: [
-      'Live and in active development',
-      'Scoring, learning, assessment and certification share one candidate record',
-      'Evaluation is consistent between candidates rather than reviewer-dependent',
-    ],
-    outcomeMetrics: null,
-    flow: ['Profile', 'Scoring', 'Learning', 'Assessment', 'Grading', 'Certification'],
-    stack: ['React.js', 'Node.js', 'Express', 'MongoDB', 'JWT', 'Tailwind'],
-    links: { live: 'https://profile-evalutor-ui.onrender.com/' },
-  },
 ]
+
+// ── Privacy policy ──────────────────────────────────────────────────────────
+//
+// Rendered at #/privacy. Written to be accurate about THIS site rather than
+// copied from a generator: the site sets no cookies, runs no analytics and has
+// no tracking of any kind, and the only personal data it ever receives is what
+// somebody types into the contact form. The two honest disclosures a European
+// reader is actually looking for are the Google Fonts request and the fact that
+// the enquiry is read in India — both are stated plainly below.
+//
+// TODO(trimugo): `controller.postal` is the one field that cannot be derived
+// from this repository. Fill in the registered postal address — Germany and
+// Austria expect one (Impressum), and EU procurement will ask for it on the
+// vendor form. The section renders correctly without it until then.
+
+export const privacy = {
+  updated: '3 September 2026',
+  intro:
+    'This site sets no cookies, runs no analytics, and contains no tracking or advertising technology of any kind. The only personal data it receives is what you choose to type into the contact form. This page explains what happens to it.',
+  controller: {
+    name: 'Trimugo — Malisetti Obulamurthy',
+    role: 'Data controller',
+    postal: null,
+    email: 'trimugoitsolutions@gmail.com',
+    phone: '+91 85000 98088',
+  },
+  sections: [
+    {
+      title: 'What we collect, and when',
+      body: 'Only through the contact form. Nothing is collected from you by simply reading the site.',
+      items: [
+        'Your name, and the company you are writing on behalf of',
+        'Your work email address, and your company website if you choose to give it',
+        'What you are looking to build, and your expected timeline',
+        'The description of how your process works today, in your own words',
+      ],
+      note: 'Please do not put confidential business detail, personal data about third parties, or anything commercially sensitive into the form. A first message only needs enough to make the reply useful — the detail belongs in a conversation under an NDA.',
+    },
+    {
+      title: 'Why we process it, and on what legal basis',
+      body: 'To read your enquiry and reply to it, and to carry out any work that follows from it. Under the GDPR the basis is Article 6(1)(b) — steps taken at your request before entering into a contract — and, where an enquiry does not lead to a contract, Article 6(1)(f), our legitimate interest in answering people who contact us about our work. Your data is never used for marketing, never profiled, and never sold or shared for anyone else’s purposes.',
+    },
+    {
+      title: 'Who else touches it',
+      items: [
+        'Web3Forms (web3forms.com) — receives the form submission and relays it to our email inbox. It is a processor acting on our instructions.',
+        'Google Workspace — the inbox the enquiry is delivered to and stored in.',
+        'Vercel — hosts this website and keeps short-lived technical server logs, including the IP address of every request, for security and diagnostics.',
+        'Google Fonts — the two typefaces on this site are requested from fonts.googleapis.com and fonts.gstatic.com when the page loads, which discloses your IP address to Google. No cookie is set by this request. If you would rather not make it, a content blocker or a browser that blocks third-party requests will stop it, and the site remains fully usable in a fallback typeface.',
+      ],
+      note: 'There are no other recipients. No analytics provider, no advertising network, no session recorder, no chat widget, no A/B testing tool, and no social media pixel.',
+    },
+    {
+      title: 'Where it goes — transfer outside the EEA',
+      body: 'Stated plainly because it matters to a European client: Trimugo operates from India, which is a third country without an EU adequacy decision. When you send the form, your enquiry is read and answered in India. For an enquiry you send us yourself, the transfer relies on Article 49(1)(b) of the GDPR — it is necessary to take steps at your request before a contract. Where we go on to work together and personal data is processed as part of that work, the transfer is put on a proper footing in the contract, with Standard Contractual Clauses and a data processing agreement, before any such processing begins.',
+    },
+    {
+      title: 'How long it is kept',
+      body: 'An enquiry that does not lead to work is deleted once it is clear there is nothing to follow up — in any case within twelve months. An enquiry that does lead to work is kept for the duration of the engagement and afterwards only for as long as we have a legal or contractual reason to keep it. Server logs at the host are short-lived and rotate automatically.',
+    },
+    {
+      title: 'Your rights',
+      body: 'If you are in the EU or the EEA, the GDPR gives you the right to ask for a copy of the personal data we hold about you, to have it corrected, to have it erased, to restrict or object to how it is processed, and to receive it in a portable form. Ask by email and we will act on it within one month, free of charge. You also have the right to complain to the data protection authority in your own country if you are not satisfied with how we have handled it.',
+    },
+    {
+      title: 'Security',
+      body: 'The site is served over HTTPS only. The contact form is submitted over an encrypted connection and posted straight to the relay — it is never written to a database on this site, because this site has no database and no server-side storage of its own. Access to the inbox holding enquiries is protected by two-factor authentication.',
+    },
+    {
+      title: 'Children',
+      body: 'This is a business-to-business site. It is not directed at children and we do not knowingly collect personal data from anyone under 16.',
+    },
+    {
+      title: 'Changes',
+      body: 'If this policy changes, the date at the top of the page changes with it. There is no mailing list to notify, because we do not run one.',
+    },
+  ],
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // NOT YET VERIFIED — do not render, do not guess.

@@ -99,7 +99,7 @@ export default function Story() {
               </a>
             ))}
             {/* A real route change, so this one keeps its default behaviour. */}
-            <a href="#/classic">Standard site</a>
+            <a href="#/privacy">Privacy</a>
           </nav>
           <p className="st-foot__legal">© {new Date().getFullYear()} Trimugo. All rights reserved.</p>
         </div>

@@ -1,4 +1,5 @@
 import { Head, Reveal, Section } from './parts.jsx'
+import SocialIcon from '../../components/SocialIcon.jsx'
 import { scrollToElement } from '../core/engine'
 import {
   capabilities,
@@ -67,7 +68,7 @@ export function Capabilities() {
       <Head
         kicker="Section 06 — Engineering"
         title="What we actually ship with."
-        body="The stack the team builds and supports in production. Nothing listed here is aspirational."
+        body="The stack actually built and supported in production. Nothing listed here is aspirational."
       />
       <dl className="st-caps">
         {capabilities.map((c, i) => (
@@ -105,20 +106,56 @@ export function Why() {
   )
 }
 
-// ── 08 · Team ───────────────────────────────────────────────────────────────
+// ── 08 · Who builds it ──────────────────────────────────────────────────────
+//
+// A named human, not an org chart. A buyer hiring an independent engineer is
+// deciding about a person, and an anonymous list of roles gives them nothing to
+// decide with — so this section leads with the name and links out to the code.
 
 export function Team() {
+  const { person } = team
+
   return (
-    <Section id="team" label="The team">
-      <Head kicker="Section 08 — Team" title={team.line} body={team.body} />
-      <ul className="st-grid st-grid--4">
-        {team.roles.map((r, i) => (
-          <Reveal as="li" key={r.title} className="st-cell st-cell--tight" delay={i * 60}>
-            <h3 className="st-cell__title">{r.title}</h3>
-            <p className="st-cell__body">{r.body}</p>
-          </Reveal>
-        ))}
-      </ul>
+    <Section id="team" label="Who builds it">
+      <Head kicker="Section 08 — Who Builds It" title={team.line} body={team.body} />
+
+      <Reveal className="st-person">
+        <div className="st-person__id">
+          <h3 className="st-person__name">{person.name}</h3>
+          <p className="st-person__role">{person.role}</p>
+          <p className="st-person__body">{person.body}</p>
+          {/* Icon-only, so the accessible name has to come from the link itself:
+              `title` gives the sighted visitor the same answer on hover that
+              aria-label gives a screen reader. */}
+          {person.links?.length > 0 && (
+            <div className="st-person__links">
+              {person.links.map((l) => (
+                <a
+                  key={l.href}
+                  className="st-social"
+                  href={l.href}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  aria-label={l.label}
+                  title={l.label}
+                >
+                  <SocialIcon name={l.id} />
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="st-person__aside">
+          <p className="st-person__label">Covers</p>
+          <ul className="st-person__focus">
+            {person.focus.map((f) => (
+              <li key={f}>{f}</li>
+            ))}
+          </ul>
+          <p className="st-person__hours">{person.hours}</p>
+        </div>
+      </Reveal>
     </Section>
   )
 }
