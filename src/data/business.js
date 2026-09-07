@@ -301,6 +301,14 @@ export const faq = [
     a: 'Four hours a day, scheduled inside your working day rather than at the edge of it. From India (IST) that block covers a full European day in CET/CEST, the US Eastern morning, and all of India and APAC; US Pacific works by arrangement. Stand-ups, reviews and calls run at your hours.',
   },
   {
+    q: 'Do you work as a freelance developer or on a contract basis?',
+    a: 'Both — they are the same engineer either way. A freelance engagement is scoped project by project against defined milestones; a contract engagement is an ongoing block of hours inside your team, your repositories and your release process. Availability is four hours a day at USD 15–18 per hour, billed hourly or per milestone, and there is no agency margin or account layer on top because there is no agency.',
+  },
+  {
+    q: 'What AI solutions do you actually build?',
+    a: 'Three things, and only where they earn their place: AI agents that reason over your business data inside explicit boundaries, retrieval over your own documents, and extraction and classification of invoices, contracts and forms. What we do not do is put a model in front of work that is better handled by deterministic code — seven of the nine stages in a typical workflow are ordinary software, and we will tell you plainly when AI is the wrong answer.',
+  },
+  {
     q: 'Do you build MVPs or production systems?',
     a: 'Both, but we build MVPs as the first increment of a production system rather than as a throwaway. The architecture is chosen so the prototype can survive if it succeeds.',
   },

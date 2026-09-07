@@ -6,10 +6,11 @@
   "description": "Trimugo \u2014 Technology Solutions That Drive Business Growth",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/build-seo-pages.mjs",
     "preview": "vite preview",
     "check:gallery": "node scripts/check-gallery.mjs",
-    "check:snap": "node scripts/check-snap.mjs"
+    "check:snap": "node scripts/check-snap.mjs",
+    "check:seo": "node scripts/check-seo.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^9.122.0",

@@ -82,7 +82,7 @@ export default function Story() {
             <Logo className="st-foot__mark" />
             <span>
               <strong>Trimugo</strong>
-              <em>Freelance Product Engineering</em>
+              <em>Smart Solutions</em>
             </span>
           </a>
           <nav className="st-foot__nav" aria-label="Footer">
@@ -98,6 +98,14 @@ export default function Story() {
                 {l.label}
               </a>
             ))}
+            {/* Real pages, generated at build time by scripts/build-seo-pages.mjs.
+                They are the site's only URLs other than this one, so linking to
+                them here is how a crawler reaches them and how a reader who
+                wants the plain-text version of a service gets out of the 3D. */}
+            <a href="/hire-freelance-react-developer/">Freelance developer</a>
+            <a href="/contract-developer-for-hire/">Contract developer</a>
+            <a href="/ai-agents-document-automation/">AI solutions</a>
+            <a href="/work/">All projects</a>
             {/* A real route change, so this one keeps its default behaviour. */}
             <a href="#/privacy">Privacy</a>
           </nav>

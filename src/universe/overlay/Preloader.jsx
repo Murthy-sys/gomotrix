@@ -62,12 +62,18 @@ export default function Preloader({ onEnter }) {
         </span>
         {/* The threshold is the real first screen, so it carries the company
             line. The headline proper waits for the first beat — saying the
-            same sentence twice in three seconds reads as a stutter. */}
-        <h1 className="uv-pre__title">
-          Freelance Product
+            same sentence twice in three seconds reads as a stutter.
+
+            A <p>, not an <h1>: the page's one canonical heading is the .uv-sr
+            block in Universe.jsx, and this element sits ahead of it in the DOM.
+            Two h1s split the signal on a branded search and hand the crawler
+            the wrong one first. Styling is class-only, so the tag is free to
+            change and the words and appearance are untouched. */}
+        <p className="uv-pre__title">
+          Product &amp; Workflow
           <br />
           Engineering Partner
-        </h1>
+        </p>
         <p className="uv-pre__sub">
           One engineer who takes an idea to a shipped release, and turns the work a business still
           does by hand into software that runs it. What follows is a scroll-driven journey through

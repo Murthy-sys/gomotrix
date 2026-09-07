@@ -48,7 +48,7 @@ export default function Privacy() {
           <Logo className="st-legal__mark" />
           <span>
             <strong>Trimugo</strong>
-            <em>Freelance Product Engineering</em>
+            <em>Smart Solutions</em>
           </span>
         </a>
         <a className="uv-btn uv-btn--sm uv-btn--ghost" href="#/">
