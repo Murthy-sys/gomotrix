@@ -19,10 +19,10 @@
 // ─────────────────────────────────────────────────────────────────────────────
 import fs from 'fs'
 import path from 'path'
+import { ORIGIN } from './seo-validation.mjs'
 
 const root = process.cwd()
 const out = path.join(root, 'dist')
-const ORIGIN = 'https://www.trimugo.in'
 
 const { projects } = await import(`${root}/src/data/content.js`)
 const { capabilities, process: steps, faq, caseStudies } = await import(`${root}/src/data/business.js`)
@@ -183,13 +183,8 @@ const service = (name, description) => ({
 const SERVICE_PAGES = [
   // ── The entity page ───────────────────────────────────────────────────────
   //
-  // This one is not written for a service query. Google currently autocorrects
-  // "trimugo" to "trivago" — one letter apart on the same TLD — because the
-  // string is not an entity in its graph, and correction is what it does with a
-  // string that means nothing to it. An About page gives the name a canonical
-  // home: the word as the h1, stated as a proper noun, next to the facts that
-  // disambiguate it (a person, a city, a trade). Organization schema on the
-  // same URL ties the name to the profiles that already exist.
+  // Keep the brand next to its verifiable business facts and existing profiles.
+  // Search-engine corrections or index status require separate live evidence.
   {
     url: '/about/',
     title: 'About Trimugo — Malisetti Obulamurthy, Bangalore',
@@ -575,7 +570,8 @@ for (const p of pages) {
 
 // The sitemap is generated, not hand-maintained, so it can never fall behind
 // the pages that actually exist.
-const today = new Date().toISOString().slice(0, 10)
+// A rebuild is not evidence that a page's content changed. Omit lastmod until
+// trustworthy per-page modification dates are available.
 const urls = [{ url: '/', priority: '1.0', freq: 'weekly' }, ...pages.map((p) => ({ url: p.url, priority: '0.8', freq: 'monthly' }))]
 fs.writeFileSync(
   path.join(out, 'sitemap.xml'),
@@ -585,7 +581,7 @@ fs.writeFileSync(
 ${urls
   .map(
     (u) =>
-      `  <url>\n    <loc>${ORIGIN}${u.url}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${u.freq}</changefreq>\n    <priority>${u.priority}</priority>\n  </url>`,
+      `  <url>\n    <loc>${ORIGIN}${u.url}</loc>\n    <changefreq>${u.freq}</changefreq>\n    <priority>${u.priority}</priority>\n  </url>`,
   )
   .join('\n')}
 </urlset>

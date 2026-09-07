@@ -62,6 +62,31 @@ export default function Story() {
           into the page instead of being cut off by it. */}
       <div className="st-seam" aria-hidden="true" />
 
+      <section className="st-section st-overview" id="overview" aria-labelledby="overview-title">
+        <div className="st-wrap">
+          <p className="st-kicker">Independent engineering · Remote, worldwide</p>
+          <h1 className="st-title" id="overview-title">Trimugo — product &amp; workflow engineering</h1>
+          <p className="st-lead">
+            Trimugo is the freelance product and workflow engineering practice of Malisetti
+            Obulamurthy. One engineer takes your idea from first scope to a shipped release,
+            builds the web and mobile applications your business runs on, and automates the
+            manual work between them.
+          </p>
+          <p className="st-lead">
+            React, Vue and React Native development, system integration, and AI agents and
+            document intelligence where a project calls for them. Available for freelance
+            projects or contract work alongside your team, remotely worldwide.
+          </p>
+          <nav className="st-overview__links" aria-label="Explore Trimugo">
+            <a href="/about/">About Trimugo</a>
+            <a href="/hire-freelance-react-developer/">Freelance development</a>
+            <a href="/contract-developer-for-hire/">Contract development</a>
+            <a href="/ai-agents-document-automation/">AI &amp; document automation</a>
+            <a href="/work/">Selected work</a>
+          </nav>
+        </div>
+      </section>
+
       <Problem />
       <Pipeline />
       <Solutions />

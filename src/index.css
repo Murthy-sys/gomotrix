@@ -35,6 +35,3 @@ h1, h2, h3 { font-feature-settings: 'ss01'; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { border-radius: 999px; background: rgba(255, 255, 255, 0.16); }
 ::-webkit-scrollbar-thumb:hover { background: rgba(183, 255, 106, 0.5); }
-
-/* Shown while a lazy route's chunk is in flight. */
-.uv-boot { min-height: 100vh; background: #050505; }

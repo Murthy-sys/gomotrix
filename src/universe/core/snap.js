@@ -39,6 +39,7 @@ export function createSnap({ lenis, journeyMax, reduced }) {
   let locked = false
   let tween = null
   let idle = 0
+  let crossingToStory = false
   let lastY = typeof window === 'undefined' ? 0 : window.scrollY
 
   const px = (p) => p * journeyMax()
@@ -81,7 +82,14 @@ export function createSnap({ lenis, journeyMax, reduced }) {
   }
 
   /** Hand the wheel back to Lenis so the prose below scrolls normally. */
-  const release = () => {
+  const release = ({ programmatic = false } = {}) => {
+    // A navigation click can interrupt a scene snap. Only one animation may
+    // write the scroll position during the handoff to the story track.
+    tween?.kill()
+    tween = null
+    locked = false
+    idle = 0
+    crossingToStory = programmatic
     if (mode === 'story') return
     mode = 'story'
     observer.disable()
@@ -175,6 +183,18 @@ export function createSnap({ lenis, journeyMax, reduced }) {
       const y = window.scrollY
 
       if (mode === 'story') {
+        // A programmatic trip to an overview/contact section begins inside
+        // the journey. Let Lenis cross that range before interpreting the
+        // position as a reader scrolling back upwards into the last scene.
+        // An interrupted animation releases the guard on the next frame, so
+        // a canceled trip cannot leave journey gestures disabled indefinitely.
+        if (crossingToStory) {
+          if (y < endY() - EPS && lenis.isScrolling === 'smooth') {
+            lastY = y
+            return
+          }
+          crossingToStory = false
+        }
         // Back inside the journey's scroll range — take the wheel again and
         // resume at the last scene rather than wherever the momentum landed.
         if (y < endY() - EPS) {
@@ -211,6 +231,7 @@ export function createSnap({ lenis, journeyMax, reduced }) {
 
     /** Fly to an arbitrary point on the journey — the in-world CTAs use this. */
     toProgress(p, duration = 1.5) {
+      crossingToStory = false
       if (mode === 'story') {
         mode = 'journey'
         lenis.stop()

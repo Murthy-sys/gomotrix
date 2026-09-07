@@ -43,6 +43,9 @@ src/
 
 ## Notes / next steps
 
+For search discovery, validation commands, and Google/Bing submission steps, see
+[Trimugo search indexing](docs/seo/trimugo-indexing.md).
+
 The spec mentions dedicated industry/solution/product detail pages and app-style features
 (Auth, Client Portal, Project Tracking, Blog CMS, Admin Panel). This deliverable is the
 public marketing site (single page with anchored sections). To add multi-page routing,

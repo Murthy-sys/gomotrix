@@ -9,14 +9,98 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#050505" />
-    <!-- The only render-blocking CSS on the page, and deliberately so: the
-         stylesheet arrives with the bundle, and without this the document
-         paints white until it does. -->
+    <!-- Critical styling also belongs to the readable HTML fallback. It must
+         remain usable before, or without, any application bundle or fonts. -->
     <style>
       html,
       body {
         margin: 0;
         background: #050505;
+      }
+      .site-intro,
+      .site-recovery {
+        box-sizing: border-box;
+        color: #ffffff;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .site-intro {
+        display: grid;
+        align-content: center;
+        min-height: 100vh;
+        min-height: 100svh;
+        max-width: 64rem;
+        margin: 0 auto;
+        padding: clamp(2rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+      }
+      .site-intro__kicker {
+        margin: 0 0 1.3rem;
+        color: #b7ff6a;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        line-height: 1.7;
+        text-transform: uppercase;
+      }
+      .site-intro h1 {
+        max-width: 21ch;
+        margin: 0 0 1.5rem;
+        font-family: 'Space Grotesk', Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: clamp(2rem, 5vw, 3.7rem);
+        font-weight: 500;
+        letter-spacing: -0.035em;
+        line-height: 1.08;
+        text-wrap: balance;
+      }
+      .site-intro__summary {
+        max-width: 49rem;
+        margin: 0 0 1rem;
+        color: #b8b8b8;
+        font-size: clamp(1rem, 1.4vw, 1.1rem);
+        line-height: 1.7;
+      }
+      .site-intro__links,
+      .site-intro__contact {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem 1.5rem;
+        margin-top: 1.5rem;
+        padding-top: 1.1rem;
+        border-top: 1px solid #2b2b2b;
+      }
+      .site-intro a,
+      .site-recovery button {
+        color: #b7ff6a;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        text-underline-offset: 0.25em;
+        overflow-wrap: anywhere;
+      }
+      .site-intro a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+      }
+      .site-intro a:focus-visible,
+      .site-recovery button:focus-visible {
+        outline: 2px solid #b7ff6a;
+        outline-offset: 5px;
+      }
+      .site-intro__contact a { color: #c8c8c8; }
+      .site-recovery {
+        padding: 1rem 1.5rem;
+        background: #151b10;
+        text-align: center;
+        line-height: 1.6;
+      }
+      .site-recovery p { margin: 0; }
+      .site-recovery button {
+        border: 0;
+        padding: 0.65rem;
+        background: transparent;
+        font-family: inherit;
+        text-decoration: underline;
+        cursor: pointer;
       }
     </style>
     <title>Trimugo — Web &amp; Mobile Product Engineering, Workflow Automation</title>
@@ -267,111 +351,42 @@
     </noscript>
   </head>
   <body>
-    <!-- ─────────────────────────────────────────────────────────────────────
-         The crawlable page.
+    <!-- The readable homepage, available to visitors and crawlers without JS.
+         Anyone auditing what the site actually claims without running a
+         browser can read this introduction and the JSON-LD above it.
 
-         Everything below #root is replaced the instant React mounts
-         (createRoot().render() clears its container), so this is never seen by
-         a visitor for more than a moment. It exists for two readers:
-
-         1. A crawler that does not execute JavaScript. Before this, the served
-            HTML was `<div id="root"></div>` and nothing else — a search engine
-            that did not run the bundle saw a page with no content at all, and
-            even Googlebot, which does render, defers JS to a second pass.
-            Branded search ("Trimugo") cannot be won by a page with no words.
-         It is VISUALLY HIDDEN, not merely replaced. An earlier version painted
-         this block for real, and because first contentful paint lands at ~400ms
-         while React cannot mount until the 324KB Universe chunk arrives, every
-         visitor saw a flash of plain text before the preloader — a blink, on a
-         page whose whole job is to look composed. Hiding it costs nothing that
-         matters: a crawler reads the DOM, not the pixels, and the site already
-         uses the same technique for its canonical <h1> (.uv-sr in Universe.jsx).
-         ───────────────────────────────────────────────────────────────────── -->
+         main.jsx captures this trusted, local markup before React mounts.
+         The same content stays on screen while a route loads and is restored
+         if it fails. Only a successfully rendered route replaces it. Critical
+         styling above prevents the old flash of unstyled introductory copy. -->
     <div id="root">
-      <div
-        style="
-          position: absolute;
-          width: 1px;
-          height: 1px;
-          padding: 0;
-          margin: -1px;
-          overflow: hidden;
-          clip: rect(0 0 0 0);
-          clip-path: inset(50%);
-          white-space: nowrap;
-          border: 0;
-        "
-      >
-        <div>
-          <p style="font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #b7ff6a; margin: 0 0 1.4rem">
-            Trimugo — Smart Solutions
-          </p>
-          <h1 style="font-size: clamp(1.9rem, 5vw, 3rem); line-height: 1.1; font-weight: 500; margin: 0 0 1.4rem">
-            Turn an idea, or a broken process, into working software.
-          </h1>
-          <p style="color: #a8a8a8; margin: 0 0 1.6rem">
-            Trimugo is a product and workflow engineering practice run by one engineer,
-            Malisetti Obulamurthy — available as a freelance developer on a project basis, or as a
-            contract developer working inside your team, your repositories and your release
-            process. Bring a product idea that needs building, or an operation that still runs by
-            hand: scope, architecture, build and release are handled end to end. Four hours a day,
-            billed hourly or against milestones. Remote, worldwide.
-          </p>
-
-          <h2 style="font-size: 1.05rem; font-weight: 500; margin: 0 0 0.8rem; color: #f2f2f2">
-            Hire a freelance or contract developer
-          </h2>
-          <p style="color: #a8a8a8; margin: 0 0 1.6rem">
-            Freelance React developer, Vue.js developer and React Native developer for web and
-            mobile products — front-end engineering, API integration, application state and data
-            flow, with eight years of production delivery behind it. Engaged project by project
-            against defined milestones, or as an ongoing contract block of hours alongside an
-            existing engineering team. You talk to the engineer writing the code; there is no
-            agency margin and no account layer.
-          </p>
-
-          <h2 style="font-size: 1.05rem; font-weight: 500; margin: 0 0 0.8rem; color: #f2f2f2">
-            AI solutions, where they earn their place
-          </h2>
-          <p style="color: #a8a8a8; margin: 0 0 1.6rem">
-            AI agents that reason over your business data inside explicit boundaries, retrieval
-            over your own documents, and document intelligence — extraction and classification of
-            invoices, contracts and forms. Built as part of a workflow, not bolted onto one: most
-            of a working system is deterministic code, and we will say plainly when a model is the
-            wrong answer for a step.
-          </p>
-          <p style="color: #a8a8a8; margin: 0 0 1.6rem">
-            What we build: business web applications, React Native mobile apps shipped to the App
-            Store and Google Play, process automation, system integration with the CRM, ERP and
-            APIs you already run, and workflow platforms that carry a process from intake to audit.
-            AI agents and document intelligence when a project genuinely calls for one — not by
-            default.
-          </p>
-          <p style="color: #a8a8a8; margin: 0 0 1.6rem">
-            Built with React, Vue, TypeScript, React Native, Node.js and PostgreSQL. Delivered
-            remotely to companies in Europe, the UK, the US, India and the wider APAC region,
-            against defined milestones with direct access to the engineer doing the work.
-          </p>
-          <p style="margin: 0 0 1.6rem">
-            <a href="/hire-freelance-react-developer/" style="color: #b7ff6a">Hire a freelance developer</a>
-            &nbsp;·&nbsp;
-            <a href="/contract-developer-for-hire/" style="color: #b7ff6a">Contract developer for hire</a>
-            &nbsp;·&nbsp;
-            <a href="/ai-agents-document-automation/" style="color: #b7ff6a">AI agents &amp; document automation</a>
-            &nbsp;·&nbsp;
-            <a href="/work/" style="color: #b7ff6a">Selected work</a>
-            &nbsp;·&nbsp;
-            <a href="/about/" style="color: #b7ff6a">About Trimugo</a>
-          </p>
-          <p style="margin: 0">
-            <a href="mailto:murthy@trimugo.in" style="color: #b7ff6a">murthy@trimugo.in</a>
-            &nbsp;·&nbsp;
-            <a href="tel:+918500098088" style="color: #b7ff6a">+91 85000 98088</a>
-            &nbsp;·&nbsp;
-            <a href="https://www.trimugo.in/#/privacy" style="color: #b7ff6a">Privacy</a>
-          </p>
+      <main class="site-intro" aria-labelledby="site-intro-title">
+        <p class="site-intro__kicker">Independent engineering · Remote, worldwide</p>
+        <h1 id="site-intro-title">Trimugo — product &amp; workflow engineering</h1>
+        <p class="site-intro__summary">
+          Trimugo is the freelance product and workflow engineering practice of Malisetti
+          Obulamurthy. One engineer takes your idea from first scope to a shipped release,
+          builds the web and mobile applications your business runs on, and automates the
+          manual work between them.
+        </p>
+        <p class="site-intro__summary">
+          Work includes React, Vue and React Native development, system integration, and
+          AI agents and document intelligence where a project calls for them. Available
+          for freelance projects or contract work alongside your team, remotely worldwide.
+        </p>
+        <nav class="site-intro__links" aria-label="Explore Trimugo">
+          <a href="/about/">About Trimugo</a>
+          <a href="/hire-freelance-react-developer/">Freelance development</a>
+          <a href="/contract-developer-for-hire/">Contract development</a>
+          <a href="/ai-agents-document-automation/">AI &amp; document automation</a>
+          <a href="/work/">Selected work</a>
+        </nav>
+        <div class="site-intro__contact" aria-label="Contact Trimugo">
+          <a href="mailto:murthy@trimugo.in">Contact: murthy@trimugo.in</a>
+          <a href="tel:+918500098088">+91 85000 98088</a>
+          <a href="/#/privacy">Privacy</a>
         </div>
-      </div>
+      </main>
     </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

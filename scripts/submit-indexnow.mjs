@@ -1,80 +1,76 @@
-// ─────────────────────────────────────────────────────────────────────────────
-// IndexNow submission.
-//
-// Pushes every URL in the sitemap to the IndexNow endpoint, which fans out to
-// Bing, Yandex, Seznam and Naver. Those engines then fetch the pages within
-// hours instead of waiting to discover them by crawl — which matters here
-// because nothing on the web links to trimugo.in yet, so there is no crawl path
-// to discover.
-//
-// Google does NOT participate in IndexNow. Google discovery needs either a
-// verified Search Console property (URL Inspection → Request indexing) or an
-// inbound link from a site Google already crawls. No script can substitute.
-//
-// Requires the key file to be LIVE at https://www.trimugo.in/<key>.txt — the
-// endpoint fetches it to prove you control the domain. Deploy before running.
-//
-//   npm run seo:submit
-//
-// ─────────────────────────────────────────────────────────────────────────────
-import fs from 'fs'
-import path from 'path'
+// Notifications are not indexing guarantees. Google does not use IndexNow.
+// Protocol and response meanings: https://www.indexnow.org/documentation
+import { ORIGIN } from './seo-validation.mjs'
+import { auditProduction } from './audit-seo-live.mjs'
+import { requestResource, readBuildExpectations, parseNetworkArgs, isMain } from './seo-network.mjs'
 
-const ORIGIN = 'https://www.trimugo.in'
-const HOST = 'www.trimugo.in'
+export const INDEXNOW_ENDPOINT = 'https://api.indexnow.org/indexnow'
 
-// The key is whatever <key>.txt sits in public/ — single source of truth, so
-// rotating the key is just replacing that file.
-const keyFile = fs
-  .readdirSync(path.join(process.cwd(), 'public'))
-  .find((f) => /^[0-9a-f]{16,128}\.txt$/.test(f))
-
-if (!keyFile) {
-  console.error('No IndexNow key file found in public/. Expected <hex>.txt')
-  process.exit(1)
-}
-const key = keyFile.replace(/\.txt$/, '')
-
-// Read the generated sitemap rather than a hand-kept list, so this can never
-// submit a URL that was not actually built.
-const sitemapPath = path.join(process.cwd(), 'dist', 'sitemap.xml')
-if (!fs.existsSync(sitemapPath)) {
-  console.error('dist/sitemap.xml missing — run `npm run build` first.')
-  process.exit(1)
-}
-const urlList = [...fs.readFileSync(sitemapPath, 'utf8').matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1])
-
-// Refuse to submit if the key is not actually reachable — the endpoint returns
-// 202 for almost everything, so a silent failure here is easy to miss.
-const keyUrl = `${ORIGIN}/${key}.txt`
-const probe = await fetch(keyUrl).catch(() => null)
-if (!probe || !probe.ok) {
-  console.error(`\nKey file is not live at ${keyUrl} (${probe ? probe.status : 'unreachable'}).`)
-  console.error('Deploy first — IndexNow fetches this file to verify you own the domain.\n')
-  process.exit(1)
-}
-const served = (await probe.text()).trim()
-if (served !== key) {
-  console.error(`\nKey file at ${keyUrl} contains "${served}", expected "${key}".\n`)
-  process.exit(1)
+export async function submitIndexNow({ dryRun = false, dist, fetchImpl = globalThis.fetch, timeoutMs, concurrency } = {}) {
+  const expected = readBuildExpectations(dist)
+  const preflight = await auditProduction({ expected, fetchImpl, timeoutMs, concurrency })
+  const result = {
+    mode: dryRun ? 'dry-run' : 'submission', checkedAt: preflight.checkedAt,
+    endpoint: INDEXNOW_ENDPOINT, urls: expected.urls, keyLocation: expected.keyUrl,
+    preflight: { ok: preflight.matchesBuild, errors: preflight.errors, buildDifferences: preflight.buildDifferences },
+    attempted: false, submitted: false, ok: false, receipt: null,
+  }
+  if (!result.preflight.ok) {
+    result.message = 'Preflight failed. No notification sent; resolve live blockers and deploy the intended build before submitting.'
+    return result
+  }
+  if (dryRun) {
+    result.ok = true
+    result.message = 'Dry run passed. No POST request or indexing notification was sent.'
+    return result
+  }
+  let response
+  result.attempted = true
+  try {
+    response = await requestResource(INDEXNOW_ENDPOINT, {
+      fetchImpl, timeoutMs, allowedOrigins: ['https://api.indexnow.org'], maxRedirects: 0,
+      method: 'POST', headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      body: JSON.stringify({ host: new URL(ORIGIN).hostname, key: expected.key, keyLocation: expected.keyUrl, urlList: expected.urls }),
+    })
+  } catch (error) {
+    result.message = `Submission attempted, but no confirmed endpoint receipt was obtained: ${error.message}. Do not assume acceptance; no automatic retry was made.`
+    return result
+  }
+  result.submitted = true
+  result.receipt = {
+    receivedAt: new Date().toISOString(), status: response.status,
+    body: response.text.slice(0, 2000), retryAfter: response.retryAfter || null,
+  }
+  if (response.status === 200) {
+    result.ok = true
+    result.message = 'IndexNow HTTP 200: URL notification accepted. This does not confirm crawling, indexing, or ranking.'
+  } else if (response.status === 202) {
+    result.ok = true
+    result.message = 'IndexNow HTTP 202: notification received; key validation is pending. This does not confirm crawling, indexing, or ranking.'
+  } else {
+    const reasons = { 400: 'invalid request format', 403: 'key verification failed', 422: 'URL host or protocol validation failed', 429: 'rate limited' }
+    result.message = `IndexNow HTTP ${response.status}: ${reasons[response.status] || 'notification not accepted'}. No automatic retry was made.`
+  }
+  return result
 }
 
-console.log(`\nKey verified at ${keyUrl}`)
-console.log(`Submitting ${urlList.length} URLs to IndexNow (Bing, Yandex, Seznam, Naver)...\n`)
-for (const u of urlList) console.log(`  ${u}`)
-
-const res = await fetch('https://api.indexnow.org/indexnow', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json; charset=utf-8' },
-  body: JSON.stringify({ host: HOST, key, keyLocation: keyUrl, urlList }),
-})
-
-// 200 and 202 both mean accepted; 202 means "received, key validation pending".
-console.log(`\nIndexNow responded ${res.status} ${res.statusText}`)
-if (res.status === 200 || res.status === 202) {
-  console.log('Accepted. Expect Bing to crawl within hours to a couple of days.\n')
-} else {
-  console.log(await res.text())
-  console.log('\nNot accepted — check the key file and host above.\n')
-  process.exit(1)
+if (isMain(import.meta.url)) {
+  try {
+    const options = parseNetworkArgs(process.argv.slice(2), { submission: true })
+    const result = await submitIndexNow(options)
+    if (options.json) console.log(JSON.stringify(result, null, 2))
+    else {
+      console.log(`IndexNow ${result.mode}: ${result.urls.length} intended production URL(s)`)
+      for (const url of result.urls) console.log(`  ${url}`)
+      console.log(`Key location: ${result.keyLocation}`)
+      console.log(`Preflight: ${result.preflight.ok ? 'passed' : 'failed'}`)
+      for (const error of [...result.preflight.errors, ...result.preflight.buildDifferences]) console.log(`  ${error}`)
+      if (result.receipt) console.log(`Receipt: ${JSON.stringify(result.receipt)}`)
+      console.log(result.message)
+    }
+    process.exitCode = result.ok ? 0 : 1
+  } catch (error) {
+    console.error(`IndexNow preflight failed; no notification sent: ${error.message}`)
+    process.exitCode = 1
+  }
 }

@@ -12,15 +12,26 @@ export default function Preloader({ onEnter }) {
   const [ready, setReady] = useState(false)
   const [leaving, setLeaving] = useState(false)
   const shell = useRef()
+  const timers = useRef([])
+  const holdsScrollLock = useRef(false)
 
   useEffect(() => {
     // Scroll is locked until the user chooses to enter.
     document.documentElement.classList.add('uv-locked')
+    holdsScrollLock.current = true
 
     // The canvas compiles its shaders on the first frames; a short beat here
     // means the first thing the user sees is already running at full rate.
     const t = setTimeout(() => setReady(true), 1300)
-    return () => clearTimeout(t)
+    return () => {
+      clearTimeout(t)
+      timers.current.forEach(clearTimeout)
+      timers.current = []
+      if (holdsScrollLock.current) {
+        document.documentElement.classList.remove('uv-locked')
+        holdsScrollLock.current = false
+      }
+    }
   }, [])
 
   const enter = () => {
@@ -28,13 +39,14 @@ export default function Preloader({ onEnter }) {
     setLeaving(true)
     startAudio()
     document.documentElement.classList.remove('uv-locked')
+    holdsScrollLock.current = false
     // Belt-and-suspenders: startEngine already tried this while still locked;
     // redo it now that overflow is free so the journey opens on its starting
     // beat instead of snapping to the top on the first real scroll event.
     syncScrollTo(state.progress)
     set({ entered: true })
     // Matches the CSS fade so the panel is gone before scroll can begin.
-    setTimeout(() => onEnter?.(), 1400)
+    timers.current.push(setTimeout(() => onEnter?.(), 1400))
   }
 
   // For the visitor who did not come here to be taken on a journey. Enters
@@ -43,7 +55,7 @@ export default function Preloader({ onEnter }) {
   // first section of the business case on this same page.
   const skipToOverview = () => {
     enter()
-    setTimeout(() => scrollToElement('#problem', { duration: 1.2 }), 180)
+    timers.current.push(setTimeout(() => scrollToElement('#overview', { duration: 1.2 }), 180))
   }
 
   return (
@@ -64,11 +76,8 @@ export default function Preloader({ onEnter }) {
             line. The headline proper waits for the first beat — saying the
             same sentence twice in three seconds reads as a stutter.
 
-            A <p>, not an <h1>: the page's one canonical heading is the .uv-sr
-            block in Universe.jsx, and this element sits ahead of it in the DOM.
-            Two h1s split the signal on a branded search and hand the crawler
-            the wrong one first. Styling is class-only, so the tag is free to
-            change and the words and appearance are untouched. */}
+            The document's main heading is visible in Story's business overview;
+            this short introduction keeps its paragraph semantics. */}
         <p className="uv-pre__title">
           Product &amp; Workflow
           <br />

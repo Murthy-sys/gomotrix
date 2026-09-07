@@ -93,6 +93,29 @@
 }
 .st-head--center .st-lead { margin-inline: auto; }
 
+/* The site's main heading is visible in the overview and never reveal-gated. */
+.st-overview__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 1.5rem;
+  margin-top: 1.7rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--hair);
+}
+.st-overview__links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--accent);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  text-underline-offset: 0.25em;
+}
+.st-overview__links a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 5px;
+}
+
 /* A quiet caveat / footnote block. */
 .st-note {
   margin-top: clamp(2rem, 4vw, 3rem);

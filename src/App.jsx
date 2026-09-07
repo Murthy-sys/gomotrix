@@ -1,10 +1,26 @@
-import { Suspense, lazy, useState, useEffect } from 'react'
+import { Component, Suspense, lazy, useState, useEffect } from 'react'
+import HomepageFallback from './components/HomepageFallback.jsx'
 
 // The journey is the site. It is a large bundle (three.js + postprocessing), so
 // it is loaded lazily — which also means the privacy route below never pulls a
 // byte of WebGL down just to render a page of text.
 const Universe = lazy(() => import('./universe/Universe.jsx'))
 const Privacy = lazy(() => import('./pages/Privacy.jsx'))
+
+class RouteErrorBoundary extends Component {
+  state = { failed: false }
+
+  static getDerivedStateFromError() {
+    return { failed: true }
+  }
+
+  render() {
+    if (this.state.failed) {
+      return <HomepageFallback content={this.props.fallbackContent} failed />
+    }
+    return this.props.children
+  }
+}
 
 function useHashRoute() {
   const [hash, setHash] = useState(() => (typeof window !== 'undefined' ? window.location.hash : ''))
@@ -16,7 +32,7 @@ function useHashRoute() {
   return hash
 }
 
-export default function App() {
+export default function App({ fallbackContent }) {
   const hash = useHashRoute()
 
   // Two routes only. #/privacy is the legal page; everything else — including
@@ -25,8 +41,10 @@ export default function App() {
   const isPrivacy = /^#\/privacy\b/.test(hash)
 
   return (
-    <Suspense fallback={<div className="uv-boot" aria-label="Loading" />}>
-      {isPrivacy ? <Privacy /> : <Universe />}
-    </Suspense>
+    <RouteErrorBoundary key={isPrivacy ? 'privacy' : 'home'} fallbackContent={fallbackContent}>
+      <Suspense fallback={<HomepageFallback content={fallbackContent} />}>
+        {isPrivacy ? <Privacy /> : <Universe />}
+      </Suspense>
+    </RouteErrorBoundary>
   )
 }

@@ -240,7 +240,7 @@ export function scrollToElement(target, { duration = 1.6, offset } = {}) {
   // Everything reachable this way lives in the prose below the journey, so the
   // snap controller has to let go of the wheel first — otherwise it would pull
   // the reader back onto a scene rest point mid-flight.
-  snapRef?.release()
+  snapRef?.release({ programmatic: true })
   if (lenisRef) {
     lenisRef.scrollTo(el, { duration, offset: clear, easing: (t) => 1 - Math.pow(1 - t, 4) })
   } else {

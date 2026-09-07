@@ -11,6 +11,9 @@
     "check:gallery": "node scripts/check-gallery.mjs",
     "check:snap": "node scripts/check-snap.mjs",
     "check:seo": "node scripts/check-seo.mjs",
+    "test:seo": "node --test scripts/check-seo.test.mjs scripts/seo-network.test.mjs scripts/check-overview-navigation.test.mjs",
+    "seo:audit": "node scripts/audit-seo-live.mjs",
+    "seo:dry-run": "node scripts/submit-indexnow.mjs --dry-run",
     "seo:submit": "node scripts/submit-indexnow.mjs"
   },
   "dependencies": {
