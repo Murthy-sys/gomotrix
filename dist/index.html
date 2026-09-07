@@ -9,6 +9,16 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#050505" />
+    <!-- The only render-blocking CSS on the page, and deliberately so: the
+         stylesheet arrives with the bundle, and without this the document
+         paints white until it does. -->
+    <style>
+      html,
+      body {
+        margin: 0;
+        background: #050505;
+      }
+    </style>
     <title>Trimugo — Web &amp; Mobile Product Engineering, Workflow Automation</title>
     <meta
       name="description"
@@ -271,27 +281,30 @@
             that did not run the bundle saw a page with no content at all, and
             even Googlebot, which does render, defers JS to a second pass.
             Branded search ("Trimugo") cannot be won by a page with no words.
-         2. Anyone on a slow connection, who now reads the headline instead of
-            watching a black screen while a megabyte of WebGL arrives.
-
-         Styles are inline because the stylesheet is imported by the bundle and
-         therefore does not exist yet at this point in the load.
+         It is VISUALLY HIDDEN, not merely replaced. An earlier version painted
+         this block for real, and because first contentful paint lands at ~400ms
+         while React cannot mount until the 324KB Universe chunk arrives, every
+         visitor saw a flash of plain text before the preloader — a blink, on a
+         page whose whole job is to look composed. Hiding it costs nothing that
+         matters: a crawler reads the DOM, not the pixels, and the site already
+         uses the same technique for its canonical <h1> (.uv-sr in Universe.jsx).
          ───────────────────────────────────────────────────────────────────── -->
     <div id="root">
       <div
         style="
-          min-height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 8vh 6vw;
-          background: #050505;
-          color: #f2f2f2;
-          font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-          line-height: 1.6;
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0 0 0 0);
+          clip-path: inset(50%);
+          white-space: nowrap;
+          border: 0;
         "
       >
-        <div style="max-width: 44rem">
+        <div>
           <p style="font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #b7ff6a; margin: 0 0 1.4rem">
             Trimugo — Smart Solutions
           </p>
