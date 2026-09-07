@@ -1,6 +1,6 @@
 # Trimugo search discovery task plan
 
-Status: Approved; execution mode A selected on 2026-09-08
+Status: Implemented, deployed, and submissions completed on 2026-09-08; search-engine processing remains external
 Date: 2026-09-08
 Specification: [Approved search discovery specification](../specs/2026-09-08-trimugo-search-discovery-spec.md)
 Approval record: User approved the specification with “Approve”, approved this task plan with “Approved”, and selected mode A on 2026-09-08.
@@ -121,7 +121,7 @@ Acceptance mapping: AC5, AC6, AC7.
 
 ## Ownership and safe parallelism
 
-Execution record: T1–T6 implemented and locally verified in mode A. T2 integration additionally corrected an observed engine/snap handoff bug required for Skip to reach the new overview; five regression checks cover that behavior. T7 release/account work remains in progress. See [verification evidence](../seo/2026-09-08-verification.md).
+Execution record: T1–T7 completed in mode A. T2 integration additionally corrected an observed engine/snap handoff bug required for Skip to reach the new overview; five regression checks cover that behavior. Google and Bing ownership were verified with explicit user approval, both sitemaps were submitted, Google homepage/About indexing requests were queued, and Bing counted a homepage refresh request. IndexNow received 12 URLs with HTTP 202. Production matches the final build and Bing's live homepage audit reports no issues. Actual crawl completion and branded ranking remain external outcomes. See [verification evidence](../seo/2026-09-08-verification.md).
 
 - Mode A: after T1, T2, T3, and T4 may run in parallel under three separate agents with the file boundaries above. The integrator owns package wiring, generated output, cross-workstream resolution, documentation, deployment, and submission. Shared helpers are owned by T3; T4 consumes the agreed interface without editing it. Agents do not run production builds or network submissions concurrently.
 - Mode B: complete all tasks inline in dependency order with the same ownership boundaries used to organize edits.

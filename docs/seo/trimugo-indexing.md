@@ -2,6 +2,8 @@
 
 The official origin is **https://www.trimugo.in/**. Safari, Chrome, and Edge display results from the search engine the visitor chooses. Work on Google and Bing discovery; there is no separate Safari website-submission mechanism required for this task.
 
+Google and Bing ownership and initial submissions were completed on 2026-09-08. See [the verification record](2026-09-08-verification.md) before repeating any action below; most steps are now maintenance instructions.
+
 ## Validate a release
 
 Run from the project root with the existing dependencies installed:
