@@ -64,18 +64,19 @@ export default function Preloader({ onEnter }) {
             line. The headline proper waits for the first beat — saying the
             same sentence twice in three seconds reads as a stutter. */}
         <h1 className="uv-pre__title">
-          Product &amp; Workflow
+          Freelance Product
           <br />
           Engineering Partner
         </h1>
         <p className="uv-pre__sub">
-          We design and build the web and mobile software that runs business operations, and
-          automate the manual steps between. What follows is a scroll-driven journey through how we
-          work — best with sound on.
+          One engineer who takes an idea to a shipped release, and turns the work a business still
+          does by hand into software that runs it. What follows is a scroll-driven journey through
+          how we work — best with sound on.
         </p>
 
         <p className="uv-pre__meta">
-          Web &amp; Mobile Applications · Workflow Automation · System Integration · AI On Request
+          Idea To First Release · Web &amp; Mobile Applications · Workflow Automation · AI On
+          Request
         </p>
 
         <div className="uv-pre__actions">

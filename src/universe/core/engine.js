@@ -1,6 +1,7 @@
 import Lenis from 'lenis'
 import { state, set } from './store'
 import { sceneIndexAt } from './world'
+import { createSnap, STOPS } from './snap'
 
 // Total scroll distance for the journey. Long enough that every scene gets room
 // to breathe, short enough that the trip never feels like a chore.
@@ -28,6 +29,7 @@ export function detectQuality() {
 }
 
 let lenisRef = null
+let snapRef = null
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Journey scroll space.
@@ -63,15 +65,18 @@ export function startEngine() {
   const { quality, dpr, reduced } = detectQuality()
   Object.assign(state, { quality, dpr, reduced })
 
+  // Lenis now scrolls the PROSE ONLY. Inside the journey the snap controller
+  // owns the scroll position and Lenis is stopped, so these numbers describe
+  // reading a long page, not flying a camera: the old 2.3s settle with a heavy
+  // exponential-out put roughly a third of a second between the scrollbar and
+  // the page, which is most of what read as "not in sync".
   const lenis = new Lenis({
-    duration: reduced ? 0.1 : 2.3,
-    // Long, heavy exponential-out: momentum with a slow settle. This is where
-    // most of the "expensive" feel of the scroll comes from.
-    easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
+    duration: reduced ? 0.1 : 1.05,
+    easing: (t) => 1 - Math.pow(1 - t, 3),
     smoothWheel: !reduced,
     syncTouch: false,
     touchMultiplier: 1.25,
-    wheelMultiplier: 0.7,
+    wheelMultiplier: 1,
   })
   lenisRef = lenis
 
@@ -84,14 +89,17 @@ export function startEngine() {
   // snaps back to the void.
   lenis.scrollTo(state.progress * journeyMax(), { immediate: true })
 
-  lenis.on('scroll', ({ scroll }) => {
-    state.scroll = scroll
-    // Clamped, so scrolling on into the story track holds the camera on its
-    // final keyframe instead of running off the end of the spline.
-    state.raw = Math.min(Math.max(scroll / journeyMax(), 0), 1)
-  })
+  // The journey is scrolled by the snap controller, not by Lenis. Stopping
+  // Lenis here means exactly one thing is writing the scroll position at a
+  // time — two smooth scrollers fighting over window.scrollY was the other
+  // half of the out-of-sync feel.
+  const snap = createSnap({ lenis, journeyMax, reduced })
+  snapRef = snap
+  lenis.stop()
 
-  const onResize = () => measureJourney()
+  const onResize = () => {
+    measureJourney()
+  }
   window.addEventListener('resize', onResize, { passive: true })
 
   const onPointer = (e) => {
@@ -107,15 +115,17 @@ export function startEngine() {
   window.addEventListener('pointermove', onPointer, { passive: true })
   window.addEventListener('touchmove', onTouch, { passive: true })
 
-  // Dev-only handle. Programmatic window.scrollTo fights Lenis (it keeps its own
-  // animated scroll value and snaps back on the next frame), so automated
-  // checks need to drive Lenis directly.
+  // Dev-only handle. Inside the journey Lenis is stopped and the snap
+  // controller owns the scroll position, so automated checks drive it — a bare
+  // window.scrollTo would be pulled back onto the nearest stop a frame later.
   if (import.meta.env.DEV) {
     window.__uv = {
       state,
       lenis,
+      snap,
+      stops: STOPS,
       jump(p) {
-        lenis.scrollTo(p * journeyMax(), { immediate: true })
+        window.scrollTo(0, p * journeyMax())
         state.raw = p
         state.progress = p
       },
@@ -133,11 +143,24 @@ export function startEngine() {
     const dt = Math.min((time - last) / 1000, 0.05) // clamp: tab-switch guard
     last = time
 
-    // A second, gentler smoothing pass on top of Lenis. Two-stage easing is
-    // what stops the camera from ever tracking the wheel 1:1. A lower rate
-    // constant here is the single biggest lever on "does this feel slow and
-    // weighty" — it widens the lag between input and the world's response.
-    const k = reduced ? 1 : 1 - Math.exp(-3.1 * dt)
+    // The native scroll position is the single source of truth, in both modes:
+    // the snap controller writes it with window.scrollTo, Lenis writes it for
+    // the prose. Reading it here rather than subscribing to Lenis means the
+    // camera cannot go stale while Lenis is stopped.
+    snap.update(dt)
+    state.scroll = window.scrollY
+    // Clamped, so scrolling on into the story track holds the camera on its
+    // final keyframe instead of running off the end of the spline.
+    state.raw = Math.min(Math.max(state.scroll / journeyMax(), 0), 1)
+
+    // A second smoothing pass on top of the scroll value. It exists to take the
+    // stair-step out of a dragged scrollbar and a coarse wheel — NOT to add
+    // weight, which is now the snap tween's job. The old rate constant of 3.1
+    // (~320ms of lag) meant the camera was still drifting long after the scroll
+    // had stopped; while a snap is running we track it almost exactly, so the
+    // camera arrives and settles with the tween instead of after it.
+    const rate = reduced ? Infinity : snap.locked ? 15 : 7
+    const k = reduced ? 1 : 1 - Math.exp(-rate * dt)
     state.progress += (state.raw - state.progress) * k
 
     state.velocity = (state.progress - lastProgress) / (dt || 1 / 60)
@@ -166,6 +189,8 @@ export function startEngine() {
 
   return () => {
     cancelAnimationFrame(raf)
+    snap.destroy()
+    snapRef = null
     lenis.destroy()
     lenisRef = null
     window.removeEventListener('resize', onResize)
@@ -183,17 +208,21 @@ export function startEngine() {
  * programmatic scrollTo under, so this is the guaranteed-safe second call.
  */
 export function syncScrollTo(p) {
-  if (!lenisRef) return
-  lenisRef.scrollTo(p * journeyMax(), { immediate: true })
+  window.scrollTo(0, p * journeyMax())
+  state.scroll = window.scrollY
   state.raw = p
   state.progress = p
 }
 
-/** Fly the page to a scene's scroll position, letting Lenis ease the travel. */
-export function scrollToProgress(p, duration = 3.4) {
-  const top = p * journeyMax()
-  if (lenisRef) lenisRef.scrollTo(top, { duration, easing: (t) => 1 - Math.pow(1 - t, 5) })
-  else window.scrollTo({ top, behavior: 'smooth' })
+/**
+ * Fly the camera to a point on the journey — the in-world CTAs use this.
+ * Goes through the snap controller so the arrival is not immediately undone by
+ * the settle-to-nearest-stop rule; the CTA targets in overlay/copy.js are
+ * already scene rest points, so this lands exactly on one.
+ */
+export function scrollToProgress(p, duration = 1.8) {
+  if (snapRef) snapRef.toProgress(p, duration)
+  else window.scrollTo({ top: p * journeyMax(), behavior: 'smooth' })
 }
 
 /**
@@ -208,6 +237,10 @@ export function scrollToElement(target, { duration = 1.6, offset } = {}) {
   // the section's kicker underneath it. Back off by its height (capped, so a
   // short viewport does not lose a third of the screen to the allowance).
   const clear = offset ?? -Math.min(96, window.innerHeight * 0.12)
+  // Everything reachable this way lives in the prose below the journey, so the
+  // snap controller has to let go of the wheel first — otherwise it would pull
+  // the reader back onto a scene rest point mid-flight.
+  snapRef?.release()
   if (lenisRef) {
     lenisRef.scrollTo(el, { duration, offset: clear, easing: (t) => 1 - Math.pow(1 - t, 4) })
   } else {

@@ -2,9 +2,10 @@
 // BUSINESS CONTENT
 //
 // Everything the story track below the journey renders. Positioning copy for
-// a specific audience — European operations, engineering and founder-level
-// buyers. content.js holds the shorter project record that the 3D gallery and
-// the "also shipped" list read from; this file holds the argument.
+// founder- and engineering-level buyers, wherever they are: someone with an
+// idea that needs building, or an operation whose process still runs by hand.
+// content.js holds the shorter project record that the 3D gallery and the
+// "also shipped" list read from; this file holds the argument.
 //
 // RULE FOR THIS FILE: nothing here may be invented. No percentages, no revenue,
 // no user counts, no client names, no testimonials, no awards, no productivity
@@ -12,12 +13,29 @@
 // renders without it — see MISSING_FROM_CLIENT at the bottom.
 // ─────────────────────────────────────────────────────────────────────────────
 
-// ── 01 · The business problem ───────────────────────────────────────────────
+// ── 01 · Where projects start ───────────────────────────────────────────────
+//
+// Two entry points, deliberately given equal weight: a founder with an idea and
+// no one to build it, and an operator with a process held together by hand.
+// Leading with only the second one loses the first before they read a sentence.
 
 export const problem = {
-  kicker: 'Section 01 — The Problem',
-  title: 'Still managing critical processes manually?',
-  body: 'Most operational work does not fail because people are careless. It fails because the process lives in seven places at once, and every handoff is a person copying something from one of them into another.',
+  kicker: 'Section 01 — Where Projects Start',
+  title: 'An idea nobody has built yet. Or a process still run by hand.',
+  body: 'Two different starting points, one job — turning something that today exists only in a founder’s head, or across seven disconnected tools, into software that runs.',
+  doors: [
+    {
+      n: '01',
+      title: 'You have an idea',
+      body: 'A product you can describe but cannot build, and no engineering team to hand it to. Trimugo takes it from the first conversation to a live release — scope, architecture, build, launch — as a freelance engagement rather than a hire.',
+    },
+    {
+      n: '02',
+      title: 'You have a process',
+      body: 'Work that already happens every week, held together by email, spreadsheets and people re-typing the same values. It does not fail because anyone is careless. It fails at every handoff.',
+    },
+  ],
+  chainLabel: 'The second one, as it runs today',
   // The "before" chain. Rendered as a descending sequence, one link per step,
   // because the shape of the list is the point: it is a queue, not a system.
   before: [
@@ -36,7 +54,7 @@ export const problem = {
     'No audit trail when someone asks what happened',
     'Reporting that is out of date before it is finished',
   ],
-  after: 'Trimugo turns fragmented processes into connected, intelligent workflows.',
+  after: 'Trimugo turns an idea into a shipped product, and a fragmented process into a connected workflow.',
 }
 
 // ── 02 · The AI + workflow pipeline ─────────────────────────────────────────
@@ -65,38 +83,44 @@ export const pipeline = {
 
 export const solutions = [
   {
-    id: 'applications',
+    id: 'idea-to-product',
     n: '01',
+    title: 'Idea to First Release',
+    body: 'A described idea taken to something live — scope, data model, architecture, build and launch. The first release is built as the first increment of the real system rather than as a throwaway prototype.',
+  },
+  {
+    id: 'applications',
+    n: '02',
     title: 'Business Applications',
     body: 'Custom web applications designed around a specific business workflow rather than around a generic template — the operational portals, dashboards and internal tools a team works in all day.',
   },
   {
     id: 'mobile',
-    n: '02',
+    n: '03',
     title: 'Mobile Applications',
     body: 'React Native products for customers, field teams and operations, shipped through App Store and Google Play review and maintained afterwards.',
   },
   {
     id: 'automation',
-    n: '03',
+    n: '04',
     title: 'Process Automation',
     body: 'Automation of the repetitive operational tasks and manual coordination that currently consume a person\u2019s week.',
   },
   {
     id: 'integration',
-    n: '04',
+    n: '05',
     title: 'System Integration',
     body: 'Integration with the APIs, databases, CRM, ERP and third-party systems you already run — so the new workflow joins the estate instead of adding to it.',
   },
   {
     id: 'workflow-systems',
-    n: '05',
+    n: '06',
     title: 'Workflow Systems',
     body: 'Workflow platforms that carry a process end to end — intake, routing, approval, execution and audit — with state and ownership held by the system rather than by a spreadsheet.',
   },
   {
     id: 'agents',
-    n: '06',
+    n: '07',
     title: 'AI Agents & Document Intelligence',
     body: 'Offered when a project calls for it, not as the starting point: agents that reason over your business data within explicit boundaries, and extraction and classification of invoices, contracts and forms.',
   },
@@ -105,7 +129,7 @@ export const solutions = [
 // ── 05 · How we work ────────────────────────────────────────────────────────
 
 export const process = [
-  { n: '01', title: 'Discover', body: 'Understand the business process as it actually runs today, and identify where it stalls.' },
+  { n: '01', title: 'Discover', body: 'Understand the idea, or the process as it actually runs today — what it has to do, who it is for, and where it stalls.' },
   { n: '02', title: 'Design', body: 'Map the target workflow and define the product, the data model and the architecture.' },
   { n: '03', title: 'Build', body: 'Develop the application, the AI capability and the automation, in reviewable increments.' },
   { n: '04', title: 'Deploy', body: 'Integrate with your existing systems and put it into production.' },
@@ -178,14 +202,14 @@ export const team = {
       'AI agents and LLM integration, when a project calls for it',
     ],
     hours:
-      'Four hours a day, scheduled inside European business hours (CET/CEST). Indian and European time both work — the overlap is chosen around your stand-ups and reviews, not around mine.',
+      'Four hours a day, scheduled inside your working day rather than at the edge of it. From India (IST) that covers a full European day in CET/CEST, the US Eastern morning, and all of India and APAC; US Pacific works by arrangement.',
     // The three answers a contractor is filtered on before anything else.
     // Stated up front rather than left for the first email.
     engagement: [
       { label: 'Availability', value: '4 hours per day' },
       { label: 'Rate', value: 'USD 15–18 / hour' },
       { label: 'Engagement', value: 'Remote, part-time, milestone or hourly' },
-      { label: 'Based in', value: 'Bangalore, India · works CET/CEST' },
+      { label: 'Based in', value: 'Bangalore, India · works remotely, worldwide' },
     ],
     cv: { label: 'Download CV', href: '/Malisetti-Obulamurthy-CV.pdf' },
     links: [
@@ -222,15 +246,19 @@ export const security = {
     'Where a project carries a specific regulatory obligation, we scope it explicitly with you and involve your compliance advisors — we do not claim certification we do not hold.',
 }
 
-// ── 10 · European delivery ──────────────────────────────────────────────────
+// ── 10 · Remote delivery, wherever the client is ────────────────────────────
+//
+// The timezone claim is deliberately specific rather than a blanket "we work
+// your hours": one four-hour block is scheduled inside ONE client's day, and
+// saying which days that block can reach is the honest version.
 
 export const delivery = {
   line: 'Remote delivery. Structured communication. Direct engineering access.',
-  body: 'We work with European companies remotely, on a rhythm that makes progress visible without turning into a meeting schedule.',
+  body: 'We work with companies wherever they are — Europe and the UK, the US, India and the wider APAC region — on a rhythm that makes progress visible without turning into a meeting schedule.',
   points: [
     {
-      title: 'European working hours',
-      body: 'Available across Indian and European time — IST and CET/CEST. A full European working day is covered, so stand-ups, reviews and calls run at your hours, not ours.',
+      title: 'Your working hours, not ours',
+      body: 'The daily block is scheduled inside your working day. From India it reaches a full European day (CET/CEST), the US Eastern morning, and all of India and APAC — so stand-ups, reviews and calls run at your hours.',
     },
     { title: 'Milestone-based delivery', body: 'Scope agreed and invoiced against defined milestones.' },
     { title: 'Regular demos', body: 'Working software shown on a fixed cadence, not slides.' },
@@ -244,6 +272,10 @@ export const delivery = {
 // ── 11 · FAQ ────────────────────────────────────────────────────────────────
 
 export const faq = [
+  {
+    q: 'I have an idea but no technical team. Can you build it?',
+    a: 'Yes — that is one of the two ways a project starts here. You describe the product; scope, data model, architecture, build and release are handled as a freelance engagement rather than a hire. The first release is built as the first increment of the real system, so it survives if the idea works.',
+  },
   {
     q: 'Is Trimugo an AI company?',
     a: 'No. The core is product engineering — the web and mobile applications a business runs on, and the automation and integration around them. AI agents, retrieval and document extraction are things we build when a project genuinely calls for one, and we will say so plainly when it does not. One of the two systems written up on this page contains no AI at all, and it was the right call.',
@@ -265,8 +297,8 @@ export const faq = [
     a: 'Malisetti Obulamurthy — the founder and engineer behind Trimugo. There is no team behind the name and no subcontracting: the person you scope the project with is the person who writes the code, ships the release and supports it afterwards.',
   },
   {
-    q: 'What hours do you work, and how does that overlap with Europe?',
-    a: 'Working hours are flexible across Indian and European time — IST and CET/CEST. A full European working day is covered, so stand-ups, reviews and calls run at your hours rather than at the edge of them.',
+    q: 'What hours do you work, and how does that overlap with my team?',
+    a: 'Four hours a day, scheduled inside your working day rather than at the edge of it. From India (IST) that block covers a full European day in CET/CEST, the US Eastern morning, and all of India and APAC; US Pacific works by arrangement. Stand-ups, reviews and calls run at your hours.',
   },
   {
     q: 'Do you build MVPs or production systems?',
@@ -281,14 +313,15 @@ export const faq = [
     a: 'With a conversation about how the process runs today — who touches it, where it waits, and what the exceptions are. That is usually enough to identify whether AI, automation, integration or plain software is the right answer, and where the value actually sits.',
   },
   {
-    q: 'Can you work remotely with European companies?',
-    a: 'Yes. Delivery is remote and structured around milestones, scheduled demos and written documentation, with direct access to the engineer doing the work.',
+    q: 'Do you only work with European companies?',
+    a: 'No. Engagements are remote and the client can be anywhere — Europe and the UK, the US, India or the wider APAC region. The only real constraint is a working-hours overlap, and the daily block is scheduled around your day. Delivery is structured around milestones, scheduled demos and written documentation, with direct access to the engineer doing the work.',
   },
 ]
 
 // ── Contact ─────────────────────────────────────────────────────────────────
 
 export const buildOptions = [
+  'Take an idea from scratch to a first release',
   'Build a web application',
   'Build a mobile app',
   'Automate an existing workflow',
@@ -303,8 +336,8 @@ export const timelines = ['As soon as possible', 'Within 1–3 months', 'Within 
 export const contactChannels = [
   {
     label: 'Email',
-    value: 'trimugoitsolutions@gmail.com',
-    href: 'mailto:trimugoitsolutions@gmail.com',
+    value: 'murthy@trimugo.in',
+    href: 'mailto:murthy@trimugo.in',
   },
   { label: 'Phone', value: '+91 85000 98088', href: 'tel:+918500098088' },
   { label: 'WhatsApp', value: 'Chat with us', href: 'https://wa.me/918500098088' },
@@ -377,14 +410,14 @@ export const caseStudies = [
 // forms and couriers both expect a complete address.
 
 export const privacy = {
-  updated: '3 September 2026',
+  updated: '7 September 2026',
   intro:
     'This site sets no cookies, runs no analytics, and contains no tracking or advertising technology of any kind. The only personal data it receives is what you choose to type into the contact form. This page explains what happens to it.',
   controller: {
     name: 'Trimugo — Malisetti Obulamurthy',
     role: 'Data controller',
     postal: '#52/52, CK Nagar, Hosa Road, Bangalore, India',
-    email: 'trimugoitsolutions@gmail.com',
+    email: 'murthy@trimugo.in',
     phone: '+91 85000 98088',
   },
   sections: [
@@ -392,10 +425,10 @@ export const privacy = {
       title: 'What we collect, and when',
       body: 'Only through the contact form. Nothing is collected from you by simply reading the site.',
       items: [
-        'Your name, and the company you are writing on behalf of',
+        'Your name, and the company you are writing on behalf of if you give one',
         'Your work email address, and your company website if you choose to give it',
         'What you are looking to build, and your expected timeline',
-        'The description of how your process works today, in your own words',
+        'Your description of where the project stands today, in your own words',
       ],
       note: 'Please do not put confidential business detail, personal data about third parties, or anything commercially sensitive into the form. A first message only needs enough to make the reply useful — the detail belongs in a conversation under an NDA.',
     },

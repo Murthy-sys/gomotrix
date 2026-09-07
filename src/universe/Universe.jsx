@@ -157,13 +157,15 @@ export default function Universe() {
           story track argues it; this is the one canonical text version, and it
           is what a crawler and a screen reader read first. */}
       <div className="uv-sr">
-        <h1>Turn complex business workflows into working software — Trimugo</h1>
+        <h1>Turn an idea, or a broken process, into working software — Trimugo</h1>
         <p>
-          Trimugo is a product and workflow engineering partner. We design and build the web and
-          mobile applications that run business operations, automate the manual work between them
-          and integrate the systems you already use — business applications, React and React Native
-          products, process automation and system integration. Where a workflow genuinely needs a
-          model, we add AI agents and document intelligence; where it does not, we do not.
+          Trimugo is a freelance product and workflow engineering practice. We take an idea from
+          first scope to a shipped release, design and build the web and mobile applications that
+          run business operations, automate the manual work between them and integrate the systems
+          you already use — business applications, React and React Native products, process
+          automation and system integration. Engagements are remote and worldwide. Where a workflow
+          genuinely needs a model, we add AI agents and document intelligence; where it does not,
+          we do not.
         </p>
       </div>
 

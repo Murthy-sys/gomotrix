@@ -15,7 +15,9 @@ import { buildOptions, contactChannels, timelines } from '../../data/business.js
 // privacy policy at #/privacy tells the reader.
 // ─────────────────────────────────────────────────────────────────────────────
 
-const WEB3FORMS_KEY = '992dcaed-fdcf-4e47-a033-c6e23ac6a9c8'
+// Keyed to the murthy@trimugo.in inbox — the address the contact section and
+// the privacy policy both name. Rotate this and the displayed address together.
+const WEB3FORMS_KEY = 'caf10d53-fab8-4238-a8fa-138926ca4456'
 
 const EMPTY = {
   name: '',
@@ -23,7 +25,7 @@ const EMPTY = {
   website: '',
   email: '',
   build: '',
-  processNow: '',
+  whereItStands: '',
   timeline: '',
   botcheck: '',
 }
@@ -48,13 +50,20 @@ export default function ContactSection() {
         body: JSON.stringify({
           access_key: WEB3FORMS_KEY,
           subject: `New enquiry: ${form.build || 'Project'} — ${form.company || form.name || 'website visitor'}`,
-          from_name: 'Trimugo',
+          // Display name only — Web3Forms sends from its own address and a custom
+          // from-address is Enterprise-tier, so the inbox row reads
+          // "Trimugo Website <notify@web3forms.com>".
+          from_name: 'Trimugo Website',
+          // Web3Forms defaults reply-to to a field named `email`, which is the
+          // enquirer's. Stated explicitly so hitting Reply keeps answering the
+          // prospect even if that field is ever renamed.
+          replyto: form.email,
           name: form.name,
           company: form.company,
           company_website: form.website,
           email: form.email,
           looking_to_build: form.build,
-          current_process: form.processNow,
+          where_it_stands: form.whereItStands,
           timeline: form.timeline,
         }),
       })
@@ -73,10 +82,10 @@ export default function ContactSection() {
       <div className="st-contact">
         <Reveal className="st-contact__intro">
           <p className="st-kicker">Start a conversation</p>
-          <h2 className="st-title">Tell us how your process works today.</h2>
+          <h2 className="st-title">Tell us what you want built.</h2>
           <p className="st-lead">
-            Four answers are enough for a useful first reply — what you run, what you want built,
-            how it works now, and when you need it.
+            Four answers are enough for a useful first reply — who you are, what you want built,
+            where it stands today, and when you need it.
           </p>
 
           <ul className="st-contact__channels">
@@ -123,13 +132,14 @@ export default function ContactSection() {
                   />
                 </label>
                 <label className="uv-field">
-                  <span>Company</span>
+                  <span>
+                    Company <em>optional</em>
+                  </span>
                   <input
                     name="company"
                     value={form.company}
                     onChange={onChange}
-                    required
-                    placeholder="Cooper Logistics GmbH"
+                    placeholder="Cooper Logistics"
                     autoComplete="organization"
                   />
                 </label>
@@ -189,14 +199,14 @@ export default function ContactSection() {
               </div>
 
               <label className="uv-field">
-                <span>How does the process work today?</span>
+                <span>Where does it stand today?</span>
                 <textarea
-                  name="processNow"
+                  name="whereItStands"
                   rows={4}
-                  value={form.processNow}
+                  value={form.whereItStands}
                   onChange={onChange}
                   required
-                  placeholder="Who touches it, where it waits, which systems it crosses…"
+                  placeholder="The idea and what it should do — or, for something you already run: who touches it, where it waits, which systems it crosses…"
                 />
               </label>
 
@@ -208,7 +218,7 @@ export default function ContactSection() {
 
               <div className="st-form__foot">
                 <button type="submit" className="uv-btn" disabled={sending}>
-                  <span>{sending ? 'Sending…' : 'Discuss Your Workflow'}</span>
+                  <span>{sending ? 'Sending…' : 'Discuss Your Project'}</span>
                 </button>
                 <p className="st-form__note">We reply within one business day.</p>
               </div>

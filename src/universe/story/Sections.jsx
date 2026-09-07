@@ -23,8 +23,8 @@ export function Solutions() {
     <Section id="solutions" label="What we build">
       <Head
         kicker="Section 03 — What We Build"
-        title="Six things we are asked for."
-        body="Ordered by how often they are actually asked for. Named by the business outcome rather than the technology underneath, because that is how the need arrives."
+        title="Seven things we are asked for."
+        body="Named by the business outcome rather than the technology underneath, because that is how the need arrives — whether the starting point is an idea or a process that already exists."
       />
       <ul className="st-grid st-grid--3">
         {solutions.map((s, i) => (
@@ -199,7 +199,7 @@ export function Security() {
   )
 }
 
-// ── 10 · European delivery ──────────────────────────────────────────────────
+// ── 10 · Remote delivery, wherever the client is ────────────────────────────
 
 export function Delivery() {
   return (
@@ -235,14 +235,15 @@ export function FinalCta() {
   return (
     <Section id="final" className="st-section--cta" label="Start a conversation">
       <Reveal className="st-cta">
-        <h2 className="st-cta__title">Have a business workflow worth automating?</h2>
+        <h2 className="st-cta__title">Have an idea, or a process worth fixing?</h2>
         <p className="st-cta__body">
-          Tell us how your process works today. We&apos;ll help identify where software, AI and
-          automation could create the most value.
+          Describe the product you want built, or how your process works today. You&apos;ll get a
+          straight answer on scope, approach, and where software, automation or AI would actually
+          create value.
         </p>
         <div className="st-cta__actions">
           <button type="button" className="uv-btn" onClick={openForm}>
-            <span>Discuss Your Workflow</span>
+            <span>Discuss Your Project</span>
           </button>
           <button
             type="button"

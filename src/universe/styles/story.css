@@ -107,7 +107,15 @@
   color: var(--faint);
 }
 
-/* ── 01 · The problem ────────────────────────────────────────────────────── */
+/* ── 01 · Where projects start ───────────────────────────────────────────── */
+
+/* The two entry points. Reuses the hairline grid the rest of the track is built
+   from — a founder's door and an operator's door get identical treatment.
+   Both selectors are compounded with the base class they modify: `.st-grid` and
+   `.st-problem__label` are declared further down this file, so a single class
+   here would lose the cascade to them and the block would sit flush. */
+.st-grid.st-doors { margin-bottom: clamp(2.6rem, 5vw, 4.2rem); }
+.st-problem__label.st-doors__label { margin-bottom: 1.6rem; }
 
 .st-problem {
   display: grid;
