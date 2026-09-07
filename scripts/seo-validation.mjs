@@ -159,6 +159,7 @@ export function inspectPage(html, expectedUrl) {
   }
   const requireBusiness = () => check(schemas.some((node) => businessType(node) && hasIdentity(node) && node.name === 'Trimugo' && homeUrl(node.url)), 'required complete Trimugo business identity is missing')
   if (pathname === '/') {
+    check(description.length >= 25 && description.length <= 160, 'homepage description must be between 25 and 160 characters for the Bing audit')
     check(/\bTrimugo\b/.test(h1s[0] ?? ''), 'homepage h1 must include Trimugo')
     requireBusiness()
     const sites = schemas.filter((node) => hasType(node, 'WebSite'))
