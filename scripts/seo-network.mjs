@@ -169,6 +169,7 @@ export function assertResponse(response, expectedUrl, contentTypes, { checkRobot
 }
 
 export function assetContentTypes(name) {
+  if (name.endsWith('.xml')) return ['application/xml', 'text/xml']
   if (name.endsWith('.png')) return ['image/png']
   if (name.endsWith('.svg')) return ['image/svg+xml']
   if (name.endsWith('.ico')) return ['image/x-icon', 'image/vnd.microsoft.icon', 'image/ico']

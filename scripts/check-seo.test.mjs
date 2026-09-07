@@ -151,8 +151,9 @@ test('empty required HTML returns actionable errors without terminating the audi
 
 test('asset validation rejects HTML fallback, incorrect verification keys and broken manifest', () => {
   for (const asset of ['favicon.ico', 'favicon.svg', 'og-image.png']) hasError(inspectAsset(asset, Buffer.from('<html>fallback</html>')).errors, /expected/)
-  hasError(inspectAsset(REQUIRED_ASSETS[0], Buffer.from('wrong token')).errors, /Google verification/)
-  hasError(inspectAsset(REQUIRED_ASSETS[1], Buffer.from('wrong key')).errors, /IndexNow key/)
+  for (const asset of REQUIRED_ASSETS.filter((name) => /^google.*\.html$/.test(name))) hasError(inspectAsset(asset, Buffer.from('wrong token')).errors, /Google verification/)
+  hasError(inspectAsset(REQUIRED_ASSETS.find((name) => name.endsWith('.txt')), Buffer.from('wrong key')).errors, /IndexNow key/)
+  hasError(inspectAsset('BingSiteAuth.xml', Buffer.from('<html>fallback</html>')).errors, /Bing ownership XML/)
   hasError(inspectAsset('manifest.webmanifest', Buffer.from('{')).errors, /manifest JSON does not parse/)
 })
 

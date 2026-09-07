@@ -31,7 +31,7 @@ For machine-readable output, append `-- --json` to an audit, dry-run, or submit 
 ## Google Search Console
 
 1. Open [Google Search Console](https://search.google.com/search-console/) using the account that owns Trimugo. Select the existing `trimugo.in` domain property or `https://www.trimugo.in/` URL-prefix property.
-2. If verification is needed, the repository already contains `public/googleac93e0ce4e6876ca.html`, served at [the production verification URL](https://www.trimugo.in/googleac93e0ce4e6876ca.html). Use it only if Search Console requests that exact file for the current account/property. A different account may require a different token. A domain property uses DNS verification; the HTML file applies to URL-prefix verification. Do not remove existing verification records.
+2. The `trimugoitsolutions@gmail.com` account requested `public/googlec627f886e2e14cd2.html`, downloaded directly from Search Console on 2026-09-08 and served at [its verification URL](https://www.trimugo.in/googlec627f886e2e14cd2.html). The earlier `public/googleac93e0ce4e6876ca.html` is also preserved. Use the exact file requested for the current account/property. A domain property uses DNS verification; HTML files apply to URL-prefix verification. Do not remove existing verification records. [Google ownership verification](https://support.google.com/webmasters/answer/9008080)
 3. In Sitemaps, submit **https://www.trimugo.in/sitemap.xml** and inspect the reported fetch/processing status.
 4. Use URL Inspection for **https://www.trimugo.in/** and **https://www.trimugo.in/about/**. Inspect the indexed result and Google-selected canonical. Use the live test to confirm accessibility; then request indexing when available.
 5. If excluded, record the exact reason and address it. For example, a live test succeeding does not resolve a different selected canonical or guarantee that a discovered URL will be indexed. Do not keep changing site copy without understanding the reported reason.
@@ -43,6 +43,7 @@ Google requires property access for URL Inspection requests. Crawling may take d
 
 1. Open [Bing Webmaster Tools](https://www.bing.com/webmasters/) with the site owner's account. Select Trimugo if already verified. If offered, import the verified Google property; otherwise use Bing's displayed verification method. Do not invent a verification token.
 2. Submit **https://www.trimugo.in/sitemap.xml** and inspect sitemap and URL indexing reports for the homepage and About page.
+   The Trimugo account's XML verification file is `public/BingSiteAuth.xml`, downloaded directly from Bing on 2026-09-08. Keep it available at [the production XML URL](https://www.trimugo.in/BingSiteAuth.xml).
 3. The existing IndexNow key is the hex-named `.txt` file in `public/`. The submission script uses the required-asset list in `scripts/seo-validation.mjs`, checks that the live file contains the matching key, and submits the validated production URL list. Keep the key file available after deployment. If ownership files are rotated, update that list together with the files.
 4. Record the actual response: **200** means received; **202** means received with key validation pending. Neither means indexed. Investigate other responses, especially invalid key/host, malformed URLs, and throttling, before retrying.
 

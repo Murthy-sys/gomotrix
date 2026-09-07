@@ -8,7 +8,8 @@ export const REQUIRED_LINKS = [
 export const REQUIRED_ASSETS = [
   // These existing public ownership filenames are intentionally preserved.
   // If the owner rotates either token, update this list and public/ together.
-  'googleac93e0ce4e6876ca.html', '4ac3802486e126cb72a9f2764942b1b5.txt',
+  'googleac93e0ce4e6876ca.html', 'googlec627f886e2e14cd2.html',
+  '4ac3802486e126cb72a9f2764942b1b5.txt', 'BingSiteAuth.xml',
   'favicon.svg', 'favicon.ico', 'favicon-16.png', 'favicon-32.png',
   'apple-touch-icon.png', 'icon-192.png', 'icon-512.png', 'og-image.png',
   'manifest.webmanifest',
@@ -232,6 +233,8 @@ export function inspectAsset(name, bytes) {
   const text = buffer.toString('utf8').trim()
   if (/^google[\da-f]+\.html$/.test(name)) {
     if (text !== `google-site-verification: ${name}`) fail('Google verification content does not match its filename')
+  } else if (name === 'BingSiteAuth.xml') {
+    if (!/^(?:<\?xml\s+version="1\.0"\?>\s*)?<users>\s*(?:<user>[\da-f]{32}<\/user>\s*)+<\/users>$/i.test(text)) fail('expected the Bing ownership XML file with a valid user token')
   } else if (/^[\da-f]{32}\.txt$/.test(name)) {
     if (text !== name.slice(0, -4)) fail('IndexNow key content does not match its filename')
   } else if (name.endsWith('.png')) {
