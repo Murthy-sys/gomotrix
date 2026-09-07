@@ -106,6 +106,7 @@ export default function Story() {
             <a href="/contract-developer-for-hire/">Contract developer</a>
             <a href="/ai-agents-document-automation/">AI solutions</a>
             <a href="/work/">All projects</a>
+            <a href="/about/">About Trimugo</a>
             {/* A real route change, so this one keeps its default behaviour. */}
             <a href="#/privacy">Privacy</a>
           </nav>

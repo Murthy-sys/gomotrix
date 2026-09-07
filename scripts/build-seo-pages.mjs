@@ -125,7 +125,7 @@ ${body}
 <p><a href="mailto:murthy@trimugo.in">murthy@trimugo.in</a> &nbsp;·&nbsp; <a href="tel:+918500098088">+91 85000 98088</a> &nbsp;·&nbsp; <a href="/">See the full journey and case studies</a></p>
 </div>
 <footer>
-<a href="/">Home</a><a href="/work/">Selected work</a><a href="/hire-freelance-react-developer/">Freelance developer</a><a href="/contract-developer-for-hire/">Contract developer</a><a href="/ai-agents-document-automation/">AI solutions</a><a href="/#/privacy">Privacy</a>
+<a href="/">Home</a><a href="/about/">About Trimugo</a><a href="/work/">Selected work</a><a href="/hire-freelance-react-developer/">Freelance developer</a><a href="/contract-developer-for-hire/">Contract developer</a><a href="/ai-agents-document-automation/">AI solutions</a><a href="/#/privacy">Privacy</a>
 </footer>
 </div>
 </body>
@@ -181,6 +181,92 @@ const service = (name, description) => ({
 // ── The service pages ───────────────────────────────────────────────────────
 
 const SERVICE_PAGES = [
+  // ── The entity page ───────────────────────────────────────────────────────
+  //
+  // This one is not written for a service query. Google currently autocorrects
+  // "trimugo" to "trivago" — one letter apart on the same TLD — because the
+  // string is not an entity in its graph, and correction is what it does with a
+  // string that means nothing to it. An About page gives the name a canonical
+  // home: the word as the h1, stated as a proper noun, next to the facts that
+  // disambiguate it (a person, a city, a trade). Organization schema on the
+  // same URL ties the name to the profiles that already exist.
+  {
+    url: '/about/',
+    title: 'About Trimugo — Malisetti Obulamurthy, Bangalore',
+    description:
+      'Trimugo is a product and workflow engineering practice run by Malisetti Obulamurthy from Bangalore, India — freelance and contract web and mobile engineering in React, Vue and React Native, delivered remotely worldwide.',
+    h1: 'About Trimugo',
+    crumbs: [
+      { name: 'Trimugo', url: '/' },
+      { name: 'About', url: '/about/' },
+    ],
+    schema: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'AboutPage',
+        name: 'About Trimugo',
+        mainEntity: { '@id': `${ORIGIN}/#organization` },
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        '@id': `${ORIGIN}/#organization`,
+        name: 'Trimugo',
+        alternateName: ['Trimugo IT Solutions', 'trimugo.in'],
+        url: ORIGIN,
+        email: 'murthy@trimugo.in',
+        telephone: '+91-85000-98088',
+        logo: `${ORIGIN}/icon-512.png`,
+        sameAs: [
+          'https://github.com/Murthy-sys',
+          'https://www.linkedin.com/in/obulamurthy-malisetti-b2893122b',
+        ],
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Bangalore',
+          addressRegion: 'Karnataka',
+          addressCountry: 'IN',
+        },
+        numberOfEmployees: { '@type': 'QuantitativeValue', value: 1 },
+        founder: {
+          '@type': 'Person',
+          name: 'Malisetti Obulamurthy',
+          jobTitle: 'Founder, Full-Stack Engineer',
+          worksFor: { '@id': `${ORIGIN}/#organization` },
+          sameAs: [
+            'https://github.com/Murthy-sys',
+            'https://www.linkedin.com/in/obulamurthy-malisetti-b2893122b',
+          ],
+        },
+      },
+    ],
+    body: `
+<p class="lead">Trimugo is a product and workflow engineering practice, run by one engineer from Bangalore, India, and delivered remotely to clients worldwide.</p>
+
+<h2>What Trimugo is</h2>
+<p>Trimugo is not an agency and there is no team behind the name. It is the working practice of <strong style="color:#e4e4e4">Malisetti Obulamurthy</strong>, a full-stack engineer with eight years of production experience building web and mobile applications. The person a client scopes a project with is the person who designs the system, writes the code, ships the release and answers the message afterwards. There is no account layer, no delivery manager and no subcontracting.</p>
+
+<h2>Who runs Trimugo</h2>
+<dl class="facts">
+<div><dt>Founder and engineer</dt><dd>Malisetti Obulamurthy</dd></div>
+<div><dt>Based in</dt><dd>Bangalore, Karnataka, India</dd></div>
+<div><dt>Works</dt><dd>Remotely, worldwide</dd></div>
+<div><dt>Team size</dt><dd>One</dd></div>
+<div><dt>Contact</dt><dd>murthy@trimugo.in · +91 85000 98088</dd></div>
+</dl>
+
+<h2>What Trimugo does</h2>
+<p>Two kinds of work, given equal weight. The first is taking a product idea from a first conversation to a live release for founders who can describe what they want but have no engineering team to hand it to. The second is turning operational processes that still run on email, spreadsheets and manual re-typing into connected software, for businesses that already have the process and need it to stop depending on one person's attention.</p>
+<p>In practice that means <a href="/hire-freelance-react-developer/">freelance</a> and <a href="/contract-developer-for-hire/">contract</a> engineering in React, Vue, TypeScript and React Native, backed by Node.js and PostgreSQL, integrated against the CRM, ERP and third-party APIs a client already runs. <a href="/ai-agents-document-automation/">AI agents and document intelligence</a> are offered where a project genuinely calls for them and declined where they do not.</p>
+
+<h2>Where to find Trimugo</h2>
+<p>The practice is online at trimugo.in. Code is at <a href="https://github.com/Murthy-sys" rel="noopener">github.com/Murthy-sys</a>, and Malisetti Obulamurthy is on <a href="https://www.linkedin.com/in/obulamurthy-malisetti-b2893122b" rel="noopener">LinkedIn</a>. Shipped products are listed on the <a href="/work/">selected work</a> page, each linking to something you can open and use rather than to a screenshot.</p>
+
+<h2>How Trimugo works with clients</h2>
+<p>Engagements are remote and structured around defined milestones, scheduled demonstrations of working software, and written documentation of architecture and integrations. The daily working block is scheduled inside the client's own working day — from India that reaches a full European day in CET/CEST, the US Eastern morning, and all of India and the wider APAC region.</p>
+${pickFaq(['who actually does', 'only work with european', 'freelance developer'])}
+`,
+  },
   {
     url: '/hire-freelance-react-developer/',
     title: 'Hire a Freelance React, Vue & React Native Developer — Trimugo',
