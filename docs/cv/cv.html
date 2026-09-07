@@ -1,0 +1,260 @@
+<meta charset="utf-8" />
+<title>Malisetti Obulamurthy — CV</title>
+<style>
+  /* Rebuild of the original CV layout, as an editable source.
+     Render:  chrome --headless --no-pdf-header-footer --print-to-pdf=cv.pdf cv.html
+     Page geometry is A4 with the margins baked into the bands, so the header
+     runs edge to edge exactly as it does in the original. */
+  @page { size: A4; margin: 0; }
+
+  :root {
+    --ink: #3f4550;
+    --muted: #7c8493;
+    --rule: #d9dce1;
+    --band: #eef0f2;
+    --band-2: #e4e7ea;
+    --pill: #d6dae0;
+    --pad: 30px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 7.8pt;
+    line-height: 1.38;
+    color: var(--ink);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── Header ──────────────────────────────────────────────────────────── */
+  .head { background: var(--band); padding: 13px var(--pad) 12px; display: flex; gap: 22px; align-items: flex-start; }
+  .avatar {
+    width: 62px; height: 62px; border-radius: 50%; flex: none;
+    background: var(--band-2); color: #9aa2ae;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18pt; font-weight: 300; letter-spacing: 0.04em;
+  }
+  .name { margin: 0; font-size: 19.5pt; font-weight: 400; letter-spacing: -0.01em; color: #333944; line-height: 1.05; }
+  .role { margin: 3px 0 6px; font-size: 9.5pt; color: var(--muted); font-weight: 400; }
+  .summary { margin: 0; max-width: 74ch; font-size: 7.4pt; line-height: 1.35; color: #4a515d; }
+
+  /* ── Contact band ────────────────────────────────────────────────────── */
+  .contact { background: var(--band-2); padding: 7px var(--pad); display: grid; grid-template-columns: 1fr 1fr; gap: 4px 30px; }
+  .contact div { display: flex; align-items: center; gap: 8px; }
+  .contact svg { width: 11px; height: 11px; flex: none; fill: #6f7784; }
+  .contact a, .contact span { color: #4a515d; text-decoration: none; }
+
+  /* ── Two-column body ─────────────────────────────────────────────────── */
+  .cols { display: grid; grid-template-columns: 1.42fr 1fr; gap: 0 26px; padding: 11px var(--pad) 14px; align-items: start; }
+
+  h2 {
+    margin: 0 0 7px; font-size: 9.5pt; font-weight: 700; letter-spacing: 0.09em;
+    text-transform: uppercase; color: #333944; border-bottom: 1px solid var(--rule); padding-bottom: 5px;
+  }
+  section + section { margin-top: 10px; }
+
+  .job { margin-bottom: 8px; break-inside: avoid; }
+  .job__title { font-weight: 700; font-size: 9pt; color: #333944; }
+  .job__org { color: #4a515d; }
+  .job__meta { display: flex; justify-content: space-between; color: var(--muted); font-style: italic; font-size: 7.4pt; margin: 1px 0 4px; }
+
+  .sub { font-weight: 700; font-size: 8pt; color: #333944; margin: 6px 0 2px; }
+
+  ul { margin: 0; padding: 0; list-style: none; }
+  li { position: relative; padding-left: 10px; margin-bottom: 2px; }
+  li::before { content: "–"; position: absolute; left: 0; color: var(--muted); }
+
+  /* ── Sidebar ─────────────────────────────────────────────────────────── */
+  .pills { display: flex; flex-wrap: wrap; gap: 5px; }
+  .pills span { background: var(--pill); border-radius: 3px; padding: 3px 7px; font-size: 7.4pt; color: #414855; }
+
+  .proj { margin-bottom: 6px; break-inside: avoid; }
+  .proj__name { font-weight: 700; font-size: 8.6pt; color: #333944; }
+  .proj__url { color: var(--muted); font-size: 7.6pt; margin-bottom: 2px; word-break: break-all; }
+
+  .interest { border: 1px solid var(--rule); border-radius: 4px; padding: 4px 9px; margin-bottom: 3.5px; font-size: 7.5pt; }
+</style>
+
+<div class="head">
+  <div class="avatar">MO</div>
+  <div>
+    <h1 class="name">Malisetti Obulamurthy</h1>
+    <p class="role">Front-End Developer</p>
+    <p class="summary">
+      Experienced Front-End Developer with over 8 years in crafting responsive web applications using Vue.js
+      and React.js. Led development of interactive modules and implemented design patterns for effective state
+      management. Specialized in creating responsive user interfaces and integrating APIs to enhance project success.
+    </p>
+  </div>
+</div>
+
+<div class="contact">
+  <div>
+    <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    <a href="mailto:mmurthy7702@gmail.com">mmurthy7702@gmail.com</a>
+  </div>
+  <div>
+    <svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2a1 1 0 011-.2 11.4 11.4 0 003.6.6 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.4 11.4 0 00.6 3.6 1 1 0 01-.3 1z"/></svg>
+    <a href="tel:+917702327702">+91 7702327702</a>
+  </div>
+  <div>
+    <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm6.9 6h-2.9a15.7 15.7 0 00-1.4-3.6A8 8 0 0118.9 8zM12 4c.8 1.2 1.4 2.5 1.8 4h-3.6c.4-1.5 1-2.8 1.8-4zM4.3 14a7.7 7.7 0 010-4h3.3a17 17 0 000 4zm.8 2h2.9c.3 1.3.8 2.5 1.4 3.6A8 8 0 015.1 16zm2.9-8H5.1a8 8 0 014.3-3.6A15.7 15.7 0 008 8zm4 12c-.8-1.2-1.4-2.5-1.8-4h3.6c-.4 1.5-1 2.8-1.8 4zm2.2-6H9.8a15.2 15.2 0 010-4h4.4a15.2 15.2 0 010 4zm.4 5.6c.6-1.1 1.1-2.3 1.4-3.6h2.9a8 8 0 01-4.3 3.6zM16.4 14a17 17 0 000-4h3.3a7.7 7.7 0 010 4z"/></svg>
+    <a href="https://murthy-portfolio-i9g5.onrender.com">murthy-portfolio-i9g5.onrender.com</a>
+  </div>
+  <div>
+    <svg viewBox="0 0 24 24"><path d="M20.4 20.4h-3.6v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.4v1.6h.1c.5-.9 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5v6.2zM5.3 7.4a2.1 2.1 0 112.1-2.1 2.1 2.1 0 01-2.1 2.1zM7.1 20.4H3.6V9h3.5v11.4zM22.2 0H1.8C.8 0 0 .8 0 1.7v20.5C0 23.2.8 24 1.8 24h20.4c1 0 1.8-.8 1.8-1.7V1.7C24 .8 23.2 0 22.2 0z"/></svg>
+    <a href="https://www.linkedin.com/in/obulamurthy-malisetti-b2893122b">linkedin.com/in/obulamurthy-malisetti-b2893122b</a>
+  </div>
+  <div>
+    <svg viewBox="0 0 24 24"><path d="M12 .3a12 12 0 00-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0C17.7 4.9 18.7 5.2 18.7 5.2c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0012 .3z"/></svg>
+    <a href="https://github.com/Murthy-sys?tab=repositories">github.com/Murthy-sys?tab=repositories</a>
+  </div>
+</div>
+
+<div class="cols">
+  <!-- ── Left column ──────────────────────────────────────────────────── -->
+  <div>
+    <section>
+      <h2>Work Experience</h2>
+
+      <div class="job">
+        <div class="job__title">Technical Lead</div>
+        <div class="job__org">Wissen Infotech Pvt. Ltd.</div>
+        <div class="job__meta"><span>01/2022 - Present</span><span>Bangalore, India</span></div>
+        <ul>
+          <li>Improved UI performance through thorough validations and efficient API integrations.</li>
+          <li>Developed reusable components, integrating Redux to streamline state management.</li>
+          <li>Ensured responsive UI across browsers by integrating REST APIs.</li>
+          <li>Designed modular Vue components and managed workflows with Vuex.</li>
+        </ul>
+
+        <div class="sub">Service Catalog</div>
+        <ul>
+          <li>Architected a scalable React.js front-end framework with Redux-driven state management that streamlined internal employee service management, improving resource accessibility and reducing administrative overhead.</li>
+          <li>Engineered a library of reusable React components and Redux business logic, significantly accelerating development velocity for future portal enhancements.</li>
+        </ul>
+
+        <div class="sub">RAMP (Regulatory Airworthiness Management Portal)</div>
+        <ul>
+          <li>Engineered a high-performance, data-dense dashboard in Vue.js with a suite of accessible, reusable UI components (advanced tables, file uploaders, and complex expansion panels) that standardized user interactions across the application.</li>
+          <li>Implemented complex workflow-driven validations and dynamic form elements backed by centralized Vuex state management, ensuring 100% adherence to rigorous aviation safety and regulatory compliance standards.</li>
+        </ul>
+
+        <div class="sub">DP (Design Practices - DPSys)</div>
+        <ul>
+          <li>Served as an individual contributor, architecting and developing end-to-end documentation workflows in Vue.js that optimized the management of critical engine design documents.</li>
+          <li>Streamlined multi-level approval cycles using robust Vuex state management and automated document routing, significantly enhancing compliance and operational efficiency for enterprise engineering teams.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job__title">Senior Analyst</div>
+        <div class="job__org">Fidelity National Financial India</div>
+        <div class="job__meta"><span>07/2020 - 02/2022</span><span></span></div>
+      </div>
+
+      <div class="job">
+        <div class="job__title">Analyst</div>
+        <div class="job__org">Fidelity National Financial India</div>
+        <div class="job__meta"><span>08/2017 - 01/2020</span><span></span></div>
+        <ul>
+          <li>Performed detailed title examinations and legal document analysis, ensuring data accuracy, compliance, and efficient processing of property transactions.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Certificates</h2>
+      <div class="job">
+        <div class="job__title">AI &amp; Agents: From Talking to AI to Building One (05/2026 - 06/2026)</div>
+        <ul>
+          <li>Acquired practical insights into AI agents, LLMs, Retrieval-Augmented Generation (RAG), and AI automation tools, including key concepts like temperature and context windows.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      <div class="job">
+        <div class="job__title">Bachelor of Technology (B.Tech)</div>
+        <div class="job__org">JNTU Anantapur</div>
+        <div class="job__meta"><span>08/2013 - 04/2016</span><span></span></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ── Right column ─────────────────────────────────────────────────── -->
+  <div>
+    <section>
+      <h2>Skills</h2>
+      <div class="pills">
+        <span>React.Js</span><span>React Native</span><span>Redux</span><span>Redux Toolkit</span>
+        <span>Vue.js</span><span>Vuex</span><span>Vuetify</span><span>Pinia</span>
+        <span>JavaScript</span><span>TypeScript</span><span>HTML</span><span>CSS</span>
+        <span>Tailwind CSS</span><span>GSAP</span><span>Three.js</span>
+        <span>Node.js</span><span>Express</span><span>Generative AI</span>
+        <span>Postman</span><span>git</span>
+        <span>Design Practices</span><span>SOLID Principles</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Projects</h2>
+
+      <div class="proj">
+        <div class="proj__name">Lumo Rentals</div>
+        <div class="proj__url">lumo.rentals</div>
+        <ul>
+          <li>Architected and developed a multi-vehicle travel platform for booking bikes, cars, and tempo vehicles.</li>
+          <li>Engineered cross-platform mobile applications, published and maintained on both the Google Play Store and Apple App Store.</li>
+        </ul>
+      </div>
+
+      <div class="proj">
+        <div class="proj__name">Lisno India</div>
+        <div class="proj__url">lisno.co.in</div>
+        <ul>
+          <li>Building a full-stack platform for a Bangalore interiors and engineering studio — services, a filterable project portfolio and 3D room walkthroughs.</li>
+          <li>Implemented the front end in React with Redux Toolkit and GSAP ScrollTrigger, against a Node.js and Express API.</li>
+        </ul>
+      </div>
+
+      <div class="proj">
+        <div class="proj__name">WanderLux Journeys</div>
+        <div class="proj__url">tourism-3d.onrender.com</div>
+        <ul>
+          <li>Built a scroll-driven 3D web experience for a travel and tourist-management brand — a five-chapter journey through India rendered in WebGL.</li>
+          <li>Implemented the 3D scenes and scroll choreography in React with Three.js and Vite.</li>
+        </ul>
+      </div>
+
+      <div class="proj">
+        <div class="proj__name">Good Plastics</div>
+        <div class="proj__url">good-plastics.onrender.com</div>
+        <ul>
+          <li>Built a comprehensive web platform for a bioplastic manufacturer, highlighting sustainable PHA alternatives.</li>
+          <li>Implemented features to effectively showcase product portfolios, service catalogs, and consulting capabilities.</li>
+        </ul>
+      </div>
+
+      <div class="proj">
+        <div class="proj__name">Bio Specimen</div>
+        <div class="proj__url">biospecimensolutions.in</div>
+        <ul>
+          <li>Developed a specialized web solution for a clinical research organization, focusing on biospecimen collection and pharmaceutical development services.</li>
+          <li>Designed the interface to clearly communicate complex processes such as PBMC/BMMC isolation and clinical trial support.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Interests</h2>
+      <div class="interest">Generative AI and AI Agents</div>
+      <div class="interest">Software Engineering Best Practices</div>
+      <div class="interest">AI-Driven Automation</div>
+    </section>
+  </div>
+</div>

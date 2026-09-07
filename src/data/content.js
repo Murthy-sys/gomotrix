@@ -13,7 +13,7 @@ export const projects = [
     category: 'Full-Stack · Mobile',
     year: '2025',
     desc: 'A travel platform for booking bikes, cars, and tempo vehicles — with web and mobile apps live on Android and iOS.',
-    tags: ['React.js', 'React Native', 'Java', 'Postgres', 'Payments'],
+    tags: ['React.js', 'React Native', 'Postgres', 'Payments'],
     links: {
       live: 'https://www.lumo.rentals/',
       playstore: 'https://play.google.com/store/apps/details?id=com.lumo&pcampaignid=web_share',

@@ -82,7 +82,7 @@ export default function Story() {
             <Logo className="st-foot__mark" />
             <span>
               <strong>Trimugo</strong>
-              <em>AI &amp; Workflow Engineering</em>
+              <em>Product &amp; Workflow Engineering</em>
             </span>
           </a>
           <nav className="st-foot__nav" aria-label="Footer">

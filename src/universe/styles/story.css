@@ -286,6 +286,19 @@
 }
 /* Model stages are marked. The boundary between "a model decides" and "code
    decides" is the argument this diagram exists to make. */
+/* "Optional" on the two model stages. Muted rather than accented: it is a
+   qualification on the badge next to it, not a second badge competing with it. */
+.st-node__opt {
+  display: block;
+  margin-top: 0.25rem;
+  font-style: normal;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
 .st-node--model::before {
   border-color: var(--accent);
   background: var(--accent);
@@ -928,6 +941,7 @@
 .st-person__links {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 0.7rem;
   margin-top: 1.9rem;
 }
@@ -982,6 +996,31 @@
   color: var(--dim);
 }
 .st-person__focus li:first-child { border-top: 1px solid rgba(255, 255, 255, 0.07); }
+
+/* Engagement terms: rate, availability, hours, location. A hairline table
+   rather than cards — this is reference data, read once and acted on. */
+.st-terms { margin: 1.5rem 0 0; }
+.st-terms > div {
+  display: grid;
+  grid-template-columns: minmax(0, 7rem) minmax(0, 1fr);
+  gap: 0.6rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+.st-terms > div:first-child { border-top: 1px solid rgba(255, 255, 255, 0.07); }
+.st-terms dt {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+  align-self: center;
+}
+.st-terms dd {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--text);
+}
 
 .st-person__hours {
   margin: 1.5rem 0 0;

@@ -24,7 +24,7 @@ export function Solutions() {
       <Head
         kicker="Section 03 — What We Build"
         title="Six things we are asked for."
-        body="Named by the business outcome rather than by the technology underneath, because that is how the need arrives."
+        body="Ordered by how often they are actually asked for. Named by the business outcome rather than the technology underneath, because that is how the need arrives."
       />
       <ul className="st-grid st-grid--3">
         {solutions.map((s, i) => (
@@ -142,6 +142,11 @@ export function Team() {
                   <SocialIcon name={l.id} />
                 </a>
               ))}
+              {person.cv && (
+                <a className="uv-btn uv-btn--sm" href={person.cv.href} download>
+                  <span>{person.cv.label}</span>
+                </a>
+              )}
             </div>
           )}
         </div>
@@ -153,6 +158,20 @@ export function Team() {
               <li key={f}>{f}</li>
             ))}
           </ul>
+
+          {/* Rate, availability and hours sit above the fold of this block on
+              purpose. They are the first three things a client filters on, and
+              making someone email to discover them loses the ones who would
+              have said yes. */}
+          <dl className="st-terms">
+            {person.engagement.map((e) => (
+              <div key={e.label}>
+                <dt>{e.label}</dt>
+                <dd>{e.value}</dd>
+              </div>
+            ))}
+          </dl>
+
           <p className="st-person__hours">{person.hours}</p>
         </div>
       </Reveal>

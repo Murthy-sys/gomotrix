@@ -2,12 +2,17 @@ import { Head, Reveal, Section } from './parts.jsx'
 import { pipeline } from '../../data/business.js'
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SECTION 02 — AI + WORKFLOW
+// SECTION 02 — THE WORKFLOW
 //
 // Trimugo's signature diagram. Deliberately not a robot and not an abstract
 // "AI" glow: it is a real pipeline, and the thing it communicates is the
 // boundary between the stages where a model decides and the stages where code
 // decides. Technical buyers read that boundary as evidence we have built one.
+//
+// The two model stages carry an explicit "optional" marker. Seven of the nine
+// are deterministic, and the diagram has to say so on its own — a reader who
+// only looks at the picture should still come away knowing AI is a component
+// here, not the product.
 // ─────────────────────────────────────────────────────────────────────────────
 
 // Which stages are model-driven. Everything else is deterministic by design —
@@ -23,7 +28,7 @@ const TONE = {
 
 export default function Pipeline() {
   return (
-    <Section id="workflow" label="AI and workflow pipeline">
+    <Section id="workflow" label="The workflow pipeline">
       <Head kicker={pipeline.kicker} title={pipeline.title} body={pipeline.body} />
 
       <div className="st-pipe">
@@ -43,7 +48,10 @@ export default function Pipeline() {
                 <p className="st-node__label">{s.label}</p>
                 <p className="st-node__note">{s.note}</p>
               </div>
-              <span className="st-node__kind">{s.kind}</span>
+              <span className="st-node__kind">
+                {s.kind}
+                {s.optional && <em className="st-node__opt">Optional</em>}
+              </span>
             </Reveal>
           ))}
         </ol>

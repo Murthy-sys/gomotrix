@@ -16,10 +16,10 @@ export const BEATS = [
   {
     scene: 'spark',
     at: 0.62,
-    kicker: 'AI & Workflow Engineering',
-    title: 'Turn Complex Business\nWorkflows Into\nIntelligent Software',
-    body: 'Trimugo designs and builds AI-powered software that automates repetitive operations, connects business processes and helps teams work more efficiently.',
-    meta: 'AI Engineering · Workflow Automation · Custom Software · System Integration',
+    kicker: 'Product & Workflow Engineering',
+    title: 'Turn Complex Business\nWorkflows Into\nWorking Software',
+    body: 'Trimugo designs and builds the web and mobile applications that run business operations, and automates the manual work between them. AI where a project genuinely calls for it — not as the default answer.',
+    meta: 'Web & Mobile Applications · Workflow Automation · System Integration · AI On Request',
     // Primary flies the camera to the contact scene rather than leaving the
     // world — the CTA is part of the journey, not an exit from it.
     cta: { label: 'Discuss Your Project', to: 0.94 },

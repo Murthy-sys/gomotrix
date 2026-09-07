@@ -42,15 +42,15 @@ export const problem = {
 // ── 02 · The AI + workflow pipeline ─────────────────────────────────────────
 
 export const pipeline = {
-  kicker: 'Section 02 — AI + Workflow',
+  kicker: 'Section 02 — The Workflow',
   title: 'What replaces the queue.',
-  body: 'One connected path from the moment work arrives to the moment it is done and recorded. AI does the reading and the judgement it is genuinely good at; deterministic software does everything that has to be exact.',
+  body: 'One connected path from the moment work arrives to the moment it is done and recorded. Most of it is ordinary, deterministic software — that is the point. Two stages can be handed to a model when the work involves reading unstructured documents, and those two are marked optional below.',
   // Each stage names what it does AND what kind of component does it, because
   // the technical reader is checking whether we understand the difference.
   stages: [
     { id: 'input', label: 'Business input', kind: 'Ingest', note: 'Email, upload, form, API or scan — the work arrives once.' },
-    { id: 'understand', label: 'AI understanding', kind: 'Model', note: 'The document or request is read and interpreted in context.' },
-    { id: 'extract', label: 'Extraction & classification', kind: 'Model', note: 'Fields, entities and document type resolved into structured data.' },
+    { id: 'understand', label: 'AI understanding', kind: 'Model', optional: true, note: 'Only when the incoming work is unstructured — a scanned invoice, a free-text request. A structured form skips this entirely.' },
+    { id: 'extract', label: 'Extraction & classification', kind: 'Model', optional: true, note: 'Fields, entities and document type resolved into structured data — again, only where there is unstructured input to resolve.' },
     { id: 'validate', label: 'Validation', kind: 'Deterministic', note: 'Types, totals, references and required fields checked in code.' },
     { id: 'rules', label: 'Business rules', kind: 'Deterministic', note: 'Your thresholds, exceptions and routing logic — explicit, testable.' },
     { id: 'workflow', label: 'Workflow', kind: 'Orchestration', note: 'State, ownership, queues and SLAs held by the system.' },
@@ -58,47 +58,47 @@ export const pipeline = {
     { id: 'action', label: 'Human or system action', kind: 'Execution', note: 'Written to the ERP, CRM or database. Or handed to a person, with context.' },
     { id: 'reporting', label: 'Reporting', kind: 'Output', note: 'Every step already recorded — the report is a read, not a rebuild.' },
   ],
-  note: 'AI is used where meaning has to be understood. Everything that must be exact stays deterministic — that boundary is a design decision we make with you, not a default.',
+  note: 'Seven of these nine stages are deterministic code, and most projects use only those. AI enters where meaning has to be read out of an unstructured document, and nowhere else — that boundary is a decision we make with you at design time, not a default we ship.',
 }
 
 // ── 03 · What we build ──────────────────────────────────────────────────────
 
 export const solutions = [
   {
-    id: 'workflow-systems',
-    n: '01',
-    title: 'AI Workflow Systems',
-    body: 'Custom workflow platforms that automate complex operational processes end to end — intake, routing, approval, execution and audit.',
-  },
-  {
-    id: 'agents',
-    n: '02',
-    title: 'AI Agents',
-    body: 'Agents that retrieve information, reason over your business data and assist or execute defined business tasks — with the boundaries of what they may do set explicitly.',
-  },
-  {
-    id: 'document-intelligence',
-    n: '03',
-    title: 'Document Intelligence',
-    body: 'AI-powered extraction, classification, validation and processing of invoices, contracts, forms and operational paperwork.',
-  },
-  {
     id: 'applications',
-    n: '04',
+    n: '01',
     title: 'Business Applications',
-    body: 'Custom web applications designed around a specific business workflow rather than around a generic template.',
+    body: 'Custom web applications designed around a specific business workflow rather than around a generic template — the operational portals, dashboards and internal tools a team works in all day.',
+  },
+  {
+    id: 'mobile',
+    n: '02',
+    title: 'Mobile Applications',
+    body: 'React Native products for customers, field teams and operations, shipped through App Store and Google Play review and maintained afterwards.',
   },
   {
     id: 'automation',
-    n: '05',
+    n: '03',
     title: 'Process Automation',
-    body: 'Automation of the repetitive operational tasks and manual coordination that currently consume a person’s week.',
+    body: 'Automation of the repetitive operational tasks and manual coordination that currently consume a person\u2019s week.',
   },
   {
     id: 'integration',
-    n: '06',
+    n: '04',
     title: 'System Integration',
     body: 'Integration with the APIs, databases, CRM, ERP and third-party systems you already run — so the new workflow joins the estate instead of adding to it.',
+  },
+  {
+    id: 'workflow-systems',
+    n: '05',
+    title: 'Workflow Systems',
+    body: 'Workflow platforms that carry a process end to end — intake, routing, approval, execution and audit — with state and ownership held by the system rather than by a spreadsheet.',
+  },
+  {
+    id: 'agents',
+    n: '06',
+    title: 'AI Agents & Document Intelligence',
+    body: 'Offered when a project calls for it, not as the starting point: agents that reason over your business data within explicit boundaries, and extraction and classification of invoices, contracts and forms.',
   },
 ]
 
@@ -117,20 +117,16 @@ export const process = [
 // listed on the delivered projects in content.js.
 
 export const capabilities = [
-  { group: 'Frontend', items: ['React', 'Vue', 'TypeScript'] },
-  { group: 'Backend', items: ['Node.js', 'Python', 'APIs', 'Databases'] },
   {
-    group: 'AI',
-    items: [
-      'LLM integrations',
-      'RAG',
-      'AI agents',
-      'Document intelligence',
-      'Prompt engineering',
-      'AI-powered workflows',
-    ],
+    group: 'Frontend',
+    items: ['React', 'Vue', 'TypeScript', 'Redux / Redux Toolkit', 'Vuex / Pinia', 'Tailwind CSS', 'GSAP', 'Three.js'],
   },
   { group: 'Mobile', items: ['React Native'] },
+  { group: 'Backend', items: ['Node.js', 'Express', 'REST APIs', 'PostgreSQL', 'MongoDB'] },
+  {
+    group: 'AI — on request',
+    items: ['LLM integration', 'RAG', 'AI agents', 'Document extraction'],
+  },
   {
     group: 'Infrastructure',
     items: ['Cloud deployment', 'Authentication', 'Authorization', 'Logging', 'Monitoring', 'CI/CD'],
@@ -170,30 +166,34 @@ export const team = {
   person: {
     name: 'Malisetti Obulamurthy',
     role: 'Founder · Full-Stack Engineer',
-    body: 'Process discovery, architecture, implementation and delivery ownership — the web application, the mobile app, the API and the AI layer are all built by the same person.',
-    // Named as disciplines rather than as job titles: this is what one person
-    // covers, not four people pretending to be one.
+    body: 'Eight years building production web and mobile applications — React, Vue and React Native on the front, integrated against the APIs and services behind them. Discovery, architecture, implementation and delivery are all the same person.',
+    // Ordered by what is actually core. AI sits last and is explicitly
+    // conditional, because it is a capability offered on request rather than
+    // the centre of the practice — see `pipeline.note` and `capabilities`.
     focus: [
+      'React, Vue and TypeScript interfaces',
+      'React Native apps shipped to both app stores',
+      'API integration, application state and data flow',
       'Discovery, architecture and delivery ownership',
-      'Application, API and data layer',
-      'AI integration, retrieval and document extraction',
-      'React and React Native interfaces',
+      'AI agents and LLM integration, when a project calls for it',
     ],
     hours:
-      'Working hours are flexible across Indian and European time — IST and CET/CEST — so a full European working day is covered, including your morning stand-up and your afternoon review.',
-    // Rendered as brand marks, so `label` is what a screen reader announces and
-    // what the tooltip shows — it is the accessible name, not decoration.
-    //
-    // TODO(trimugo): the LinkedIn href below is a *messaging thread* URL. It
-    // only resolves for someone already in that conversation; every other
-    // visitor lands in their own inbox. Replace it with the public profile
-    // (linkedin.com/in/…) before this goes out.
+      'Four hours a day, scheduled inside European business hours (CET/CEST). Indian and European time both work — the overlap is chosen around your stand-ups and reviews, not around mine.',
+    // The three answers a contractor is filtered on before anything else.
+    // Stated up front rather than left for the first email.
+    engagement: [
+      { label: 'Availability', value: '4 hours per day' },
+      { label: 'Rate', value: 'USD 15–18 / hour' },
+      { label: 'Engagement', value: 'Remote, part-time, milestone or hourly' },
+      { label: 'Based in', value: 'Bangalore, India · works CET/CEST' },
+    ],
+    cv: { label: 'Download CV', href: '/Malisetti-Obulamurthy-CV.pdf' },
     links: [
       { id: 'github', label: 'GitHub', href: 'https://github.com/Murthy-sys?tab=repositories' },
       {
         id: 'linkedin',
         label: 'LinkedIn',
-        href: 'https://www.linkedin.com/messaging/thread/2-ZDdiN2JlN2YtNjVjOC00MTc0LWI4YTMtM2EyNjE1MTA5MDM5XzEwMA==/',
+        href: 'https://www.linkedin.com/in/obulamurthy-malisetti-b2893122b',
       },
     ],
   },
@@ -245,6 +245,10 @@ export const delivery = {
 
 export const faq = [
   {
+    q: 'Is Trimugo an AI company?',
+    a: 'No. The core is product engineering — the web and mobile applications a business runs on, and the automation and integration around them. AI agents, retrieval and document extraction are things we build when a project genuinely calls for one, and we will say so plainly when it does not. One of the two systems written up on this page contains no AI at all, and it was the right call.',
+  },
+  {
     q: 'Can you work with our existing software?',
     a: 'Yes. Most of what we build joins an existing estate rather than replacing it — we integrate with the systems you already run and only replace what is genuinely holding the process back.',
   },
@@ -285,11 +289,12 @@ export const faq = [
 // ── Contact ─────────────────────────────────────────────────────────────────
 
 export const buildOptions = [
+  'Build a web application',
+  'Build a mobile app',
   'Automate an existing workflow',
-  'Build an AI-powered application',
-  'Build an AI agent',
-  'Build a business platform',
   'Integrate existing systems',
+  'Front-end engineering on an existing product',
+  'Add an AI agent or document extraction',
   'Other',
 ]
 
@@ -338,7 +343,7 @@ export const caseStudies = [
       'One booking record shared across web and both mobile apps',
     ],
     engineering: [
-      'A single Java service and PostgreSQL data model serving three clients',
+      'A single backend service and PostgreSQL data model serving three clients',
       'React Native application shipped through both App Store and Google Play review',
       'Payment provider integration',
       'Availability modelling across vehicle classes and date ranges',
@@ -350,7 +355,7 @@ export const caseStudies = [
     ],
     outcomeMetrics: null,
     flow: ['Customer', 'Availability', 'Reservation', 'Payment', 'Confirmation', 'Operations'],
-    stack: ['React.js', 'React Native', 'Java', 'PostgreSQL', 'Payments'],
+    stack: ['React.js', 'React Native', 'PostgreSQL', 'Payments'],
     links: {
       live: 'https://www.lumo.rentals/',
       playstore: 'https://play.google.com/store/apps/details?id=com.lumo&pcampaignid=web_share',
@@ -368,10 +373,8 @@ export const caseStudies = [
 // reader is actually looking for are the Google Fonts request and the fact that
 // the enquiry is read in India — both are stated plainly below.
 //
-// TODO(trimugo): `controller.postal` is the one field that cannot be derived
-// from this repository. Fill in the registered postal address — Germany and
-// Austria expect one (Impressum), and EU procurement will ask for it on the
-// vendor form. The section renders correctly without it until then.
+// TODO(trimugo): the postal address below has no PIN code. Add it — EU vendor
+// forms and couriers both expect a complete address.
 
 export const privacy = {
   updated: '3 September 2026',
@@ -380,7 +383,7 @@ export const privacy = {
   controller: {
     name: 'Trimugo — Malisetti Obulamurthy',
     role: 'Data controller',
-    postal: null,
+    postal: '#52/52, CK Nagar, Hosa Road, Bangalore, India',
     email: 'trimugoitsolutions@gmail.com',
     phone: '+91 85000 98088',
   },

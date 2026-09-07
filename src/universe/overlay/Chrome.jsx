@@ -78,7 +78,7 @@ export default function Chrome() {
           <Logo className="uv-brand__mark" />
           <span className="uv-brand__text">
             <span className="uv-brand__word">Trimugo</span>
-            <span className="uv-brand__tag">AI &amp; Workflow Engineering</span>
+            <span className="uv-brand__tag">Product &amp; Workflow Engineering</span>
           </span>
         </a>
 
