@@ -347,8 +347,8 @@ export const contactChannels = [
     value: 'murthy@trimugo.in',
     href: 'mailto:murthy@trimugo.in',
   },
-  { label: 'Phone', value: '+91 85000 98088', href: 'tel:+918500098088' },
-  { label: 'WhatsApp', value: 'Chat with us', href: 'https://wa.me/918500098088' },
+  { label: 'Phone', value: '+91 85000 98088', href: 'tel:+917702327702' },
+  { label: 'WhatsApp', value: 'Chat with us', href: 'https://wa.me/917702327702' },
 ]
 
 // ── 04 · Selected work · case studies ───────────────────────────────────────
