@@ -122,7 +122,7 @@ function layout({ url, title, description, h1, crumbs, body, schema }) {
 ${body}
 <div class="cta">
 <p>Trimugo is one engineer — Malisetti Obulamurthy. You talk to the person who writes the code.</p>
-<p><a href="mailto:murthy@trimugo.in">murthy@trimugo.in</a> &nbsp;·&nbsp; <a href="tel:+917702327702">+91 85000 98088</a> &nbsp;·&nbsp; <a href="/">See the full journey and case studies</a></p>
+<p><a href="mailto:murthy@trimugo.in">murthy@trimugo.in</a> &nbsp;·&nbsp; <a href="tel:+917702327702">+91 7702327702</a> &nbsp;·&nbsp; <a href="/">See the full journey and case studies</a></p>
 </div>
 <footer>
 <a href="/">Home</a><a href="/about/">About Trimugo</a><a href="/work/">Selected work</a><a href="/hire-freelance-react-developer/">Freelance developer</a><a href="/contract-developer-for-hire/">Contract developer</a><a href="/ai-agents-document-automation/">AI solutions</a><a href="/#/privacy">Privacy</a>
@@ -247,7 +247,7 @@ const SERVICE_PAGES = [
 <div><dt>Based in</dt><dd>Bangalore, Karnataka, India</dd></div>
 <div><dt>Works</dt><dd>Remotely, worldwide</dd></div>
 <div><dt>Team size</dt><dd>One</dd></div>
-<div><dt>Contact</dt><dd>murthy@trimugo.in · +91 85000 98088</dd></div>
+<div><dt>Contact</dt><dd>murthy@trimugo.in · +91 7702327702</dd></div>
 </dl>
 
 <h2>What Trimugo does</h2>

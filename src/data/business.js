@@ -347,7 +347,7 @@ export const contactChannels = [
     value: 'murthy@trimugo.in',
     href: 'mailto:murthy@trimugo.in',
   },
-  { label: 'Phone', value: '+91 85000 98088', href: 'tel:+917702327702' },
+  { label: 'Phone', value: '+91 7702327702', href: 'tel:+917702327702' },
   { label: 'WhatsApp', value: 'Chat with us', href: 'https://wa.me/917702327702' },
 ]
 
@@ -426,7 +426,7 @@ export const privacy = {
     role: 'Data controller',
     postal: '#52/52, CK Nagar, Hosa Road, Bangalore, India',
     email: 'murthy@trimugo.in',
-    phone: '+91 85000 98088',
+    phone: '+91 7702327702',
   },
   sections: [
     {
