@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
+import { COLORS } from '../core/theme'
 import useScene from '../core/useScene'
 import { state, set } from '../core/store'
 import { GlassPanel } from '../world/Holo'
@@ -263,7 +264,7 @@ function Gather({ energy, data, w, h }) {
       uGather: { value: 0 },
       uPixelRatio: { value: 1 },
       uOpacity: { value: 1 },
-      uColor: { value: new THREE.Color('#b7ff6a') },
+      uColor: { value: new THREE.Color(COLORS.accent) },
     }),
     [],
   )

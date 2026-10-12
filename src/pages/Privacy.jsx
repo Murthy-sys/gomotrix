@@ -4,29 +4,19 @@ import '../universe/styles/base.css'
 import '../universe/styles/story.css'
 
 import Logo from '../components/Logo.jsx'
+import StudioBackdrop from '../universe/StudioBackdrop.jsx'
 import { privacy } from '../data/business.js'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // PRIVACY POLICY · #/privacy
 //
-// A standalone route, deliberately outside the journey: it imports no WebGL and
-// mounts no canvas, so a reader who lands here — or a procurement reviewer
-// checking the site before a vendor form — gets plain text immediately instead
-// of a 300KB three.js bundle and a scroll narrative.
-//
-// It borrows the story track's design language (base.css for the tokens and the
-// button, story.css for the type scale) so it reads as part of the same site
-// rather than as a generated legal page bolted onto the side of one.
-//
-// No reveal animation here on purpose. This is the one page on the site where
-// content appearing on scroll would be actively unhelpful: people arrive to
-// find one specific clause, and Ctrl+F has to work on the first frame.
+// The legal route shares the studio backdrop and design tokens while keeping
+// its prose in normal document flow, independent of the homepage's 3D and stack.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function Privacy() {
   useEffect(() => {
-    // The journey locks the document and paints it black; this route does
-    // neither, so anything the journey left behind has to be cleared.
+    // Clear homepage document state when arriving from an in-page link.
     document.documentElement.classList.remove('uv-active', 'uv-locked')
     window.scrollTo(0, 0)
 
@@ -43,23 +33,24 @@ export default function Privacy() {
 
   return (
     <div className="uv-root st-legal">
+      <StudioBackdrop />
       <header className="st-legal__bar">
-        <a className="st-legal__brand" href="#/" aria-label="Trimugo — home">
+        <a className="st-legal__brand" href="#hero" aria-label="Trimugo — home">
           <Logo className="st-legal__mark" />
           <span>
             <strong>Trimugo</strong>
             <em>Smart Solutions</em>
           </span>
         </a>
-        <a className="uv-btn uv-btn--sm uv-btn--ghost" href="#/">
-          <span>Back to site</span>
+        <a className="uv-btn uv-btn--sm uv-btn--ghost" href="#hero">
+          <span className="uv-btn__label">Back to site</span><span className="uv-btn__mark" aria-hidden="true">↗</span>
         </a>
       </header>
 
-      <main className="st-section">
+      <main className="st-section st-legal__main" id="privacy-content">
         <div className="st-wrap st-legal__body">
           <p className="st-kicker">Legal</p>
-          <h1 className="st-title">Privacy policy</h1>
+          <h1 className="st-title">Privacy <em>policy</em></h1>
           <p className="st-lead">{privacy.intro}</p>
           <p className="st-legal__meta">Last updated {privacy.updated}</p>
 

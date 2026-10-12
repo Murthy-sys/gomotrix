@@ -2,6 +2,7 @@ import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { RoundedBox } from '@react-three/drei'
 import * as THREE from 'three'
+import { COLORS } from '../core/theme'
 import { RadialGlow } from '../world/Holo'
 import useScene from '../core/useScene'
 import { state } from '../core/store'
@@ -271,8 +272,8 @@ function Screen({ data }) {
       uTime: { value: 0 },
       uPhase: { value: 0 },
       uOpacity: { value: 1 },
-      uAccent: { value: new THREE.Color('#b7ff6a') },
-      uInk: { value: new THREE.Color('#05080a') },
+      uAccent: { value: new THREE.Color(COLORS.accent) },
+      uInk: { value: new THREE.Color('#191c15') },
     }),
     [],
   )
@@ -349,7 +350,7 @@ void main(){
 function Body({ data }) {
   const mat = useRef()
   const uniforms = useMemo(
-    () => ({ uAccent: { value: new THREE.Color('#b7ff6a') }, uOpacity: { value: 1 } }),
+    () => ({ uAccent: { value: new THREE.Color(COLORS.accent) }, uOpacity: { value: 1 } }),
     [],
   )
   useFrame(() => {

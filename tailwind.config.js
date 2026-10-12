@@ -5,61 +5,61 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Primary — refined navy
+        // Primary olive scale
         brand: {
-          50: '#eef2fa',
-          100: '#d9e2f4',
-          200: '#b4c6e8',
-          300: '#88a3d8',
-          400: '#5a7cc2',
-          500: '#3a5ca6',
-          600: '#2c4885',
-          700: '#243c6e',
-          800: '#1e3158',
-          900: '#1b2a49',
-          950: '#0f1a30',
+          50: '#f1f2e9',
+          100: '#e6e8d7',
+          200: '#cfd4b5',
+          300: '#bbc293',
+          400: '#a5ad79',
+          500: '#8b9461',
+          600: '#6c7549',
+          700: '#535c38',
+          800: '#3b432a',
+          900: '#292f20',
+          950: '#151710',
         },
-        // Accent — warm amber / gold (also Tailwind's built-in `amber`)
+        // Muted warm accent aliases
         amber: {
-          50: '#fffbeb',
-          100: '#fef3c7',
-          200: '#fde68a',
-          300: '#fcd34d',
-          400: '#fbbf24',
-          500: '#f59e0b',
-          600: '#d97706',
-          700: '#b45309',
+          50: '#f2f1e8',
+          100: '#e6e4d7',
+          200: '#d7d7bd',
+          300: '#c7cba5',
+          400: '#b4bb8a',
+          500: '#a5ad79',
+          600: '#818b56',
+          700: '#687146',
         },
-        // Secondary navy (kept as a safety net for legacy `indigox-*` refs)
+        // Legacy palette aliases share the olive scale
         indigox: {
-          400: '#5a7cc2',
-          500: '#3a5ca6',
-          600: '#2c4885',
-          700: '#243c6e',
+          400: '#a5ad79',
+          500: '#8b9461',
+          600: '#6c7549',
+          700: '#535c38',
         },
-        // Legacy `accent-*` refs now resolve to amber, keeping stray usages on-brand
+        // Shared olive accent
         accent: {
-          300: '#fcd34d',
-          400: '#fbbf24',
-          500: '#f59e0b',
-          600: '#d97706',
+          300: '#c7cba5',
+          400: '#b4bb8a',
+          500: '#a5ad79',
+          600: '#818b56',
         },
-        // Dark surfaces — deep navy ink
+        // Warm charcoal surfaces
         ink: {
-          900: '#0b1220',
-          800: '#111a2e',
-          700: '#1a2540',
-          600: '#243152',
+          900: '#151710',
+          800: '#1d2118',
+          700: '#292f20',
+          600: '#3b432a',
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
-        display: ['"Space Grotesk"', 'Inter', 'system-ui', 'sans-serif'],
+        sans: ['Manrope', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+        display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
       },
       boxShadow: {
-        card: '0 12px 40px -18px rgba(15, 26, 48, 0.22)',
-        glow: '0 18px 50px -18px rgba(27, 42, 73, 0.35)',
-        'glow-amber': '0 14px 34px -12px rgba(245, 158, 11, 0.4)',
+        card: 'none',
+        glow: 'none',
+        'glow-amber': 'none',
       },
       backgroundImage: {
         'grid-light':

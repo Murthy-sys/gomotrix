@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { state } from '../core/store'
-import { SCENES, clamp01 } from '../core/world'
-import { scrollToProgress } from '../core/engine'
+import { JOURNEY_SPAN, SCENES, clamp01 } from '../core/world'
+import { scrollToElement, scrollToProgress } from '../core/engine'
 import { BEATS } from './copy'
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -20,9 +20,8 @@ function beatCentre(beat) {
 }
 
 /**
- * A beat's call to action. `href` leaves the world; `to` stays inside it and
- * flies the camera to another point on the journey — the long, eased travel is
- * the whole reason a CTA here doesn't feel like a link.
+ * A beat's call to action. String destinations reach the page's contact form;
+ * numeric destinations fly the camera to another point on the journey.
  */
 function Action({ action, ghost }) {
   const cls = `uv-btn${ghost ? ' uv-btn--ghost' : ''}`
@@ -34,7 +33,7 @@ function Action({ action, ghost }) {
     )
   }
   return (
-    <button type="button" className={cls} onClick={() => scrollToProgress(action.to, 3.8)}>
+    <button type="button" className={cls} onClick={() => typeof action.to === 'string' ? scrollToElement(action.to) : scrollToProgress(action.to, 3.8)}>
       <span>{action.label}</span>
     </button>
   )
@@ -52,7 +51,7 @@ export default function Narrative() {
     // next headline is already growing in, blurred, before the current one
     // has finished dissolving. A narrower window here is what read as "empty
     // space" mid-scroll: both beats near-zero opacity at once.
-    const HALF = 0.09
+    const HALF = 0.09 / JOURNEY_SPAN
 
     let parked = false
 

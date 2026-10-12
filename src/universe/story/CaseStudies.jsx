@@ -1,4 +1,6 @@
-import { Head, Reveal, Section } from './parts.jsx'
+import { useState } from 'react'
+import { Head, Reveal } from './parts.jsx'
+import WorkStudio from './WorkStudio.jsx'
 import { caseStudies } from '../../data/business.js'
 import { projects } from '../../data/content.js'
 
@@ -31,15 +33,12 @@ function Field({ label, children }) {
   )
 }
 
-function Study({ study, index }) {
+function Study({ study }) {
   const links = Object.entries(study.links || {})
 
   return (
     <Reveal as="article" className="st-study">
       <header className="st-study__head">
-        <span className="st-study__index" aria-hidden="true">
-          {String(index + 1).padStart(2, '0')}
-        </span>
         <div className="st-study__id">
           <h3 className="st-study__name">{study.name}</h3>
           <p className="st-study__cat">{study.category}</p>
@@ -115,8 +114,9 @@ function Study({ study, index }) {
         {links.length > 0 && (
           <div className="st-study__links">
             {links.map(([k, href]) => (
-              <a key={k} className="uv-btn uv-btn--sm" href={href} target="_blank" rel="noreferrer noopener">
-                <span>{LINK_LABELS[k] || k}</span>
+              <a key={k} className={`uv-btn uv-btn--sm${k === 'live' ? '' : ' uv-btn--ghost'}`} href={href} target="_blank" rel="noreferrer noopener">
+                <span className="uv-btn__label">{LINK_LABELS[k] || k}</span>
+                <span className="uv-btn__mark" aria-hidden="true">↗</span>
               </a>
             ))}
           </div>
@@ -126,53 +126,80 @@ function Study({ study, index }) {
   )
 }
 
+const PREVIEWS = {
+  'Lumo Rentals': { desktop: '/work/lumo-rentals.webp', mobile: '/work/lumo-booking-mobile.webp' },
+  'WanderLux Journeys': { desktop: '/work/wanderlux-journeys.webp', companion: 'tablet' },
+  'Lisno India': { desktop: '/work/lisno-india.webp', mobile: '/work/lisno-mobile.webp' },
+  "Suresh's Yogalaya": { desktop: '/work/suresh-yogalaya.webp', mobile: '/work/suresh-mobile.webp' },
+}
+
+const visualProjects = projects.filter((project) => PREVIEWS[project.name])
+const otherProjects = projects.filter((project) => !PREVIEWS[project.name])
+
 export default function CaseStudies() {
-  const featured = caseStudies.map((c) => c.name)
-  // The remaining shipped projects, listed honestly as a shorter record rather
-  // than inflated into case studies they do not have the depth for.
-  const also = projects.filter((p) => !featured.includes(p.name))
+  const [selected, setSelected] = useState(0)
+  const project = visualProjects[selected]
 
   return (
-    <Section id="work" label="Selected work">
-      <Head
-        kicker="Section 04 — Selected Work"
-        title={caseStudies.length === 1 ? 'One system, in full.' : `${caseStudies.length} systems, in full.`}
-        body="Real production software, written up the way an engineering buyer would want to read it. Where a number has not been measured, there is no number."
-      />
-
-      <div className="st-studies">
-        {caseStudies.map((s, i) => (
-          <Study key={s.id} study={s} index={i} />
-        ))}
-      </div>
-
-      {also.length > 0 && (
-        <Reveal className="st-also">
-          <p className="st-also__label">Also shipped</p>
-          <ul className="st-also__list">
-            {also.map((p) => (
-              <li key={p.name}>
-                <span className="st-also__name">
-                  {p.links?.live ? (
-                    <a href={p.links.live} target="_blank" rel="noreferrer noopener">
-                      {p.name}
+    <>
+      <span className="st-stack-anchor" aria-hidden="true" />
+      <section id="work" className="st-section st-work" aria-label="Selected work">
+        <div className="st-work__spotlight">
+          <div className="st-wrap">
+            <div className="st-section-heading">
+              <Head kicker="Selected work" title={<>Ideas made <em>tangible.</em></>} />
+              <div className="st-work__intro">
+                <p className="st-section-caption">A closer look at the products and experiences we build. Open a project and try it for yourself.</p>
+              </div>
+            </div>
+            <div className="st-project-picker" role="group" aria-label="Choose a project">
+              {visualProjects.map((item, index) => (
+                <button key={item.name} type="button" aria-pressed={selected === index} aria-controls="selected-project" onClick={() => setSelected(index)}>
+                  <span>{item.name}</span><span className="st-project-picker__indicator" aria-hidden="true">{selected === index ? 'Selected' : ''}</span>
+                </button>
+              ))}
+            </div>
+            <div className="st-project">
+              <WorkStudio project={project} preview={PREVIEWS[project.name]} />
+              <div id="selected-project" className="st-project__copy" aria-live="polite" aria-atomic="true">
+                <p className="st-kicker">{project.category}</p>
+                <h3>{project.name}</h3>
+                <p>{project.desc}</p>
+                <ul className="st-chips" aria-label="Project technologies">{project.tags.map((tag) => <li key={tag}>{tag}</li>)}</ul>
+                <div className="st-project__links">
+                  {Object.entries(project.links).map(([type, href]) => (
+                    <a key={type} className={`uv-btn uv-btn--sm${type === 'live' ? ' st-project__primary' : ' uv-btn--ghost'}`} href={href} target="_blank" rel="noreferrer noopener">
+                      <span className="uv-btn__label">{LINK_LABELS[type] || type}</span>
+                      <span className="uv-btn__mark" aria-hidden="true">↗</span>
                     </a>
-                  ) : (
-                    p.name
-                  )}
-                </span>
-                <span className="st-also__cat">
-                  {p.category}
-                  {p.status && <em className="st-also__wip">{p.status}</em>}
-                </span>
-                {/* Every tag, not the first four: the old cap silently dropped
-                    the tail of a longer stack — Lumo's "Payments" among them. */}
-                <span className="st-also__stack">{p.tags.join(' · ')}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <span className="st-stack-anchor" aria-hidden="true" />
+      <section className="st-section st-work__archive" aria-label="Engineering case studies">
+        <div className="st-wrap">
+          {caseStudies.map((study) => (
+            <details className="st-case-detail" key={study.id}>
+              <summary><span>Behind the build / {study.name}</span><span>Read the engineering case study <span className="st-case-detail__mark" aria-hidden="true" /></span></summary>
+              <Study study={study} />
+            </details>
+          ))}
+          <div className="st-also">
+            <p className="st-kicker">More from the studio</p>
+            <ul className="st-also__list">{otherProjects.map((item) => (
+              <li key={item.name}>
+                <span className="st-also__name">{item.links.live ? <a href={item.links.live} target="_blank" rel="noreferrer noopener">{item.name} ↗</a> : item.name}</span>
+                <span className="st-also__cat">{item.category}{item.status && <em>{item.status}</em>}</span>
+                <span className="st-also__stack">{item.tags.join(' · ')}</span>
               </li>
-            ))}
-          </ul>
-        </Reveal>
-      )}
-    </Section>
+            ))}</ul>
+          </div>
+        </div>
+      </section>
+    </>
   )
 }

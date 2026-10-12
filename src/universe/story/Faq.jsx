@@ -10,7 +10,7 @@ import { faq } from '../../data/business.js'
 export default function Faq() {
   return (
     <Section id="faq" label="Frequently asked questions">
-      <Head kicker="Section 11 — FAQ" title="The questions we are actually asked." />
+      <Head kicker="Before we begin" title={<>A little more <em>clarity.</em></>} />
       <div className="st-faq">
         {faq.map((f, i) => (
           <Reveal key={f.q} delay={i * 40}>

@@ -1,6 +1,7 @@
 import { useMemo, useRef, forwardRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
+import { COLORS } from '../core/theme'
 import { POINT_SHAPE } from '../shaders/common'
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -77,7 +78,7 @@ export const Pulses = forwardRef(function Pulses(
     perLink = 6,
     speed = 0.22,
     size = 1.6,
-    color = '#b7ff6a',
+    color = COLORS.accent,
     opacity = 1,
     arc = 1,
     pixelRatio = 1,
@@ -189,7 +190,7 @@ void main(){
 /** Thin glowing connections. One LineSegments draw call for the whole graph. */
 export function Filaments({
   links,
-  color = '#b7ff6a',
+  color = COLORS.accent,
   opacity = 0.5,
   segments = 10,
   reveal,

@@ -1,47 +1,55 @@
 /* ── The Digital Universe · foundation ─────────────────────────────────────
-   Layout shell, type scale, buttons, preloader.
+   Layout shell, type scale and buttons.
    Deliberately plain CSS: this experience is one self-contained surface and
    shouldn't inherit the marketing site's utility classes.
    ─────────────────────────────────────────────────────────────────────────── */
 
 .uv-root {
-  --void: #050505;
-  --text: #ffffff;
-  --dim: rgba(255, 255, 255, 0.65);
-  --faint: rgba(255, 255, 255, 0.34);
-  --accent: #b7ff6a;
-  --glow: #a8ff60;
-  --glass: rgba(255, 255, 255, 0.08);
-  --hair: rgba(255, 255, 255, 0.12);
+  --void: #151710;
+  --text: #e6e4d7;
+  --dim: rgba(230, 228, 215, 0.74);
+  --faint: rgba(230, 228, 215, 0.56);
+  --accent: #a5ad79;
+  --glow: #8b9461;
+  --glass: rgba(230, 228, 215, 0.08);
+  --hair: rgba(230, 228, 215, 0.16);
+  --studio-ground: #181b13;
+  --studio-surface: #20291c;
+  --studio-text: #eceee2;
+  --studio-dim: #c5cbb9;
+  --studio-accent: #c1cc94;
+  --studio-hair: rgba(213, 224, 190, 0.2);
+  --glass-surface: var(--studio-surface);
+  --glass-edge: rgba(213, 224, 190, 0.24);
+  --glass-blur: 18px;
+  --glass-inner-radius: 16px;
+  --font-body: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
 
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
-  /* Reserved for the heaviest morphs — preloader, panel-scale transitions —
-     where an even longer, softer settle reads as more expensive. */
-  --ease-slow: cubic-bezier(0.19, 1, 0.22, 1);
   --gut: clamp(1.5rem, 5vw, 5rem);
 
   position: relative;
-  background: var(--void);
+  isolation: isolate;
+  background: var(--studio-ground);
   color: var(--text);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-family: 'Manrope', ui-sans-serif, system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-/* Scroll is driven by a tall spacer; the canvas is pinned behind it. */
-.uv-scroll { width: 100%; pointer-events: none; }
-
-.uv-stage {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .uv-root { --glass-surface: rgba(28, 35, 24, 0.62); }
 }
-.uv-stage canvas { display: block; touch-action: pan-y; }
+@media (max-width: 580px) {
+  .uv-root { --glass-blur: 10px; }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .uv-root { --glass-surface: var(--studio-surface); --glass-blur: 0px; }
+}
 
-html.uv-active { background: #050505; }
-html.uv-active body { background: #050505; margin: 0; }
-/* Used by the preloader and the case-study modal. */
-html.uv-locked { overflow: hidden; }
+html.uv-active { background: #151710; }
+html.uv-active body { background: #151710; margin: 0; }
 
 /* Screen-reader / crawler content: present in the DOM, off the screen. */
 .uv-sr {
@@ -57,180 +65,51 @@ html.uv-locked { overflow: hidden; }
 /* ── Buttons ─────────────────────────────────────────────────────────────── */
 
 .uv-btn {
-  --pad-y: 0.95rem;
-  --pad-x: 1.9rem;
+  --button-fill: var(--studio-accent);
+  --button-ink: var(--studio-ground);
+  --button-edge: var(--studio-accent);
+  --button-mark-ink: currentColor;
+  --button-mark-size: 22px;
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--pad-y) var(--pad-x);
-  border: 1px solid rgba(183, 255, 106, 0.45);
-  border-radius: 999px;
-  background: rgba(183, 255, 106, 0.07);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  color: var(--accent);
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  text-decoration: none;
-  cursor: pointer;
-  overflow: hidden;
-  isolation: isolate;
-  transition: color 0.75s var(--ease), border-color 0.75s var(--ease),
-    transform 0.85s var(--ease), box-shadow 0.9s var(--ease), backdrop-filter 0.75s var(--ease);
-}
-.uv-btn > span { position: relative; z-index: 2; }
-
-/* The glow is a scaled pseudo-element, so hover costs no layout. */
-.uv-btn::before {
-  content: '';
-  position: absolute;
-  inset: -40%;
-  z-index: 1;
-  background: radial-gradient(circle at 50% 50%, rgba(183, 255, 106, 0.55), transparent 62%);
-  opacity: 0;
-  transform: scale(0.6);
-  transition: opacity 0.9s var(--ease), transform 1.05s var(--ease);
-}
-.uv-btn:hover {
-  color: #06110a;
-  border-color: var(--accent);
-  transform: translateY(-2px);
-  box-shadow: 0 0 0 1px rgba(183, 255, 106, 0.25), 0 18px 50px -12px rgba(168, 255, 96, 0.55);
-}
-.uv-btn:hover::before { opacity: 1; transform: scale(1); }
-.uv-btn:active { transform: translateY(0); }
-.uv-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
-
-.uv-btn--ghost {
-  border-color: var(--hair);
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--dim);
-}
-.uv-btn--ghost:hover { color: var(--text); border-color: rgba(255, 255, 255, 0.4); box-shadow: none; }
-.uv-btn--ghost::before { background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.18), transparent 62%); }
-
-.uv-btn--sm { --pad-y: 0.6rem; --pad-x: 1.15rem; font-size: 0.7rem; }
-
-/* ── Preloader ───────────────────────────────────────────────────────────── */
-
-.uv-pre {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: grid;
-  place-items: center;
-  background: #050505;
-  text-align: center;
-  padding: var(--gut);
-  transition: opacity 1.4s var(--ease-slow), visibility 1.4s;
-}
-.uv-pre.is-leaving { opacity: 0; visibility: hidden; pointer-events: none; }
-
-/* The first mote of light — the same one that becomes the AI core. */
-.uv-pre__mote {
-  position: absolute;
-  top: 50%; left: 50%;
-  width: 6px; height: 6px;
-  margin: -3px 0 0 -3px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 30px 6px rgba(183, 255, 106, 0.6), 0 0 90px 20px rgba(168, 255, 96, 0.25);
-  animation: uv-pulse 2.6s ease-in-out infinite;
-}
-@keyframes uv-pulse {
-  0%, 100% { transform: scale(1); opacity: 0.85; }
-  50%      { transform: scale(2.2); opacity: 0.35; }
-}
-
-.uv-pre__inner {
-  position: relative;
-  max-width: 34rem;
-  opacity: 0;
-  transform: translateY(20px) scale(0.985);
-  transition: opacity 1.7s var(--ease-slow) 0.2s, transform 1.7s var(--ease-slow) 0.2s;
-}
-.uv-pre.is-ready .uv-pre__inner { opacity: 1; transform: none; }
-.uv-pre.is-ready .uv-pre__mote { opacity: 0; transition: opacity 1.1s var(--ease); }
-
-.uv-pre__brand {
-  font-size: 0.72rem;
-  letter-spacing: 0.42em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin: 0 0 1.4rem;
-}
-.uv-pre__title {
-  font-family: 'Space Grotesk', Inter, sans-serif;
-  font-size: clamp(2.2rem, 6vw, 3.9rem);
-  font-weight: 500;
-  line-height: 1.04;
-  letter-spacing: -0.03em;
-  margin: 0 0 1.3rem;
-}
-.uv-pre__sub {
-  color: var(--dim);
-  font-size: 0.96rem;
-  line-height: 1.65;
-  margin: 0 0 1.8rem;
-  text-wrap: pretty;
-}
-/* Capability line on the threshold — mirrors .uv-beat__meta so the two first
-   screens read as one system. */
-.uv-pre__meta {
-  margin: 0 auto 2.4rem;
-  padding-top: 1.3rem;
-  max-width: 30rem;
-  border-top: 1px solid var(--hair);
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--faint);
-  line-height: 1.9;
-}
-
-.uv-pre__actions {
-  display: flex;
-  gap: 0.85rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 2.2rem;
-}
-.uv-pre__skip {
-  display: inline-block;
-  border: 0;
-  background: none;
-  padding: 0;
+  gap: 1.25rem;
+  min-height: 52px;
+  max-width: 100%;
+  padding: 0.8rem 1.25rem;
+  border: 1px solid var(--button-edge);
+  border-radius: 2px;
+  background: var(--button-fill);
+  color: var(--button-ink);
   font-family: inherit;
-  cursor: pointer;
-  color: var(--faint);
-  font-size: 0.76rem;
-  letter-spacing: 0.06em;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0.015em;
+  text-transform: none;
   text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: color 0.55s var(--ease), border-color 0.55s var(--ease);
+  cursor: pointer;
+  touch-action: manipulation;
 }
-.uv-pre__skip:hover { color: var(--dim); border-color: var(--hair); }
-
-@media (prefers-reduced-motion: reduce) {
-  .uv-pre__mote { animation: none; }
-  .uv-btn, .uv-pre, .uv-pre__inner { transition-duration: 0.01ms !important; }
+.uv-btn__label { position: relative; min-width: 0; text-align: center; }
+.uv-btn__mark { display: grid; place-items: center; flex: none; width: var(--button-mark-size); height: var(--button-mark-size); color: var(--button-mark-ink); font-size: 1.25rem; font-weight: 400; line-height: 1; }
+.uv-btn:focus-visible { outline: 2px solid var(--studio-text); outline-offset: 4px; }
+.uv-btn--ghost {
+  --button-fill: rgba(28, 35, 24, 0.78);
+  --button-ink: var(--studio-text);
+  --button-edge: #8c9878;
+  --button-mark-ink: var(--studio-accent);
 }
-
-/* Brand lockup on the threshold screen. */
-.uv-pre__lockup {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1.6rem;
+.uv-btn--sm { --button-mark-size: 18px; min-height: 44px; gap: 0.75rem; padding: 0.65rem 1rem; font-size: 0.8125rem; }
+/* State changes are immediate: no chasing cursors or moving action symbols. */
+@media (hover: hover) and (pointer: fine) {
+  .uv-btn:not(:disabled):hover { --button-fill: #d2dcb0; --button-edge: #d2dcb0; }
+  .uv-btn--ghost:not(:disabled):hover { --button-fill: #303c29; --button-edge: var(--studio-accent); }
 }
-.uv-pre__mark {
-  width: 42px;
-  height: 42px;
-  border-radius: 11px;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 10px 34px -10px rgba(0, 0, 0, 0.9);
-}
-.uv-pre__lockup .uv-pre__brand { margin: 0; }
+.uv-btn:not(:disabled):active { --button-fill: #aab782; --button-edge: #aab782; }
+.uv-btn--ghost:not(:disabled):active { --button-fill: #3b4932; --button-edge: var(--studio-text); }
+.uv-btn:disabled { --button-fill: #a6af8b; --button-edge: #a6af8b; --button-ink: #333a27; cursor: not-allowed; }
+.uv-btn[aria-busy='true'] { cursor: progress; }
+.uv-btn[aria-busy='true'] .uv-btn__rest { visibility: hidden; }
+.uv-btn__progress { position: absolute; inset: 0; display: grid; place-items: center; }

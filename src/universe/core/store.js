@@ -1,3 +1,5 @@
+import { STOPS } from './stops.js'
+
 // A mutable, non-reactive store.
 //
 // Scroll runs at 120Hz on a good display. Pushing that through React state
@@ -6,13 +8,8 @@
 // handful of genuinely discrete values (active scene, focused module) get a
 // subscription channel for the DOM overlay.
 
-// The journey opens already on the headline beat ("Ideas Become Intelligent
-// Products") instead of the void-and-single-mote intro. Derived from BEATS'
-// spark entry (overlay/copy.js, at: 0.62) crossed with SCENES.spark's range
-// (core/world.js, 0..0.1): 0 + 0.1 * 0.62. Kept as a literal rather than an
-// import so this dependency-free store stays that way — update this if
-// either of those two numbers changes.
-const START_PROGRESS = 0.062
+// Open on the first headline, using the same position as keyboard navigation.
+const START_PROGRESS = STOPS[0]
 
 export const state = {
   // Scroll
@@ -34,7 +31,7 @@ export const state = {
   reduced: false, // prefers-reduced-motion
   entered: false, // user has passed the preloader
   // The business story track below the journey is on screen. Overlays pinned to
-  // the journey (the finale, the progress hairline) use this as a hard stop:
+  // the journey (the narrative, the progress hairline) use this as a hard stop:
   // `progress` saturates at 1 for the whole length of the track, so the scroll
   // band alone would leave them floating over the reader's page.
   story: false,

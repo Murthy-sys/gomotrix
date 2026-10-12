@@ -28,10 +28,9 @@ const REST_AT = {
   agents: 0.5,
   showcase: 0.45,
   tech: 0.42,
-  contact: 0.5, // no beat of its own — the finale overlay owns this one
 }
 
-/** The eight rest points, in global journey progress (0..1). */
+/** The scene rest points, in global journey progress (0..1). */
 export const STOPS = SCENES.map((s) => s.start + (s.end - s.start) * (REST_AT[s.id] ?? 0.5))
 
 /** Below this many px, two scroll positions count as the same place. */

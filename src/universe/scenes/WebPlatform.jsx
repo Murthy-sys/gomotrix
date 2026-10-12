@@ -1,6 +1,7 @@
 import { useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
+import { COLORS } from '../core/theme'
 import useScene from '../core/useScene'
 import { state } from '../core/store'
 import { RadialGlow } from '../world/Holo'
@@ -33,8 +34,8 @@ function Window({ data }) {
       uTime: { value: 0 },
       uBuild: { value: 0 },
       uOpacity: { value: 1 },
-      uAccent: { value: new THREE.Color('#b7ff6a') },
-      uInk: { value: new THREE.Color('#070b09') },
+      uAccent: { value: new THREE.Color(COLORS.accent) },
+      uInk: { value: new THREE.Color('#191c15') },
     }),
     [],
   )
@@ -149,7 +150,7 @@ function CodeStream({ data }) {
       uFlow: { value: 0 },
       uPixelRatio: { value: 1 },
       uOpacity: { value: 1 },
-      uColor: { value: new THREE.Color('#b7ff6a') },
+      uColor: { value: new THREE.Color(COLORS.accent) },
     }),
     [],
   )

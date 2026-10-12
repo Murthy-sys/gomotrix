@@ -1,8 +1,7 @@
-import { useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { NOISE, POINT_SHAPE, HASH } from '../shaders/common'
-import { state } from '../core/store'
 
 const vert = /* glsl */ `
 uniform float uTime;
@@ -97,6 +96,9 @@ export default function Dust({
   colorA = '#ffffff',
   colorB = '#cfe0ff',
   reactive = true,
+  dpr = 1,
+  animate = true,
+  pointer,
 }) {
   const mat = useRef()
   const { camera } = useThree()
@@ -123,6 +125,8 @@ export default function Dust({
     return g
   }, [count, box])
 
+  useEffect(() => () => geometry.dispose(), [geometry])
+
   const uniforms = useMemo(
     () => ({
       uTime: { value: 0 },
@@ -132,23 +136,20 @@ export default function Dust({
       uDrift: { value: drift },
       uOpacity: { value: opacity },
       uPointer: { value: new THREE.Vector2() },
-      uPixelRatio: { value: 1 },
+      uPixelRatio: { value: dpr },
       uColorA: { value: new THREE.Color(colorA) },
       uColorB: { value: new THREE.Color(colorB) },
     }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
+    [box, size, drift, opacity, dpr, colorA, colorB],
   )
 
   useFrame((_, dt) => {
     const u = mat.current?.uniforms
     if (!u) return
-    u.uTime.value += dt
+    if (animate) u.uTime.value += Math.min(dt, 0.1)
     u.uCam.value.copy(camera.position)
-    u.uPixelRatio.value = state.dpr
-    if (reactive && !state.reduced) {
-      u.uPointer.value.set(state.smooth.x, state.smooth.y)
-    }
+    if (reactive && pointer) u.uPointer.value.copy(pointer.current)
+    else u.uPointer.value.set(0, 0)
   })
 
   return (

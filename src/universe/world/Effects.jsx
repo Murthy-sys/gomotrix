@@ -1,6 +1,5 @@
 import { EffectComposer, Bloom, Vignette, Noise } from '@react-three/postprocessing'
 import { BlendFunction, KernelSize } from 'postprocessing'
-import { state } from '../core/store'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // The lens.
@@ -18,9 +17,7 @@ import { state } from '../core/store'
 // visible strength it cheapens the image.
 // ─────────────────────────────────────────────────────────────────────────────
 
-export default function Effects() {
-  const q = state.quality
-
+export default function Effects({ quality: q = 'high' }) {
   if (q === 'low') {
     return (
       <EffectComposer multisampling={0} disableNormalPass>

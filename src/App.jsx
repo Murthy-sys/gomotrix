@@ -1,9 +1,7 @@
 import { Component, Suspense, lazy, useState, useEffect } from 'react'
 import HomepageFallback from './components/HomepageFallback.jsx'
 
-// The journey is the site. It is a large bundle (three.js + postprocessing), so
-// it is loaded lazily — which also means the privacy route below never pulls a
-// byte of WebGL down just to render a page of text.
+// The page loads independently; only the decorative hero loads WebGL.
 const Universe = lazy(() => import('./universe/Universe.jsx'))
 const Privacy = lazy(() => import('./pages/Privacy.jsx'))
 
@@ -36,8 +34,7 @@ export default function App({ fallbackContent }) {
   const hash = useHashRoute()
 
   // Two routes only. #/privacy is the legal page; everything else — including
-  // in-page anchors like #work and #contact — is the journey, which handles its
-  // own scrolling through Lenis.
+  // in-page anchors like #work and #contact — stays on the homepage.
   const isPrivacy = /^#\/privacy\b/.test(hash)
 
   return (

@@ -174,7 +174,7 @@ export const differentiators = [
   },
   {
     title: 'Direct engineering communication',
-    body: 'You talk to the engineer building the system. There is no account layer, no delivery manager and no relay between you and the work.',
+    body: 'You collaborate directly with the engineers designing and building your system, with clear communication throughout the project.',
   },
   {
     title: 'Long-term partnership',
@@ -185,42 +185,24 @@ export const differentiators = [
 // ── 08 · Team ───────────────────────────────────────────────────────────────
 
 export const team = {
-  line: 'One engineer. No handoffs.',
-  body: 'Trimugo is run by a single full-stack engineer. The person on the first call is the person who designs the system, writes the code, ships the release and answers the message afterwards.',
-  person: {
-    name: 'Malisetti Obulamurthy',
-    role: 'Founder · Full-Stack Engineer',
-    body: 'Eight years building production web and mobile applications — React, Vue and React Native on the front, integrated against the APIs and services behind them. Discovery, architecture, implementation and delivery are all the same person.',
-    // Ordered by what is actually core. AI sits last and is explicitly
-    // conditional, because it is a capability offered on request rather than
-    // the centre of the practice — see `pipeline.note` and `capabilities`.
-    focus: [
-      'React, Vue and TypeScript interfaces',
-      'React Native apps shipped to both app stores',
-      'API integration, application state and data flow',
-      'Discovery, architecture and delivery ownership',
-      'AI agents and LLM integration, when a project calls for it',
-    ],
-    hours:
-      'Four hours a day, scheduled inside your working day rather than at the edge of it. From India (IST) that covers a full European day in CET/CEST, the US Eastern morning, and all of India and APAC; US Pacific works by arrangement.',
-    // The three answers a contractor is filtered on before anything else.
-    // Stated up front rather than left for the first email.
-    engagement: [
-      { label: 'Availability', value: '4 hours per day' },
-      { label: 'Rate', value: 'USD 15–18 / hour' },
-      { label: 'Engagement', value: 'Remote, part-time, milestone or hourly' },
-      { label: 'Based in', value: 'Bangalore, India · works remotely, worldwide' },
-    ],
-    cv: { label: 'Download CV', href: '/Malisetti-Obulamurthy-CV.pdf' },
-    links: [
-      { id: 'github', label: 'GitHub', href: 'https://github.com/Murthy-sys?tab=repositories' },
-      {
-        id: 'linkedin',
-        label: 'LinkedIn',
-        href: 'https://www.linkedin.com/in/obulamurthy-malisetti-b2893122b',
-      },
-    ],
-  },
+  body: 'We are a group of engineers bringing thoughtful design and hands-on development together. We build web and mobile products, connect business systems and take shared ownership from idea to release.',
+  practice: [
+    { label: 'Focus', value: 'Web, mobile and connected business systems' },
+    { label: 'Approach', value: 'Collaborative engineering, from architecture to launch' },
+    { label: 'Based in', value: 'Bangalore, India · working worldwide' },
+  ],
+  founders: [
+    {
+      name: 'Cimala Gowthami',
+      role: 'Founder & CEO',
+      links: [],
+    },
+    {
+      name: 'Malisetti Obulamurthy',
+      role: 'Founder & CTO',
+      links: [],
+    },
+  ],
 }
 
 // ── 09 · Security & privacy ─────────────────────────────────────────────────
@@ -247,24 +229,20 @@ export const security = {
 }
 
 // ── 10 · Remote delivery, wherever the client is ────────────────────────────
-//
-// The timezone claim is deliberately specific rather than a blanket "we work
-// your hours": one four-hour block is scheduled inside ONE client's day, and
-// saying which days that block can reach is the honest version.
 
 export const delivery = {
   line: 'Remote delivery. Structured communication. Direct engineering access.',
   body: 'We work with companies wherever they are — Europe and the UK, the US, India and the wider APAC region — on a rhythm that makes progress visible without turning into a meeting schedule.',
   points: [
     {
-      title: 'Your working hours, not ours',
-      body: 'The daily block is scheduled inside your working day. From India it reaches a full European day (CET/CEST), the US Eastern morning, and all of India and APAC — so stand-ups, reviews and calls run at your hours.',
+      title: 'Built around your project',
+      body: 'Scope, priorities and review points are agreed together, with progress shared through product demos and written updates.',
     },
     { title: 'Milestone-based delivery', body: 'Scope agreed and invoiced against defined milestones.' },
     { title: 'Regular demos', body: 'Working software shown on a fixed cadence, not slides.' },
     { title: 'Documentation', body: 'Architecture, integrations and operational runbooks written down.' },
     { title: 'Transparent communication', body: 'Progress, blockers and estimates reported as they change.' },
-    { title: 'Direct engineering access', body: 'You talk to the engineer doing the work, with no intermediary.' },
+    { title: 'Direct engineering access', body: 'You collaborate directly with the engineers doing the work.' },
     { title: 'Post-launch support', body: 'Maintenance and continued development after go-live.' },
   ],
 }
@@ -294,15 +272,15 @@ export const faq = [
   },
   {
     q: 'Who actually does the work?',
-    a: 'Malisetti Obulamurthy — the founder and engineer behind Trimugo. There is no team behind the name and no subcontracting: the person you scope the project with is the person who writes the code, ships the release and supports it afterwards.',
+    a: 'Trimugo is a group of engineers working together across product design, architecture, development and delivery. Cimala Gowthami is Founder and CEO, and Malisetti Obulamurthy is Founder and CTO. You collaborate directly with the engineers building your product.',
   },
   {
-    q: 'What hours do you work, and how does that overlap with my team?',
-    a: 'Four hours a day, scheduled inside your working day rather than at the edge of it. From India (IST) that block covers a full European day in CET/CEST, the US Eastern morning, and all of India and APAC; US Pacific works by arrangement. Stand-ups, reviews and calls run at your hours.',
+    q: 'How do we collaborate on a project?',
+    a: 'We agree on scope, priorities and review points together. Product demos and written updates keep progress visible, and you work directly with the engineers responsible for the architecture, implementation and release.',
   },
   {
     q: 'Do you work as a freelance developer or on a contract basis?',
-    a: 'Both — they are the same engineer either way. A freelance engagement is scoped project by project against defined milestones; a contract engagement is an ongoing block of hours inside your team, your repositories and your release process. Availability is four hours a day at USD 15–18 per hour, billed hourly or per milestone, and there is no agency margin or account layer on top because there is no agency.',
+    a: 'Both. A freelance engagement takes a defined project from scope to release. A contract engagement supports ongoing development within your team, repositories and release process. In either case, you work directly with the engineers building the product.',
   },
   {
     q: 'What AI solutions do you actually build?',
@@ -322,7 +300,7 @@ export const faq = [
   },
   {
     q: 'Do you only work with European companies?',
-    a: 'No. Engagements are remote and the client can be anywhere — Europe and the UK, the US, India or the wider APAC region. The only real constraint is a working-hours overlap, and the daily block is scheduled around your day. Delivery is structured around milestones, scheduled demos and written documentation, with direct access to the engineer doing the work.',
+    a: 'No. Based in Bangalore, India, we work remotely with clients worldwide, including Europe and the UK, the US, India and the wider APAC region. Delivery is structured around milestones, product demos and written documentation, with direct access to the engineers doing the work.',
   },
 ]
 
@@ -347,8 +325,8 @@ export const contactChannels = [
     value: 'murthy@trimugo.in',
     href: 'mailto:murthy@trimugo.in',
   },
-  { label: 'Phone', value: '+91 7702327702', href: 'tel:+917702327702' },
-  { label: 'WhatsApp', value: 'Chat with us', href: 'https://wa.me/917702327702' },
+  { label: 'Phone', value: '+91 8500098088', href: 'tel:+918500098088' },
+  { label: 'WhatsApp', value: 'Chat with us', href: 'https://wa.me/918500098088' },
 ]
 
 // ── 04 · Selected work · case studies ───────────────────────────────────────
@@ -426,7 +404,7 @@ export const privacy = {
     role: 'Data controller',
     postal: '#52/52, CK Nagar, Hosa Road, Bangalore, India',
     email: 'murthy@trimugo.in',
-    phone: '+91 7702327702',
+    phone: '+91 8500098088',
   },
   sections: [
     {

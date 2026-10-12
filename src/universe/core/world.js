@@ -17,12 +17,12 @@ export const ANCHORS = {
   agents: new THREE.Vector3(-14, 12, -164),
   showcase: new THREE.Vector3(24, 2, -224),
   tech: new THREE.Vector3(-20, 6, -286),
-  contact: new THREE.Vector3(18, 4, -344),
 }
 
-// Eight scenes, not eleven. Automation, the client constellation and the
-// separate finale were cut: the first was the weakest read, the second was
-// abstract filler, and the third said the same thing as the contact scene.
+// Retain the authored timing through The Stack, then normalize that range.
+// The scroll spacer uses the same span so existing scenes keep their pacing.
+export const JOURNEY_SPAN = 0.88
+
 export const SCENES = [
   { id: 'spark', label: 'The Spark', start: 0.0, end: 0.1 },
   { id: 'ecosystem', label: 'The Ecosystem', start: 0.1, end: 0.22 },
@@ -31,8 +31,7 @@ export const SCENES = [
   { id: 'agents', label: 'AI Agents', start: 0.52, end: 0.65 },
   { id: 'showcase', label: 'Selected Work', start: 0.65, end: 0.78 },
   { id: 'tech', label: 'The Stack', start: 0.78, end: 0.88 },
-  { id: 'contact', label: 'Start Your Project', start: 0.88, end: 1.0 },
-]
+].map((scene) => ({ ...scene, start: scene.start / JOURNEY_SPAN, end: scene.end / JOURNEY_SPAN }))
 
 // Camera keyframes: [t, positionXYZ, lookAtXYZ].
 const KEYS = [
@@ -63,16 +62,13 @@ const KEYS = [
   // ── 7. The Stack ──────────────────────────────────────────────────────────
   [0.805, [-8, 8, -262], [-20, 6, -286]],
   [0.835, [-20, 7, -268], [-20, 6, -288]],
-  [0.875, [-12, 5, -306], [6, 4, -326]],
-  // ── 8. Start Your Project ─────────────────────────────────────────────────
-  [0.905, [6, 5, -322], [18, 4, -344]],
-  [0.955, [18, 4.5, -326], [18, 4, -346]],
-  [1.0, [19, 5, -325], [18, 4, -346]],
+  // Hold the stack as the journey hands off to the page below.
+  [JOURNEY_SPAN, [-19, 7.5, -267], [-20, 6, -288]],
 ]
 
 const positions = KEYS.map((k) => new THREE.Vector3(...k[1]))
 const targets = KEYS.map((k) => new THREE.Vector3(...k[2]))
-const times = KEYS.map((k) => k[0])
+const times = KEYS.map((k) => k[0] / JOURNEY_SPAN)
 
 // Centripetal Catmull-Rom avoids the cusps and overshoot that a uniform spline
 // produces when keyframe spacing is uneven — the camera never lurches.

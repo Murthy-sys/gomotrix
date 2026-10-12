@@ -42,8 +42,8 @@ const slug = (s) =>
 const CSS = `
 :root{color-scheme:dark}
 *{box-sizing:border-box}
-body{margin:0;background:#050505;color:#f2f2f2;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
-a{color:#b7ff6a}
+body{margin:0;background:#151710;color:#f2f2f2;font-family:Manrope,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:#a5ad79}
 .wrap{max-width:46rem;margin:0 auto;padding:clamp(2rem,6vw,4.5rem) clamp(1.2rem,5vw,2rem) 5rem}
 header.bar{display:flex;align-items:baseline;gap:.9rem;flex-wrap:wrap;padding-bottom:2.4rem;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:2.8rem}
 header.bar strong{font-size:1.05rem;letter-spacing:-.01em}
@@ -63,7 +63,7 @@ li{margin:.35rem 0}
 .facts div{display:flex;gap:1rem;padding:.45rem 0;border-bottom:1px solid rgba(255,255,255,.06)}
 .facts dt{color:#8a8a8a;min-width:9rem;margin:0}
 .facts dd{margin:0;color:#e4e4e4}
-.cta{margin-top:3rem;padding:1.6rem;border:1px solid rgba(183,255,106,.22);border-radius:14px;background:rgba(183,255,106,.04)}
+.cta{margin-top:3rem;padding:1.6rem;border:1px solid rgba(165,173,121,.22);border-radius:0;background:rgba(165,173,121,.04)}
 .cta p{margin:0 0 .6rem;color:#cfcfcf}
 footer{margin-top:4rem;padding-top:1.6rem;border-top:1px solid rgba(255,255,255,.1);font-size:.85rem;color:#8a8a8a}
 footer a{margin-right:.9rem;display:inline-block}
@@ -95,7 +95,7 @@ function layout({ url, title, description, h1, crumbs, body, schema }) {
 <link rel="canonical" href="${canonical}" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
 <meta name="author" content="Malisetti Obulamurthy" />
-<meta name="theme-color" content="#050505" />
+<meta name="theme-color" content="#151710" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="icon" href="/favicon.ico" sizes="48x48" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -121,8 +121,8 @@ function layout({ url, title, description, h1, crumbs, body, schema }) {
 <h1>${esc(h1)}</h1>
 ${body}
 <div class="cta">
-<p>Trimugo is one engineer — Malisetti Obulamurthy. You talk to the person who writes the code.</p>
-<p><a href="mailto:murthy@trimugo.in">murthy@trimugo.in</a> &nbsp;·&nbsp; <a href="tel:+917702327702">+91 7702327702</a> &nbsp;·&nbsp; <a href="/">See the full journey and case studies</a></p>
+<p>Trimugo is a group of engineers working together to bring your product to life. You collaborate directly with the people building it.</p>
+<p><a href="mailto:murthy@trimugo.in">murthy@trimugo.in</a> &nbsp;·&nbsp; <a href="tel:+918500098088">+91 8500098088</a> &nbsp;·&nbsp; <a href="/">See the full journey and case studies</a></p>
 </div>
 <footer>
 <a href="/">Home</a><a href="/about/">About Trimugo</a><a href="/work/">Selected work</a><a href="/hire-freelance-react-developer/">Freelance developer</a><a href="/contract-developer-for-hire/">Contract developer</a><a href="/ai-agents-document-automation/">AI solutions</a><a href="/#/privacy">Privacy</a>
@@ -187,10 +187,10 @@ const SERVICE_PAGES = [
   // Search-engine corrections or index status require separate live evidence.
   {
     url: '/about/',
-    title: 'About Trimugo — Malisetti Obulamurthy, Bangalore',
+    title: 'Who We Are | Trimugo, Bangalore',
     description:
-      'Trimugo is a product and workflow engineering practice run by Malisetti Obulamurthy from Bangalore, India — freelance and contract web and mobile engineering in React, Vue and React Native, delivered remotely worldwide.',
-    h1: 'About Trimugo',
+      'Trimugo is a group of engineers building web and mobile products and connected workflows. Based in Bangalore, India, working remotely worldwide.',
+    h1: 'Who we are',
     crumbs: [
       { name: 'Trimugo', url: '/' },
       { name: 'About', url: '/about/' },
@@ -214,7 +214,6 @@ const SERVICE_PAGES = [
         logo: `${ORIGIN}/icon-512.png`,
         sameAs: [
           'https://github.com/Murthy-sys',
-          'https://www.linkedin.com/in/obulamurthy-malisetti-b2893122b',
         ],
         address: {
           '@type': 'PostalAddress',
@@ -222,52 +221,58 @@ const SERVICE_PAGES = [
           addressRegion: 'Karnataka',
           addressCountry: 'IN',
         },
-        numberOfEmployees: { '@type': 'QuantitativeValue', value: 1 },
-        founder: {
-          '@type': 'Person',
-          name: 'Malisetti Obulamurthy',
-          jobTitle: 'Founder, Full-Stack Engineer',
-          worksFor: { '@id': `${ORIGIN}/#organization` },
-          sameAs: [
-            'https://github.com/Murthy-sys',
-            'https://www.linkedin.com/in/obulamurthy-malisetti-b2893122b',
-          ],
-        },
+        founder: [
+          {
+            '@type': 'Person',
+            name: 'Cimala Gowthami',
+            jobTitle: 'Founder and CEO',
+            worksFor: { '@id': `${ORIGIN}/#organization` },
+          },
+          {
+            '@type': 'Person',
+            name: 'Malisetti Obulamurthy',
+            jobTitle: 'Founder and CTO',
+            worksFor: { '@id': `${ORIGIN}/#organization` },
+            sameAs: [
+              'https://github.com/Murthy-sys',
+            ],
+          },
+        ],
       },
     ],
     body: `
-<p class="lead">Trimugo is a product and workflow engineering practice, run by one engineer from Bangalore, India, and delivered remotely to clients worldwide.</p>
+<p class="lead">Trimugo is a group of engineers building thoughtful web and mobile products and connected business systems. Based in Bangalore, India, we collaborate remotely with clients worldwide.</p>
 
 <h2>What Trimugo is</h2>
-<p>Trimugo is not an agency and there is no team behind the name. It is the working practice of <strong style="color:#e4e4e4">Malisetti Obulamurthy</strong>, a full-stack engineer with eight years of production experience building web and mobile applications. The person a client scopes a project with is the person who designs the system, writes the code, ships the release and answers the message afterwards. There is no account layer, no delivery manager and no subcontracting.</p>
+<p>We work together across product design, architecture, development and delivery. Our engineers connect thoughtful interfaces with dependable systems, staying close to the decisions that shape a product from discovery to launch and beyond. You collaborate directly with the people building your product, with shared ownership and clear communication throughout.</p>
 
 <h2>Who runs Trimugo</h2>
 <dl class="facts">
-<div><dt>Founder and engineer</dt><dd>Malisetti Obulamurthy</dd></div>
+<div><dt>Founder and CEO</dt><dd>Cimala Gowthami</dd></div>
+<div><dt>Founder and CTO</dt><dd>Malisetti Obulamurthy</dd></div>
 <div><dt>Based in</dt><dd>Bangalore, Karnataka, India</dd></div>
 <div><dt>Works</dt><dd>Remotely, worldwide</dd></div>
-<div><dt>Team size</dt><dd>One</dd></div>
-<div><dt>Contact</dt><dd>murthy@trimugo.in · +91 7702327702</dd></div>
+<div><dt>Contact</dt><dd>murthy@trimugo.in · +91 8500098088</dd></div>
 </dl>
 
 <h2>What Trimugo does</h2>
-<p>Two kinds of work, given equal weight. The first is taking a product idea from a first conversation to a live release for founders who can describe what they want but have no engineering team to hand it to. The second is turning operational processes that still run on email, spreadsheets and manual re-typing into connected software, for businesses that already have the process and need it to stop depending on one person's attention.</p>
+<p>We take product ideas from an initial conversation to a live release, helping founders turn a clear vision into working software. We also turn operational processes that still run on email, spreadsheets and manual re-typing into connected systems, giving businesses a more dependable way to work.</p>
 <p>In practice that means <a href="/hire-freelance-react-developer/">freelance</a> and <a href="/contract-developer-for-hire/">contract</a> engineering in React, Vue, TypeScript and React Native, backed by Node.js and PostgreSQL, integrated against the CRM, ERP and third-party APIs a client already runs. <a href="/ai-agents-document-automation/">AI agents and document intelligence</a> are offered where a project genuinely calls for them and declined where they do not.</p>
 
 <h2>Where to find Trimugo</h2>
-<p>The practice is online at trimugo.in. Code is at <a href="https://github.com/Murthy-sys" rel="noopener">github.com/Murthy-sys</a>, and Malisetti Obulamurthy is on <a href="https://www.linkedin.com/in/obulamurthy-malisetti-b2893122b" rel="noopener">LinkedIn</a>. Shipped products are listed on the <a href="/work/">selected work</a> page, each linking to something you can open and use rather than to a screenshot.</p>
+<p>Find Trimugo online at trimugo.in. Explore Malisetti Obulamurthy's code at <a href="https://github.com/Murthy-sys" rel="noopener">github.com/Murthy-sys</a>. Shipped products are listed on the <a href="/work/">selected work</a> page, with links to open and use each product.</p>
 
 <h2>How Trimugo works with clients</h2>
-<p>Engagements are remote and structured around defined milestones, scheduled demonstrations of working software, and written documentation of architecture and integrations. The daily working block is scheduled inside the client's own working day — from India that reaches a full European day in CET/CEST, the US Eastern morning, and all of India and the wider APAC region.</p>
+<p>Engagements are remote and structured around defined milestones, product demos and written documentation of architecture and integrations. Scope, priorities and review points are agreed together, with direct access to the engineers building the product.</p>
 ${pickFaq(['who actually does', 'only work with european', 'freelance developer'])}
 `,
   },
   {
     url: '/hire-freelance-react-developer/',
-    title: 'Hire a Freelance React, Vue & React Native Developer — Trimugo',
+    title: 'Freelance React, Vue & React Native Development | Trimugo',
     description:
-      'Freelance React, Vue and React Native developer for hire, remote and worldwide. Eight years of production web and mobile delivery, four hours a day, USD 15–18/hour, billed hourly or against milestones. You work with the engineer who writes the code.',
-    h1: 'Hire a freelance React, Vue and React Native developer',
+      'Freelance React, Vue and React Native development, remote and worldwide. Collaborate directly with the engineers taking your product from discovery to launch.',
+    h1: 'Freelance React, Vue and React Native development',
     crumbs: [
       { name: 'Trimugo', url: '/' },
       { name: 'Freelance developer', url: '/hire-freelance-react-developer/' },
@@ -280,12 +285,12 @@ ${pickFaq(['who actually does', 'only work with european', 'freelance developer'
       ...faqSchema(['freelance developer', 'idea but no technical', 'who actually does']),
     ],
     body: `
-<p class="lead">One named engineer, engaged directly. No agency margin, no account manager, and no relay between you and the person writing the code.</p>
+<p class="lead">Collaborate directly with a group of engineers who bring thoughtful interfaces, dependable systems and shared product ownership to your project.</p>
 
-<p>Trimugo is the practice of Malisetti Obulamurthy — eight years building production web and mobile applications in React, Vue and React Native, integrated against the APIs and services behind them. A freelance engagement here means the person you scope the project with is the person who designs the system, writes the code, ships the release and answers the message afterwards.</p>
+<p>Trimugo builds production web and mobile applications in React, Vue and React Native, connected to the APIs and services behind them. Our engineers work together across discovery, architecture, implementation and delivery, keeping decisions clear and progress visible from the initial scope through launch and continued development.</p>
 
 <h2>What a freelance engagement covers</h2>
-<p>Discovery, architecture, implementation and delivery, as one continuous piece of work rather than a handover between roles:</p>
+<p>Discovery, architecture, implementation and delivery, with connected ownership throughout:</p>
 <ul>
   <li>React, Vue and TypeScript interfaces — operational portals, internal platforms and dashboards built around a real workflow rather than a template</li>
   <li>React Native applications, shipped through App Store and Google Play review and maintained afterwards</li>
@@ -294,20 +299,19 @@ ${pickFaq(['who actually does', 'only work with european', 'freelance developer'
   <li>Continued development and maintenance after launch, rather than a repository handover</li>
 </ul>
 
-<h2>Two ways a project starts</h2>
+<h2>How a project starts</h2>
 <p><strong style="color:#e4e4e4">You have an idea.</strong> A product you can describe but cannot build, with no engineering team to hand it to. It is taken from the first conversation to a live release — scope, architecture, build, launch — as a freelance engagement rather than a hire. The first release is built as the first increment of the real system, so it survives if the idea works.</p>
 <p><strong style="color:#e4e4e4">You have a process.</strong> Work that already happens every week, held together by email, spreadsheets and people re-typing the same values into three systems. That becomes a connected workflow with state and ownership held by software instead of by a person.</p>
 
 <h2>How the work runs</h2>
 <ul>${processList}</ul>
 
-<h2>Engagement terms, stated up front</h2>
+<h2>Working together</h2>
 <dl class="facts">
-<div><dt>Availability</dt><dd>4 hours per day</dd></div>
-<div><dt>Rate</dt><dd>USD 15–18 / hour</dd></div>
-<div><dt>Engagement</dt><dd>Remote, part-time, milestone or hourly</dd></div>
+<div><dt>Focus</dt><dd>Web and mobile products, API integrations and connected workflows</dd></div>
+<div><dt>Ownership</dt><dd>Discovery, architecture, implementation and release</dd></div>
+<div><dt>Collaboration</dt><dd>Defined milestones, product demos and written updates</dd></div>
 <div><dt>Based in</dt><dd>Bangalore, India · works remotely, worldwide</dd></div>
-<div><dt>Hours</dt><dd>Scheduled inside your working day — a full European day in CET/CEST, the US Eastern morning, or all of India and APAC</dd></div>
 </dl>
 
 <h2>What the stack actually is</h2>
@@ -324,10 +328,10 @@ ${pickFaq(['freelance developer', 'idea but no technical', 'who actually does'])
 
   {
     url: '/contract-developer-for-hire/',
-    title: 'Contract Developer for Hire — Remote Front-End & Mobile | Trimugo',
+    title: 'Contract Engineering | Remote Front-End & Mobile | Trimugo',
     description:
-      'Contract developer for hire, working inside your team, your repositories and your release process. Remote across Europe, the UK, the US and APAC, four hours a day, billed hourly or per milestone. No agency, no subcontracting.',
-    h1: 'Contract developer for hire, inside your team',
+      'Contract engineers working with your team, your repositories and your release process. Remote collaboration worldwide with direct product ownership.',
+    h1: 'Contract engineers working alongside your team',
     crumbs: [
       { name: 'Trimugo', url: '/' },
       { name: 'Contract developer', url: '/contract-developer-for-hire/' },
@@ -340,11 +344,11 @@ ${pickFaq(['freelance developer', 'idea but no technical', 'who actually does'])
       ...faqSchema(['freelance developer', 'alongside our internal', 'existing software', 'crm or erp']),
     ],
     body: `
-<p class="lead">An ongoing block of engineering hours inside your process — your repositories, your review standards, your release cadence — rather than a scope thrown over a wall.</p>
+<p class="lead">Ongoing engineering within your team, using your repositories, review standards and release process.</p>
 
-<p>A contract engagement differs from a project engagement in one way: the work is continuous and the direction is yours. You get an engineer in your stand-ups and your pull requests, not a vendor sending status reports. It is the same person either way, and there is no subcontracting behind the name.</p>
+<p>A contract engagement supports ongoing development inside your existing process. Our engineers collaborate in your stand-ups, repositories and code reviews, helping your team move from technical decisions to working releases while keeping direction and priorities aligned.</p>
 
-<h2>Where a contract engineer fits</h2>
+<h2>Where our engineers can contribute</h2>
 <ul>
   <li><strong style="color:#e4e4e4">Extra front-end capacity</strong> on an existing React or Vue product, working to your conventions rather than importing new ones</li>
   <li><strong style="color:#e4e4e4">A mobile surface</strong> your team has not staffed — React Native, taken through both app stores</li>
@@ -359,11 +363,11 @@ ${pickFaq(['freelance developer', 'idea but no technical', 'who actually does'])
   <li>Working software demonstrated on a fixed cadence, not slides</li>
   <li>Architecture, integrations and operational runbooks written down</li>
   <li>Progress, blockers and estimates reported as they change</li>
-  <li>Direct access to the engineer doing the work, with no intermediary</li>
+  <li>Direct access to the engineers doing the work</li>
 </ul>
 
-<h2>Timezones, stated honestly</h2>
-<p>The daily block is four hours and it is scheduled inside one client's working day rather than split across three. From India (IST) that block reaches a full European day in CET/CEST, the US Eastern morning, and all of India and the wider APAC region; US Pacific works by arrangement. Stand-ups, reviews and calls run at your hours.</p>
+<h2>Collaboration across locations</h2>
+<p>Based in Bangalore, India, Trimugo works remotely with clients worldwide. Priorities and review points are agreed with your team, while product demos and written documentation keep decisions and progress visible.</p>
 
 <h2>The stack on offer</h2>
 ${capList}
@@ -496,7 +500,7 @@ ${cs.flow?.length ? `<h2>The flow, end to end</h2><ul class="chips">${cs.flow.ma
 <div><dt>Category</dt><dd>${esc(p.category)}</dd></div>
 <div><dt>Year</dt><dd>${esc(p.year)}</dd></div>
 <div><dt>Status</dt><dd>${esc(p.status || 'Delivered')}</dd></div>
-<div><dt>Built by</dt><dd>Trimugo — Malisetti Obulamurthy</dd></div>
+<div><dt>Built by</dt><dd>Trimugo</dd></div>
 </dl>
 
 <h2>Stack</h2>
@@ -505,13 +509,13 @@ ${cs.flow?.length ? `<h2>The flow, end to end</h2><ul class="chips">${cs.flow.ma
 ${links.length ? `<h2>See it</h2><p>${links.join(' &nbsp;·&nbsp; ')}</p>` : ''}
 ${study}
 <h2>How it was built</h2>
-<p>Designed, built and delivered by one engineer — discovery, architecture, implementation and release were the same person, with no handoff between roles and no subcontracting. ${
+<p>Designed, built and delivered by Trimugo, from discovery and architecture through implementation and release. ${
       live
         ? 'The link above goes to the running product rather than to a mockup or a case-study screenshot.'
         : 'This one is still in development; it is listed here because the work is real, not because it is finished.'
     }</p>
 
-<h2>Work with the same engineer</h2>
+<h2>Work with Trimugo</h2>
 <p><a href="/hire-freelance-react-developer/">Freelance engagement</a> · <a href="/contract-developer-for-hire/">Contract engagement</a> · <a href="/ai-agents-document-automation/">AI solutions</a></p>
 `,
   }

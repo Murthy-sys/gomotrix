@@ -1,3 +1,5 @@
+import { JOURNEY_SPAN } from '../core/world.js'
+
 // Narrative copy, one beat per scene.
 //
 // All typography lives in the DOM rather than in the WebGL canvas: it stays
@@ -21,12 +23,10 @@ export const BEATS = [
     at: 0.62,
     kicker: 'Product & Workflow Engineering',
     title: 'Turn an idea —\nor a broken process —\ninto working software.',
-    body: 'One engineer building the web and mobile products businesses run on. Bring an idea that needs building, or an operation that still runs by hand — remote, worldwide, from first scope to shipped release.',
+    body: 'A group of engineers building the web and mobile products businesses run on. Bring an idea that needs building, or an operation that still runs by hand. We work remotely, worldwide, from first scope to shipped release.',
     meta: 'Idea To First Release · Web & Mobile Applications · Workflow Automation · AI On Request',
-    // Primary flies the camera to the contact scene rather than leaving the
-    // world — the CTA is part of the journey, not an exit from it.
-    cta: { label: 'Discuss Your Project', to: 0.94 },
-    secondary: { label: 'Explore Our Work', to: 0.71 },
+    cta: { label: 'Discuss Your Project', to: '#contact' },
+    secondary: { label: 'Explore Our Work', to: 0.71 / JOURNEY_SPAN },
     align: 'center',
   },
   {

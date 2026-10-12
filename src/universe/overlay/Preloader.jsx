@@ -84,8 +84,8 @@ export default function Preloader({ onEnter }) {
           Engineering Partner
         </p>
         <p className="uv-pre__sub">
-          One engineer who takes an idea to a shipped release, and turns the work a business still
-          does by hand into software that runs it. What follows is a scroll-driven journey through
+          A group of engineers taking ideas to shipped products, and turning the work a business
+          still does by hand into software that runs it. What follows is a scroll-driven journey through
           how we work — best with sound on.
         </p>
 

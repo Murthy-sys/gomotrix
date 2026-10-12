@@ -1,7 +1,7 @@
 import { useMemo, useRef, forwardRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
-import { C } from '../core/theme'
+import { C, COLORS } from '../core/theme'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Surfaces.
@@ -47,7 +47,7 @@ function attachUniforms(material, api) {
  * rather than "a ball of light" is the whole difference in feel.
  */
 export const Orb = forwardRef(function Orb(
-  { radius = 1, detail = 4, color = '#b7ff6a', emissive = 0.8, opacity = 1, amp, core: coreColor, ...props },
+  { radius = 1, detail = 4, color = COLORS.accent, emissive = 0.35, opacity = 1, amp, core: coreColor, ...props },
   ref,
 ) {
   const shell = useRef()
@@ -69,9 +69,8 @@ export const Orb = forwardRef(function Orb(
     }
     if (core.current) {
       core.current.visible = o > 0.01
-      // The core is the only thing allowed past 1.0 — it is a real light source,
-      // so it is what bloom should be catching, and nothing else.
-      core.current.material.emissiveIntensity = (emissive * 2.1 + h * 1.4) * o
+      // Keep the active core luminous without bleaching its olive pigment.
+      core.current.material.emissiveIntensity = (emissive * 1.3 + h * 0.3) * o
       core.current.material.opacity = o
       core.current.scale.setScalar(0.3 + h * 0.06)
     }
@@ -201,8 +200,8 @@ export const GlassPanel = forwardRef(function GlassPanel(
     height = 2,
     radius = 0.12,
     opacity = 0.5,
-    accent = '#b7ff6a',
-    fill = '#151A1F',
+    accent = COLORS.accent,
+    fill = C.ink,
     border = 0.005,
     // Accepted and ignored: scenes still pass it, but scanlines were part of
     // the old hologram look.
@@ -244,7 +243,7 @@ export const GlassPanel = forwardRef(function GlassPanel(
 
 /** A thin machined ring. Metal, lit — not a glowing hoop. */
 export const GlowRing = forwardRef(function GlowRing(
-  { radius = 4, tube = 0.012, color = '#b7ff6a', opacity = 0.9, speed, ...props },
+  { radius = 4, tube = 0.012, color = COLORS.accent, opacity = 0.9, speed, ...props },
   ref,
 ) {
   const self = useRef()

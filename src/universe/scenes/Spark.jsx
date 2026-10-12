@@ -1,22 +1,12 @@
-import { useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
-import useScene from '../core/useScene'
-import { state } from '../core/store'
-import { Orb, GlowRing } from '../world/Holo'
+import { Orb } from '../world/Holo'
 import { NOISE, CURL, POINT_SHAPE } from '../shaders/common'
-import { ANCHORS } from '../core/world'
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SCENE 1 — THE SPARK
-//
-// Darkness. One mote of light. Then thousands of them arrive out of the void and
-// assemble themselves into a core that is visibly alive.
-//
-// The entire assembly is a single Points draw call. Each particle knows where it
-// came from and where it belongs; the shader interpolates between the two along
-// a curl-noise path, staggered per particle so the swarm arrives as a wave
-// rather than a snap.
+// The retained hero composition. Its particles start at the original headline
+// pose, while their slow surface movement keeps the sphere alive.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const vert = /* glsl */ `
@@ -109,15 +99,12 @@ void main(){
 `
 
 const CORE_R = 2.6
+const ASSEMBLE = THREE.MathUtils.smoothstep(0.62, 0.1, 0.72)
+const ORB_SCALE = THREE.MathUtils.lerp(0.05, 1, ASSEMBLE) * CORE_R * 0.92
 
-export default function Spark() {
-  const { group, d } = useScene('spark')
+export default function Spark({ quality = 'high', dpr = 1, animate = true, pointer }) {
   const mat = useRef()
-  const orb = useRef()
-  const rings = useRef()
-  const seed = useRef(0)
-
-  const count = state.quality === 'high' ? 42000 : state.quality === 'medium' ? 16000 : 6500
+  const count = quality === 'high' ? 42000 : quality === 'medium' ? 16000 : 6500
 
   const geometry = useMemo(() => {
     const g = new THREE.BufferGeometry()
@@ -173,69 +160,33 @@ export default function Spark() {
     return g
   }, [count])
 
+  useEffect(() => () => geometry.dispose(), [geometry])
+
   const uniforms = useMemo(
     () => ({
       uTime: { value: 0 },
-      uAssemble: { value: 0 },
+      uAssemble: { value: ASSEMBLE },
       uSize: { value: 1.5 },
-      uPixelRatio: { value: 1 },
-      uTurb: { value: 1 },
+      uPixelRatio: { value: dpr },
+      uTurb: { value: 1 - ASSEMBLE * 0.85 },
       uPointer: { value: new THREE.Vector2() },
       uAccent: { value: new THREE.Color('#cfe0ff') },
       uWhite: { value: new THREE.Color('#ffffff') },
       uOpacity: { value: 1 },
     }),
-    [],
+    [dpr],
   )
 
   useFrame((_, dt) => {
-    if (!d.current.active) return
     const u = mat.current?.uniforms
     if (!u) return
-
-    const t = d.current.local
-    u.uTime.value += dt
-    u.uPixelRatio.value = state.dpr
-
-    // Story beats mapped onto the scene's own scroll range:
-    //   0.00–0.10  a single mote, pulsing alone
-    //   0.10–0.72  the swarm arrives and assembles
-    //   0.72–1.00  formed, alive, camera orbiting
-    const assemble = THREE.MathUtils.smoothstep(t, 0.1, 0.72)
-    u.uAssemble.value = assemble
-    u.uTurb.value = 1 - assemble * 0.85
-    u.uPointer.value.set(state.smooth.x, state.smooth.y)
-
-    // Everything in this scene fades with the shared band, so the transition
-    // into scene 2 is a dissolve rather than a cut.
-    u.uOpacity.value = d.current.band
-
-    // The first mote: a lone point of light that pulses before anything else
-    // exists. It grows into the core itself as the swarm arrives.
-    seed.current += dt
-    if (orb.current) {
-      const birth = THREE.MathUtils.smoothstep(t, 0.0, 0.1)
-      const pulse = 1 + Math.sin(seed.current * 2.1) * 0.16 * (1 - assemble)
-      const s = THREE.MathUtils.lerp(0.05, 1, assemble) * pulse
-      orb.current.scale.setScalar(s * CORE_R * 0.92)
-      const ou = orb.current.material.uniforms
-      if (ou) ou.uOpacity.value = (0.25 + birth * 0.55) * d.current.band
-    }
-
-    if (rings.current) {
-      // Rings only appear once there is a core for them to orbit.
-      const r = THREE.MathUtils.smoothstep(t, 0.6, 0.95)
-      rings.current.scale.setScalar(THREE.MathUtils.lerp(0.4, 1, r))
-      rings.current.rotation.y += dt * 0.06
-      rings.current.rotation.z = Math.sin(seed.current * 0.15) * 0.12
-      rings.current.children.forEach((m) => {
-        if (m.material?.uniforms) m.material.uniforms.uOpacity.value = r * 0.9 * d.current.band
-      })
-    }
+    if (animate) u.uTime.value += Math.min(dt, 0.1)
+    if (pointer) u.uPointer.value.copy(pointer.current)
+    else u.uPointer.value.set(0, 0)
   })
 
   return (
-    <group ref={group} position={ANCHORS.spark}>
+    <group>
       <points geometry={geometry} frustumCulled={false}>
         <shaderMaterial
           ref={mat}
@@ -247,12 +198,7 @@ export default function Spark() {
       </points>
 
       {/* The luminous body inside the particle shell. */}
-      <Orb ref={orb} radius={1} detail={4} amp={0.08} opacity={0.5} />
-
-      <group ref={rings}>
-        <GlowRing radius={4.2} tube={0.01} speed={0.14} rotation={[Math.PI / 2, 0, 0]} />
-        <GlowRing radius={5.1} tube={0.008} speed={-0.09} rotation={[Math.PI / 2, 0.5, 0.35]} />
-      </group>
+      <Orb radius={1} detail={4} opacity={0.8} scale={ORB_SCALE} />
     </group>
   )
 }

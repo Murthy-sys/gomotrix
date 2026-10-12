@@ -1,0 +1,90 @@
+/* The first studio shares the continuous photographic background and glass
+   palette with the rest of the story. Hardware poses stay independent. */
+.st-overview {
+  isolation: isolate;
+  overflow: clip;
+  padding-block: 2rem 2.5rem;
+}
+.st-overview__composition {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.35fr);
+  align-items: center;
+  min-height: 620px;
+  gap: 0;
+  padding-block: 2.8rem 2rem;
+}
+.st-overview__copy {
+  position: relative;
+  z-index: 2;
+  padding: clamp(1.35rem, 2.5vw, 2.25rem);
+  margin-left: -1.35rem;
+  margin-right: -1rem;
+  background: var(--glass-surface);
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--glass-radius);
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
+}
+.st-overview .st-kicker { font-size: 0.57rem; letter-spacing: 0.15em; margin-bottom: 1.3rem; color: #c3c9a3; }
+.st-overview .st-title { font-size: clamp(3.5rem, 4.8vw, 5.15rem); font-weight: 500; line-height: 0.98; }
+.st-overview .st-title em { color: #b5c08c; }
+.st-overview .st-lead { font-size: 0.91rem; line-height: 1.85; margin-top: 1.5rem; color: #dadccb; }
+.st-overview .uv-btn { margin-top: 1.5rem; }
+
+/* Each scroll layer owns its wrapper. The hardware keeps its independent pose. */
+.st-studio { position: relative; width: 110%; margin: 0 0 0 -3%; aspect-ratio: 4 / 3; container-type: inline-size; }
+.st-studio__arrival { position: absolute; }
+.st-studio__computer { left: 15%; top: 12%; width: 65%; }
+.st-studio__phone { left: 5%; top: 44%; width: 17%; z-index: 4; }
+.st-studio__tablet { right: 0; bottom: 2%; width: 43%; z-index: 5; }
+.st-studio__robot { right: 2%; top: 26%; width: 20%; z-index: 3; }
+.st-studio__robot img { display: block; width: 100%; height: auto; }
+.st-studio__connections { position: absolute; inset: 0; color: #b8be8c; opacity: 0.6; }
+.st-studio__connections svg { display: block; width: 100%; height: 100%; }
+.st-studio__connections path { stroke: currentColor; stroke-width: 1; stroke-dasharray: 3 5; }
+.st-studio__connections circle { fill: #d0d5ac; }
+
+.st-computer { transform: perspective(1100px) rotateY(-10deg) rotateX(2deg) rotateZ(-3deg); }
+.st-computer__frame { position: relative; padding: 2.2% 2.2% 0; background: #101411; border: 2px solid #707568; border-radius: 10px; overflow: hidden; }
+.st-computer__camera { position: absolute; left: 50%; top: 1%; width: 3px; height: 3px; background: #767d6e; border-radius: 50%; }
+.st-computer__screen { aspect-ratio: 8 / 5; overflow: hidden; background: #373b30; }
+.st-computer__screen img, .st-phone__screen img, .st-tablet__screen img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.st-computer__chin { display: grid; place-items: center; height: 2.4cqw; background: linear-gradient(110deg, #42463c, #22271f 60%, #626759); }
+.st-computer__chin span { width: 3cqw; height: 1px; background: #b2b59f; }
+.st-computer__stand { height: 7cqw; width: 18%; margin-inline: auto; background: linear-gradient(90deg, #1c211b, #676d5b 45%, #30372b); clip-path: polygon(22% 0, 78% 0, 95% 100%, 5% 100%); }
+.st-computer__foot { width: 44%; height: 1.5cqw; margin: -1px auto 0; background: linear-gradient(170deg, #919780, #3a4234 62%, #171d16); clip-path: polygon(24% 0, 77% 0, 100% 80%, 97% 100%, 2% 100%, 0 80%); }
+.st-phone { position: relative; padding: 5.5%; background: #11150f; border: 2px solid #858a77; border-radius: 2.8cqw; transform: perspective(800px) rotateY(8deg) rotateZ(-9deg); }
+.st-phone__screen { overflow: hidden; aspect-ratio: 390 / 844; border-radius: 1.7cqw; background: #e6e4d7; }
+.st-phone__camera { position: absolute; left: 35%; top: 3%; width: 30%; height: 1.1cqw; border-radius: 1cqw; background: #11150f; }
+.st-phone__button { position: absolute; right: -3px; top: 23%; width: 2px; height: 3.7cqw; background: #8b917b; }
+.st-tablet { position: relative; padding: 3.2% 2.5%; background: #13170f; border: 2px solid #858c77; border-radius: 1.7cqw; transform: perspective(900px) rotateY(-12deg) rotateX(9deg) rotateZ(8deg); }
+.st-tablet__screen { overflow: hidden; border-radius: 0.7cqw; background: #323a2b; aspect-ratio: 8 / 5; }
+.st-tablet__camera { position: absolute; left: 49%; top: 1.2%; width: 3px; height: 3px; background: #8b917b; border-radius: 50%; }
+
+@media (min-width: 1600px) {
+  .st-overview__composition { min-height: 700px; }
+}
+@media (max-width: 1100px) {
+  .st-overview__composition { min-height: 570px; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.2fr); }
+  .st-overview .st-title { font-size: clamp(3rem, 5.5vw, 4rem); }
+  .st-overview__copy { padding: 1.5rem; }
+  .st-overview .st-lead { font-size: 0.85rem; }
+  .st-studio { width: 106%; margin-left: -5%; }
+}
+@media (max-width: 850px) {
+  .st-overview__composition { grid-template-columns: 1fr; padding-block: 2rem; gap: 1rem; min-height: auto; }
+  .st-overview__copy { margin: 0; padding: 2rem; max-width: 36rem; }
+  .st-overview .st-title { font-size: clamp(3.5rem, 8vw, 5.2rem); }
+  .st-overview .st-lead { max-width: 48ch; font-size: 0.94rem; }
+  .st-studio { width: 100%; max-width: 720px; margin: -2rem auto 0; }
+}
+@media (max-width: 580px) {
+  .st-overview { padding-block: 1.5rem; }
+  .st-overview__composition { padding-block: 1.5rem; gap: 1.5rem; }
+  .st-overview__copy { padding: 1.25rem; margin-inline: -0.4rem; }
+  .st-overview .st-kicker { font-size: 0.51rem; letter-spacing: 0.08em; }
+  .st-overview .st-title { font-size: clamp(2.2rem, 11.5vw, 4.5rem); }
+  .st-overview .st-lead { font-size: 0.87rem; line-height: 1.8; }
+  .st-overview .uv-btn { gap: 0.8rem; }
+  .st-studio { width: 110%; margin: -1.5rem 0 0 -5%; }
+}

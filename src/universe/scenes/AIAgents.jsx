@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
+import { COLORS } from '../core/theme'
 import useScene from '../core/useScene'
 import { state, set } from '../core/store'
 import { Orb } from '../world/Holo'
@@ -314,7 +315,7 @@ export default function AIAgents() {
     <group ref={group} position={ANCHORS.agents}>
       <Network data={d} />
       <Filaments links={links} color="#93a8c0" opacity={0.5} fade={fade} />
-      <Pulses links={links} perLink={4} speed={0.13} size={1.3} color="#d8ffb0" arc={1.4} fade={fade} />
+      <Pulses links={links} perLink={4} speed={0.13} size={1.3} color={COLORS.accent} arc={1.4} fade={fade} />
       {AGENTS.map((a) => (
         <Agent key={a.id} agent={a} data={d} selected={selected} onSelect={setSelected} />
       ))}

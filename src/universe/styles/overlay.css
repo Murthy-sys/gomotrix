@@ -1,346 +1,137 @@
-/* ── Narrative layer + minimal chrome ─────────────────────────────────────── */
-
-.uv-narrative {
-  position: fixed;
-  inset: 0;
-  z-index: 10;
-  pointer-events: none;
-}
-
-/* Every beat occupies the same fixed frame; only one is visible at a time.
-   Opacity/transform are written imperatively from rAF — never by React. */
-.uv-beat {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: clamp(5rem, 12vh, 9rem) var(--gut);
-  will-change: opacity, transform, filter;
-}
-.uv-beat--left   { align-items: flex-start; text-align: left; }
-.uv-beat--right  { align-items: flex-end;   text-align: right; }
-.uv-beat--center { align-items: center;     text-align: center; }
-
-/* Type sits on top of a live particle field, so it needs its own darkness to
-   stay legible. A soft directional scrim reads as depth rather than as a panel —
-   an opaque box behind the text would flatten the whole shot. */
-.uv-beat::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  /* Hugs the type instead of blanketing the shot — it only needs to buy
-     contrast directly behind the words. */
-  background: radial-gradient(
-    46% 42% at var(--scrim-x, 50%) 50%,
-    rgba(5, 5, 5, 0.72) 0%,
-    rgba(5, 5, 5, 0.4) 46%,
-    rgba(5, 5, 5, 0) 74%
-  );
-}
-.uv-beat--left  { --scrim-x: 26%; }
-.uv-beat--right { --scrim-x: 74%; }
-
-/* Scenes whose subject is dead centre (the core, the finished ecosystem) would
-   otherwise have the headline sitting straight on top of the hero. Dropping the
-   copy into the lower third lets the world own the frame and the words sit
-   under it, the way a title card works in film. */
-.uv-beat--bottom {
-  justify-content: flex-end;
-  align-items: center;
-  text-align: center;
-  padding-bottom: clamp(3rem, 9vh, 6rem);
-}
-.uv-beat--bottom > * { max-width: 44rem; }
-.uv-beat--bottom .uv-beat__actions,
-.uv-beat--bottom .uv-beat__steps { justify-content: center; }
-.uv-beat--bottom::before {
-  background: linear-gradient(
-    to top,
-    rgba(5, 5, 5, 0.9) 0%,
-    rgba(5, 5, 5, 0.6) 28%,
-    rgba(5, 5, 5, 0.16) 52%,
-    rgba(5, 5, 5, 0) 74%
-  );
-}
-
-.uv-beat > * { max-width: 33rem; }
-.uv-beat--center > * { max-width: 44rem; }
-
-.uv-beat__kicker {
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.36em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin: 0 0 1.5rem;
-}
-
-.uv-beat__title {
-  font-family: 'Space Grotesk', Inter, sans-serif;
-  font-size: clamp(2.3rem, 7vw, 5.2rem);
-  font-weight: 500;
-  line-height: 0.98;
-  letter-spacing: -0.038em;
-  margin: 0 0 1.6rem;
-  /* A whisper of gradient stops large type from reading as flat paint. */
-  background: linear-gradient(178deg, #ffffff 30%, rgba(255, 255, 255, 0.72) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-.uv-beat__title span { display: block; }
-
-.uv-beat__body {
-  font-size: clamp(0.98rem, 1.4vw, 1.16rem);
-  line-height: 1.62;
-  color: var(--dim);
-  margin: 0;
-  text-wrap: balance;
-}
-
-/* Process timelines — a hairline sequence, not a row of cards. */
-.uv-beat__steps {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 0.4rem;
-  list-style: none;
-  margin: 2rem 0 0;
-  padding: 0;
-  counter-reset: uv-step;
-}
-.uv-beat--right .uv-beat__steps { justify-content: flex-end; }
-.uv-beat--center .uv-beat__steps { justify-content: center; }
-
-.uv-beat__steps li {
-  counter-increment: uv-step;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.42rem 0.9rem;
-  border: 1px solid var(--hair);
-  border-radius: 999px;
-  background: var(--glass);
-  backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
-  font-size: 0.72rem;
-  letter-spacing: 0.055em;
-  color: var(--dim);
-  white-space: nowrap;
-}
-.uv-beat__steps li::before {
-  content: counter(uv-step, decimal-leading-zero);
-  color: var(--accent);
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  opacity: 0.85;
-}
-
-/* Capability line. Sits between the promise and the buttons: the visitor who
-   reads one line and nothing else should still learn the four things we do.
-   Hairline-separated rather than boxed — a card here would fight the world. */
-.uv-beat__meta {
-  margin: 1.5rem 0 0;
-  padding-top: 1.2rem;
-  border-top: 1px solid var(--hair);
-  font-size: clamp(0.68rem, 1vw, 0.76rem);
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--faint);
-  line-height: 1.9;
-}
-.uv-beat--center .uv-beat__meta { max-width: 38rem; }
-
-.uv-beat__actions {
-  display: flex;
-  gap: 0.8rem;
-  flex-wrap: wrap;
-  margin-top: 2.6rem;
-  pointer-events: auto;
-}
-.uv-beat--center .uv-beat__actions { justify-content: center; }
-.uv-beat--right .uv-beat__actions { justify-content: flex-end; }
-
-/* ── Top chrome ──────────────────────────────────────────────────────────── */
-
-.uv-chrome {
-  position: fixed;
-  z-index: 20;
-  left: 0; right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: clamp(1.1rem, 3vh, 2rem) var(--gut);
-  pointer-events: none;
-}
-.uv-chrome--top { top: 0; }
-/* Over the world the header floats on nothing — that is the point. Over the
-   story track, copy scrolls underneath it and needs separating from it, so a
-   soft scrim fades in for the length of the track and nowhere else. */
-.uv-chrome--top::before {
-  content: '';
-  position: absolute;
-  inset: 0 0 auto;
-  height: 180%;
-  z-index: -1;
-  pointer-events: none;
-  background: linear-gradient(to bottom, rgba(5, 5, 5, 0.92) 0%, rgba(5, 5, 5, 0.72) 42%, rgba(5, 5, 5, 0) 100%);
-  opacity: 0;
-  transition: opacity 0.5s var(--ease);
-}
-.uv-chrome--top.is-over-content::before { opacity: 1; }
-.uv-chrome > * { pointer-events: auto; }
-
-.uv-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.7rem;
-  color: var(--text);
-  text-decoration: none;
-}
-.uv-brand__mark {
-  width: 34px;
-  height: 34px;
-  flex: none;
-  border-radius: 9px;
-  /* Lifts the navy/gold mark off a near-black field without recolouring it. */
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1), 0 6px 22px -6px rgba(0, 0, 0, 0.9);
-  transition: transform 0.8s var(--ease);
-}
-.uv-brand:hover .uv-brand__mark { transform: translateY(-1px) scale(1.04); }
-.uv-brand__text { display: flex; flex-direction: column; justify-content: center; line-height: 1; }
-.uv-brand__word {
-  font-family: 'Space Grotesk', Inter, sans-serif;
-  font-size: 0.92rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.22em;
-}
-.uv-brand__tag {
-  margin-top: 0.34rem;
-  font-size: 0.52rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: #fbbf24;
-}
-
-/* ── Primary nav ─────────────────────────────────────────────────────────── */
-/* Held back until the opening beat has landed, then it stays. Three
-   destinations and one action — enough to convert, small enough that the world
-   is still the interface. */
-
-.uv-nav {
-  display: flex;
-  align-items: center;
-  gap: clamp(1rem, 2.5vw, 2rem);
-  transform: translate3d(0, -6px, 0);
-  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
-}
-.uv-nav__links {
-  display: flex;
-  align-items: center;
-  gap: clamp(0.9rem, 2vw, 1.8rem);
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.uv-nav__links a {
+/* The globe shares the page's studio backdrop. Copy stays in document flow;
+   the canvas alone owns Earth rotation and the projected orbital labels. */
+.uv-hero {
+  --hero-ink: var(--studio-text);
+  --hero-olive: var(--studio-accent);
+  --hero-muted: var(--studio-dim);
   position: relative;
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  color: rgba(255, 255, 255, 0.62);
-  text-decoration: none;
-  white-space: nowrap;
-  transition: color 0.5s var(--ease);
-}
-.uv-nav__links a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -5px;
-  height: 1px;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.55s var(--ease);
-}
-.uv-nav__links a:hover { color: #fff; }
-.uv-nav__links a:hover::after { transform: scaleX(1); }
-.uv-nav__links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
-
-@media (max-width: 860px) {
-  /* The three text links are the first thing to go: the CTA is what matters
-     on a phone, and the footer carries the full set. */
-  .uv-nav__links { display: none; }
-  .uv-brand__tag { display: none; }
-}
-
-/* ── Progress hairline ──────────────────────────────────────────────────── */
-/* All that remains of the chapter rail: a 1px line across the foot of the
-   frame. No numbers, no tick list, no labels. */
-
-.uv-progress {
-  position: fixed;
-  z-index: 20;
-  left: 0; right: 0; bottom: 0;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.07);
-  pointer-events: none;
-}
-.uv-progress__fill {
-  height: 100%;
-  transition: opacity 0.6s var(--ease);
-  background: linear-gradient(90deg, rgba(183, 255, 106, 0.25), var(--accent));
-  transform-origin: left;
-  transform: scaleX(0);
-  will-change: transform;
-}
-
-/* ── Scroll cue ──────────────────────────────────────────────────────────── */
-
-.uv-hint {
-  position: fixed;
-  z-index: 20;
-  bottom: clamp(1.4rem, 4vh, 2.6rem);
-  left: 50%;
-  transform: translateX(-50%);
+  isolation: isolate;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0.7rem;
-  color: var(--faint);
-  font-size: 0.66rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  pointer-events: none;
-  will-change: opacity;
+  min-height: 780px;
+  min-height: max(780px, 100svh);
+  padding: 9rem var(--gut) 7rem;
+  overflow: clip;
+  background: transparent;
+  color: var(--hero-ink);
 }
-.uv-hint__line {
-  width: 1px;
-  height: 42px;
-  background: linear-gradient(180deg, var(--accent), transparent);
-  animation: uv-drop 2.4s var(--ease) infinite;
-}
-@keyframes uv-drop {
-  0%   { transform: scaleY(0); transform-origin: top; opacity: 0; }
-  40%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
-  60%  { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
-  100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
-}
+.uv-hero__copy { position: relative; width: 42%; max-width: 38rem; margin-left: clamp(1.5rem, 4vw, 4rem); padding-block: 1rem; }
+.uv-hero__copy > * { position: relative; z-index: 5; }
+.uv-beat__kicker { margin: 0 0 1.75rem; color: var(--hero-olive); font-size: 0.64rem; font-weight: 500; letter-spacing: 0.18em; line-height: 1.8; text-transform: uppercase; }
+.uv-beat__title { margin: 0 0 2rem; font: 400 clamp(3.5rem, 6.1vw, 6.35rem)/0.98 var(--font-display); letter-spacing: -0.04em; color: var(--hero-ink); }
+.uv-beat__title span, .uv-beat__title em { display: block; }
+.uv-beat__title em { color: var(--hero-olive); font-weight: 400; }
+.uv-beat__body { max-width: 36ch; margin: 0; font-size: clamp(0.95rem, 1.08vw, 1.05rem); line-height: 1.8; color: var(--hero-muted); }
+.uv-beat__actions { display: flex; margin-top: 2rem; }
+.uv-beat__actions .uv-btn { min-width: 12rem; }
+.uv-beat__actions .uv-btn:focus-visible { outline-color: var(--hero-olive); }
+.uv-hero__globe { position: absolute; z-index: 1; isolation: isolate; right: 0; top: 12%; width: 65%; height: 80%; }
+.uv-hero__canvas { position: absolute; z-index: 2; inset: 0; pointer-events: none; }
+.uv-hero__canvas canvas { display: block; }
+.uv-hero__poster { position: absolute; z-index: 0; left: 50%; top: 50%; width: 64%; aspect-ratio: 1; overflow: hidden; border-radius: 50%; transform: translate(-50%, -50%); }
+.uv-hero__poster img { display: block; width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); }
+.uv-hero[data-renderer='webgl'] .uv-hero__poster { visibility: hidden; }
+.uv-hero__services { display: contents; list-style: none; padding: 0; margin: 0; }
+.uv-hero-service { position: absolute; left: 50%; top: 50%; z-index: 3; display: flex; align-items: center; gap: 0.9rem; width: 224px; padding: 0.7rem 1.15rem 0.7rem 0.7rem; border: 1px solid var(--glass-edge); border-radius: 99px; background: var(--glass-surface); -webkit-backdrop-filter: blur(var(--glass-blur)); backdrop-filter: blur(var(--glass-blur)); color: var(--hero-ink); transform-origin: center; pointer-events: none; }
+.uv-hero-service--mobile { transform: translate(-155%, -20%); }
+.uv-hero-service--ai { transform: translate(-22%, -360%); }
+.uv-hero-service--web { transform: translate(47%, 200%); }
+.uv-hero-service--automation { transform: translate(-185%, 165%); }
+.uv-hero-service--integrations { transform: translate(-180%, -290%); }
+.uv-hero-service--cloud { transform: translate(65%, -230%); }
+.uv-hero-service--design { transform: translate(-50%, 370%); }
+.uv-hero-service__icon { display: grid; place-items: center; flex: none; width: 50px; height: 50px; border-radius: 50%; color: var(--hero-olive); background: rgba(193, 204, 148, 0.12); }
+.uv-hero-service__icon svg { width: 31px; height: 31px; }
+.uv-hero-service__copy { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
+.uv-hero-service strong { font-size: 0.87rem; line-height: 1.25; font-weight: 600; white-space: nowrap; }
+.uv-hero-service__copy > span { color: var(--hero-muted); font-size: 0.68rem; line-height: 1.4; white-space: nowrap; }
+.uv-hero-service--compact { width: 190px; gap: 0.65rem; padding: 0.55rem 0.9rem 0.55rem 0.55rem; }
+.uv-hero-service--compact .uv-hero-service__icon { width: 36px; height: 36px; }
+.uv-hero-service--compact .uv-hero-service__icon svg { width: 24px; height: 24px; }
+.uv-hero-service--compact strong { font-size: 0.74rem; white-space: normal; }
+.uv-skip { position: fixed; top: 1rem; left: var(--gut); z-index: 30; padding: 1rem; background: var(--accent); color: var(--void); transform: translateY(-200%); }
+.uv-skip:focus { transform: none; }
 
+/* The original brand and navigation keep the same palette at every scroll position. */
+.uv-chrome { --header-text: var(--studio-text); --header-accent: var(--studio-accent); position: fixed; z-index: 20; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: clamp(1.1rem, 3vh, 2rem) var(--gut); pointer-events: none; }
+.uv-chrome > * { pointer-events: auto; }
+.uv-brand { display: inline-flex; align-items: center; gap: 0.7rem; color: var(--header-text); text-decoration: none; }
+.uv-brand__mark { width: 34px; height: 34px; flex: none; }
+.uv-brand__text { display: flex; flex-direction: column; justify-content: center; line-height: 1; }
+.uv-brand__word { font-family: var(--font-body); font-size: 0.92rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.22em; }
+.uv-brand__tag { margin-top: 0.34rem; font-size: 0.52rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; color: var(--header-accent); }
+.uv-nav { display: flex; align-items: center; gap: 0.75rem; }
+.uv-nav__links { display: flex; align-items: center; list-style: none; padding: 0; margin: 0; }
+.uv-nav__links .uv-btn { min-width: 5.5rem; --button-edge: var(--studio-accent); }
+.uv-brand:focus-visible, .uv-nav__links a:focus-visible { outline: 2px solid var(--header-accent); outline-offset: 5px; }
+
+@media (min-width: 1500px) {
+  .uv-hero__globe { width: 65%; }
+}
+@media (min-width: 861px) and (max-height: 800px) {
+  .uv-hero { min-height: 740px; padding-block: 7rem 6rem; }
+  .uv-beat__title { font-size: clamp(3.5rem, 5.9vw, 5.8rem); }
+}
+@media (min-width: 861px) and (max-width: 1100px) {
+  .uv-hero__copy { width: 44%; }
+  .uv-hero__globe { width: 62%; }
+  .uv-beat__title { font-size: 3.6rem; }
+  .uv-beat__body { max-width: 31ch; font-size: 0.94rem; }
+  .uv-hero-service { width: 204px; gap: 0.6rem; padding: 0.6rem; }
+  .uv-hero-service strong { font-size: 0.8rem; }
+  .uv-hero-service__icon { width: 44px; height: 44px; }
+}
 @media (max-width: 860px) {
-  .uv-beat { padding-inline: clamp(1.25rem, 6vw, 2rem); }
-  .uv-beat--right { align-items: flex-start; text-align: left; }
-  .uv-beat--right .uv-beat__steps,
-  .uv-beat--right .uv-beat__actions { justify-content: flex-start; }
+  .uv-brand__tag { display: none; }
+  .uv-hero { display: block; min-height: 0; padding: 8rem var(--gut) 0; }
+  .uv-hero__copy { width: calc(100% - 0.5rem); max-width: 37rem; margin-left: 0.5rem; padding-block: 0; }
+  .uv-beat__kicker { margin-bottom: 1.5rem; }
+  .uv-beat__title { font-size: clamp(3rem, 8.5vw, 4.75rem); margin-bottom: 1.6rem; }
+  .uv-beat__body { max-width: 40ch; font-size: 0.95rem; }
+  .uv-beat__actions { margin-top: 1.6rem; }
+  .uv-hero__globe { position: relative; top: auto; right: auto; width: calc(100% + var(--gut) * 2); height: auto; aspect-ratio: 1.15; margin: 0 calc(var(--gut) * -1) 1.5rem; }
+  .uv-hero-service { width: 198px; padding: 0.55rem; gap: 0.6rem; }
+  .uv-hero-service__icon { width: 44px; height: 44px; }
+  .uv-hero-service__icon svg { width: 28px; height: 28px; }
+  .uv-hero-service strong { font-size: 0.8rem; }
+  .uv-hero-service__copy > span { font-size: 0.62rem; }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .uv-hint__line { animation: none; }
+@media (max-width: 580px) {
+  .uv-hero { padding-top: 8rem; }
+  .uv-beat__kicker { font-size: 0.54rem; letter-spacing: 0.12em; margin-bottom: 1.25rem; }
+  .uv-beat__title { font-size: clamp(2.6rem, 10.8vw, 3.8rem); margin-bottom: 1.5rem; }
+  .uv-beat__body { font-size: 0.875rem; line-height: 1.8; }
+  .uv-hero__globe { aspect-ratio: 1; margin-top: 0.5rem; margin-bottom: 1.5rem; }
+  .uv-hero-service { width: 154px; padding: 0.45rem 0.65rem 0.45rem 0.45rem; gap: 0.45rem; }
+  .uv-hero-service__icon { width: 36px; height: 36px; }
+  .uv-hero-service__icon svg { width: 24px; height: 24px; }
+  .uv-hero-service strong { font-size: 0.69rem; }
+  .uv-hero-service__copy > span { font-size: 0.54rem; }
+  .uv-hero-service--compact { width: 138px; gap: 0.4rem; padding: 0.4rem 0.6rem 0.4rem 0.4rem; }
+  .uv-hero-service--compact .uv-hero-service__icon { width: 30px; height: 30px; }
+  .uv-hero-service--compact .uv-hero-service__icon svg { width: 21px; height: 21px; }
+  .uv-hero-service--compact strong { font-size: 0.62rem; }
+  .uv-hero-service--mobile { transform: translate(-105%, -20%); }
+  .uv-hero-service--ai { transform: translate(-30%, -270%); }
+  .uv-hero-service--web { transform: translate(-5%, 170%); }
+  .uv-hero-service--automation { transform: translate(-133%, 80%); }
+  .uv-hero-service--integrations { transform: translate(-125%, -250%); }
+  .uv-hero-service--cloud { transform: translate(18%, -120%); }
+  .uv-hero-service--design { transform: translate(-60%, 270%); }
+  .uv-nav { gap: 0.5rem; }
+  .uv-nav__links .uv-btn { min-width: 0; }
+  .uv-chrome .uv-btn--sm { padding-inline: 0.75rem; font-size: 0.8125rem; white-space: nowrap; }
+  .uv-chrome .uv-btn__mark { display: none; }
+  .uv-brand__word { font-size: 0.8rem; }
+}
+@media (max-width: 360px) {
+  .uv-brand__text { display: none; }
+  .uv-hero-service { width: 132px; gap: 0.35rem; padding: 0.4rem; }
+  .uv-hero-service__icon { width: 30px; height: 30px; }
+  .uv-hero-service strong { font-size: 0.6rem; }
+  .uv-hero-service__copy > span { font-size: 0.47rem; }
+  .uv-hero-service--compact { width: 110px; padding: 0.3rem; }
+  .uv-hero-service--compact .uv-hero-service__icon { width: 24px; height: 24px; }
+  .uv-hero-service--compact .uv-hero-service__icon svg { width: 18px; height: 18px; }
+  .uv-hero-service--compact strong { font-size: 0.53rem; }
 }

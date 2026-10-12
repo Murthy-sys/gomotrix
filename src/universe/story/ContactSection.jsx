@@ -81,11 +81,10 @@ export default function ContactSection() {
     <Section id="contact" className="st-section--contact" label="Contact Trimugo">
       <div className="st-contact">
         <Reveal className="st-contact__intro">
-          <p className="st-kicker">Start a conversation</p>
-          <h2 className="st-title">Tell us what you want built.</h2>
+          <p className="st-kicker">Your next chapter</p>
+          <h2 className="st-title">Let’s make<br /><em>something matter.</em></h2>
           <p className="st-lead">
-            Four answers are enough for a useful first reply — who you are, what you want built,
-            where it stands today, and when you need it.
+            An idea, a product, a process that could work better. Tell us where you want to go.
           </p>
 
           <ul className="st-contact__channels">
@@ -217,10 +216,15 @@ export default function ContactSection() {
               )}
 
               <div className="st-form__foot">
-                <button type="submit" className="uv-btn" disabled={sending}>
-                  <span>{sending ? 'Sending…' : 'Discuss Your Project'}</span>
+                <button type="submit" className="uv-btn" disabled={sending} aria-busy={sending}>
+                  <span className="uv-btn__label">
+                    <span className="uv-btn__rest" aria-hidden={sending || undefined}>Discuss your project</span>
+                    {sending && <span className="uv-btn__progress">Sending…</span>}
+                  </span>
+                  <span className="uv-btn__mark" aria-hidden="true">{sending ? '…' : '↗'}</span>
                 </button>
-                <p className="st-form__note">We reply within one business day.</p>
+                <span className="uv-sr" role="status" aria-live="polite">{sending ? 'Sending your project enquiry.' : ''}</span>
+                <p className="st-form__note">We reply within one business day. <a href="#/privacy">Privacy policy</a></p>
               </div>
             </form>
           )}

@@ -8,20 +8,20 @@
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#050505" />
+    <meta name="theme-color" content="#151710" />
     <!-- Critical styling also belongs to the readable HTML fallback. It must
          remain usable before, or without, any application bundle or fonts. -->
     <style>
       html,
       body {
         margin: 0;
-        background: #050505;
+        background: #151710;
       }
       .site-intro,
       .site-recovery {
         box-sizing: border-box;
         color: #ffffff;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+        font-family: Manrope, ui-sans-serif, system-ui, -apple-system, sans-serif;
         -webkit-font-smoothing: antialiased;
       }
       .site-intro {
@@ -35,7 +35,7 @@
       }
       .site-intro__kicker {
         margin: 0 0 1.3rem;
-        color: #b7ff6a;
+        color: #a5ad79;
         font-size: 0.72rem;
         font-weight: 600;
         letter-spacing: 0.18em;
@@ -45,7 +45,7 @@
       .site-intro h1 {
         max-width: 21ch;
         margin: 0 0 1.5rem;
-        font-family: 'Space Grotesk', Inter, ui-sans-serif, system-ui, sans-serif;
+        font-family: 'Cormorant Garamond', Georgia, serif;
         font-size: clamp(2rem, 5vw, 3.7rem);
         font-weight: 500;
         letter-spacing: -0.035em;
@@ -70,7 +70,7 @@
       }
       .site-intro a,
       .site-recovery button {
-        color: #b7ff6a;
+        color: #a5ad79;
         font-size: 0.9rem;
         line-height: 1.6;
         text-underline-offset: 0.25em;
@@ -83,7 +83,7 @@
       }
       .site-intro a:focus-visible,
       .site-recovery button:focus-visible {
-        outline: 2px solid #b7ff6a;
+        outline: 2px solid #a5ad79;
         outline-offset: 5px;
       }
       .site-intro__contact a { color: #c8c8c8; }
@@ -151,12 +151,11 @@
         "logo": "https://www.trimugo.in/icon-512.png",
         "image": "https://www.trimugo.in/og-image.png",
         "slogan": "Turn an idea, or a broken process, into working software.",
-        "description": "Trimugo is a freelance product and workflow engineering practice run by a single engineer. We take an idea from first scope to a shipped release, design and build the web and mobile applications a business runs on, automate the manual work between them, and integrate the systems already in use. Engagements are remote and worldwide. AI agents and document intelligence are offered where a project genuinely calls for them.",
+        "description": "Trimugo is a group of engineers working together across product design, architecture, development and delivery. We take an idea from first scope to a shipped release, design and build the web and mobile applications a business runs on, automate the manual work between them, and integrate the systems already in use. Engagements are remote and worldwide. AI agents and document intelligence are offered where a project calls for them.",
         "email": "murthy@trimugo.in",
         "telephone": "+91-85000-98088",
         "sameAs": [
-          "https://github.com/Murthy-sys",
-          "https://www.linkedin.com/in/obulamurthy-malisetti-b2893122b"
+          "https://github.com/Murthy-sys"
         ],
         "areaServed": ["Worldwide", "Europe", "United Kingdom", "United States", "India", "Asia Pacific"],
         "knowsAbout": [
@@ -179,16 +178,21 @@
           "addressLocality": "Bangalore",
           "addressCountry": "IN"
         },
-        "founder": {
-          "@type": "Person",
-          "name": "Malisetti Obulamurthy",
-          "jobTitle": "Founder, Full-Stack Engineer",
-          "sameAs": [
-            "https://github.com/Murthy-sys",
-            "https://www.linkedin.com/in/obulamurthy-malisetti-b2893122b"
-          ]
-        },
-        "numberOfEmployees": { "@type": "QuantitativeValue", "value": 1 },
+        "founder": [
+          {
+            "@type": "Person",
+            "name": "Cimala Gowthami",
+            "jobTitle": "Founder and CEO"
+          },
+          {
+            "@type": "Person",
+            "name": "Malisetti Obulamurthy",
+            "jobTitle": "Founder and CTO",
+            "sameAs": [
+              "https://github.com/Murthy-sys"
+            ]
+          }
+        ],
         "contactPoint": {
           "@type": "ContactPoint",
           "telephone": "+91-85000-98088",
@@ -272,15 +276,15 @@
             "name": "Who actually does the work?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Malisetti Obulamurthy — the founder and engineer behind Trimugo. There is no team behind the name and no subcontracting: the person you scope the project with is the person who writes the code, ships the release and supports it afterwards."
+              "text": "Trimugo is a group of engineers working together across product design, architecture, development and delivery. Cimala Gowthami is Founder and CEO, and Malisetti Obulamurthy is Founder and CTO. You collaborate directly with the engineers building your product."
             }
           },
           {
             "@type": "Question",
-            "name": "What hours do you work, and how does that overlap with my team?",
+            "name": "How do we collaborate on a project?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Four hours a day, scheduled inside your working day rather than at the edge of it. From India (IST) that block covers a full European day in CET/CEST, the US Eastern morning, and all of India and APAC; US Pacific works by arrangement. Stand-ups, reviews and calls run at your hours."
+              "text": "We agree on scope, priorities and review points together. Product demos and written updates keep progress visible, and you work directly with the engineers responsible for the architecture, implementation and release."
             }
           },
           {
@@ -288,7 +292,7 @@
             "name": "Do you work as a freelance developer or on a contract basis?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Both — they are the same engineer either way. A freelance engagement is scoped project by project against defined milestones; a contract engagement is an ongoing block of hours inside your team, your repositories and your release process. Availability is four hours a day at USD 15–18 per hour, billed hourly or per milestone, and there is no agency margin or account layer on top because there is no agency."
+              "text": "Both. A freelance engagement takes a defined project from scope to release. A contract engagement supports ongoing development within your team, repositories and release process. In either case, you work directly with the engineers building the product."
             }
           },
           {
@@ -328,7 +332,7 @@
             "name": "Do you only work with European companies?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No. Engagements are remote and the client can be anywhere — Europe and the UK, the US, India or the wider APAC region. The only real constraint is a working-hours overlap, and the daily block is scheduled around your day. Delivery is structured around milestones, scheduled demos and written documentation, with direct access to the engineer doing the work."
+              "text": "No. Based in Bangalore, India, we work remotely with clients worldwide, including Europe and the UK, the US, India and the wider APAC region. Delivery is structured around milestones, product demos and written documentation, with direct access to the engineers doing the work."
             }
           }
         ]
@@ -340,13 +344,13 @@
     <link
       rel="preload"
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700;800&display=swap"
       onload="this.onload=null;this.rel='stylesheet'"
     />
     <noscript>
       <link
         rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700;800&display=swap"
       />
     </noscript>
   </head>
@@ -361,13 +365,13 @@
          styling above prevents the old flash of unstyled introductory copy. -->
     <div id="root">
       <main class="site-intro" aria-labelledby="site-intro-title">
-        <p class="site-intro__kicker">Independent engineering · Remote, worldwide</p>
+        <p class="site-intro__kicker">Engineering together · Remote, worldwide</p>
         <h1 id="site-intro-title">Trimugo — product &amp; workflow engineering</h1>
         <p class="site-intro__summary">
-          Trimugo is the freelance product and workflow engineering practice of Malisetti
-          Obulamurthy. One engineer takes your idea from first scope to a shipped release,
-          builds the web and mobile applications your business runs on, and automates the
-          manual work between them.
+          Trimugo is a group of engineers working together across product design,
+          architecture, development and delivery. We take your idea from first scope to a
+          shipped release, build the web and mobile applications your business runs on,
+          and automate the manual work between them.
         </p>
         <p class="site-intro__summary">
           Work includes React, Vue and React Native development, system integration, and
@@ -383,7 +387,7 @@
         </nav>
         <div class="site-intro__contact" aria-label="Contact Trimugo">
           <a href="mailto:murthy@trimugo.in">Contact: murthy@trimugo.in</a>
-          <a href="tel:+917702327702">+91 7702327702</a>
+          <a href="tel:+918500098088">+91 8500098088</a>
           <a href="/#/privacy">Privacy</a>
         </div>
       </main>
