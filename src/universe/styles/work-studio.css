@@ -1,4 +1,4 @@
-/* The project browser and companion device share the overview's scroll
+/* The project devices share the overview's hardware and scroll
    choreography. Hardware poses and selection reveals use separate layers. */
 .st-work { padding: 0; background: transparent; }
 .st-work__spotlight {
@@ -34,23 +34,12 @@
 .st-project__links .uv-btn { flex: 0 1 auto; }
 
 .st-work-visual { min-width: 0; width: 100%; max-width: 620px; margin-inline: auto; }
-.st-work-visual__scene { position: relative; width: 100%; aspect-ratio: 1.45; container-type: inline-size; }
-.st-work-visual__setting { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 32% center; border: 1px solid var(--glass-edge); border-radius: var(--glass-inner-radius); opacity: 0.66; }
-.st-work-visual__desktop { position: absolute; left: 5%; top: 12%; width: 80%; }
-.st-work-visual__companion { position: absolute; z-index: 2; right: 2%; top: 27%; width: 23%; }
-.st-work-visual__companion.is-tablet { right: 1%; top: 48%; width: 43%; }
-.st-work-browser { display: block; border: 1px solid var(--glass-edge); background: var(--glass-strong); color: var(--dim); overflow: hidden; border-radius: 0.8cqw 0.8cqw 0 0; transform: perspective(1100px) rotateY(-3deg) rotateZ(-1deg); }
-.st-work-browser__bar { display: flex; align-items: center; gap: 2cqw; height: 3.5cqw; padding-inline: 1.5cqw; background: var(--glass-strong); font-size: 1.2cqw; letter-spacing: 0.025em; }
-.st-work-browser__dots { display: flex; gap: 0.5cqw; }
-.st-work-browser__dots i { width: 0.7cqw; height: 0.7cqw; border: 1px solid var(--faint); border-radius: 50%; }
-.st-work-browser__screen { aspect-ratio: 8 / 5; overflow: hidden; background: var(--glass-strong); }
-.st-work-browser__screen img, .st-work-companion__screen img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.st-work-phone { position: relative; display: block; padding: 5%; background: #151810; border: 2px solid #9ba08b; border-radius: 3.5cqw; transform: perspective(900px) rotateY(-8deg) rotateZ(7deg); }
-.st-work-companion__screen { overflow: hidden; aspect-ratio: 390 / 844; border-radius: 2.5cqw; background: var(--glass-strong); }
-.st-work-companion__camera { position: absolute; left: 35%; top: 3%; width: 30%; height: 1.2cqw; border-radius: 1cqw; background: #151810; }
-.st-work-tablet { position: relative; display: block; padding: 3% 2.5%; border: 2px solid #909782; border-radius: 1.8cqw; background: #151810; transform: perspective(900px) rotateY(-10deg) rotateX(7deg) rotateZ(7deg); }
-.st-work-tablet .st-work-companion__screen { aspect-ratio: 8 / 5; border-radius: 0.8cqw; }
-.st-work-tablet .st-work-companion__camera { left: 49%; top: 1%; width: 0.5cqw; height: 0.5cqw; background: #8a927d; }
+.st-work-visual__scene { position: relative; width: 100%; aspect-ratio: 1.4; container-type: inline-size; }
+.st-work-visual__desktop { position: absolute; left: 1%; top: 8%; width: 85%; }
+.st-work-visual__companion { position: absolute; z-index: 2; right: 1%; top: 24%; width: 24%; }
+.st-work-visual__companion.is-tablet { right: 0; top: 52%; width: 45%; }
+.st-work-visual :is(.st-computer, .st-phone, .st-tablet) { display: block; text-decoration: none; }
+.st-work-visual .st-phone { transform: perspective(800px) rotateY(-8deg) rotateZ(7deg); }
 .st-work-visual__swap { animation: work-device-assemble 800ms cubic-bezier(0.16, 1, 0.3, 1) both; }
 .st-work-visual__swap--companion { animation-delay: 100ms; }
 @keyframes work-device-assemble { from { transform: translateY(-24px) scale(0.97); opacity: 0.4; } to { transform: none; opacity: 1; } }
@@ -87,9 +76,9 @@
   .st-project-picker { margin-bottom: 1.25rem; }
   .st-project-picker button { min-height: 78px; padding: 0.75rem 0.6rem; font-size: 0.75rem; }
   .st-project__links .uv-btn { flex: 1 1 9rem; }
-  .st-work-visual__scene { aspect-ratio: 1.35; }
-  .st-work-visual__desktop { left: 3%; top: 13%; width: 83%; }
-  .st-work-visual__companion { right: 2%; top: 29%; width: 25%; }
+  .st-work-visual__scene { aspect-ratio: 1.32; }
+  .st-work-visual__desktop { left: 0; top: 8%; width: 86%; }
+  .st-work-visual__companion { right: 1%; top: 24%; width: 26%; }
   .st-project__copy { padding: 1.25rem; }
   .st-project__copy h3 { font-size: 2.7rem; }
   .st-project__copy > p:not(.st-kicker) { font-size: 0.82rem; }
