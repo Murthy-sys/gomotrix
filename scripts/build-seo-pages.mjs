@@ -50,9 +50,9 @@ header.bar strong{font-size:1.05rem;letter-spacing:-.01em}
 header.bar em{font-style:normal;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:#8a8a8a}
 nav.crumbs{font-size:.78rem;color:#8a8a8a;margin:0 0 1.6rem}
 nav.crumbs a{color:#8a8a8a}
-h1{font-size:clamp(1.9rem,4.6vw,2.9rem);line-height:1.12;font-weight:500;letter-spacing:-.025em;margin:0 0 1.2rem}
-h2{font-size:clamp(1.15rem,2.4vw,1.45rem);font-weight:500;letter-spacing:-.02em;margin:2.8rem 0 .9rem}
-h3{font-size:1rem;font-weight:500;margin:1.8rem 0 .5rem}
+h1{font-size:clamp(1.9rem,4.6vw,2.9rem);line-height:1.18;font-weight:600;letter-spacing:-.025em;margin:0 0 1.2rem}
+h2{font-size:clamp(1.15rem,2.4vw,1.45rem);line-height:1.3;font-weight:600;letter-spacing:-.02em;margin:2.8rem 0 .9rem}
+h3{font-size:1rem;line-height:1.4;font-weight:600;margin:1.8rem 0 .5rem}
 p,li{color:#a8a8a8}
 .lead{font-size:1.06rem;color:#cfcfcf}
 ul{padding-left:1.1rem}
@@ -109,6 +109,10 @@ function layout({ url, title, description, h1, crumbs, body, schema }) {
 <meta name="twitter:title" content="${esc(title)}" />
 <meta name="twitter:description" content="${esc(description)}" />
 <meta name="twitter:image" content="${ORIGIN}/og-image.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap" /></noscript>
 <style>${CSS}</style>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>

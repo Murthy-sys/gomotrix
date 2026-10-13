@@ -1,5 +1,5 @@
 import { Component, Suspense, lazy, useCallback, useEffect, useRef, useState } from 'react'
-import { detectQuality, scrollToElement } from '../core/engine.js'
+import { detectQuality } from '../core/engine.js'
 import ServiceBadges from './ServiceBadges.jsx'
 import { EARTH_RADIUS, fitOrbitCamera, orbitPoint, orbitScale, SERVICE_ORBITS } from './orbitMath.js'
 
@@ -94,11 +94,6 @@ export default function Hero() {
         <p className="uv-beat__kicker">Ideas · Technology · Real impact</p>
         <h1 className="uv-beat__title" id="hero-title"><span>Global ideas.</span><em>Built together.</em></h1>
         <p className="uv-beat__body">We design and build web, mobile and AI-powered solutions that help businesses grow, automate and create real value.</p>
-        <div className="uv-beat__actions">
-          <a className="uv-btn" href="#contact" onClick={(event) => { event.preventDefault(); scrollToElement('#contact') }}>
-            <span className="uv-btn__label">Start a project</span><span className="uv-btn__mark" aria-hidden="true">↗</span>
-          </a>
-        </div>
       </div>
       <div className="uv-hero__globe" ref={globe}>
         <div className="uv-hero__poster" ref={poster} aria-hidden="true"><img src="/visuals/earth/earth-poster.webp" alt="" width="1024" height="1024" fetchpriority="high" /></div>

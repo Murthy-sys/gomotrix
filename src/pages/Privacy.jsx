@@ -42,8 +42,8 @@ export default function Privacy() {
             <em>Smart Solutions</em>
           </span>
         </a>
-        <a className="uv-btn uv-btn--sm uv-btn--ghost" href="#hero">
-          <span className="uv-btn__label">Back to site</span><span className="uv-btn__mark" aria-hidden="true">↗</span>
+        <a className="uv-btn uv-btn--sm uv-btn--text" href="#hero">
+          <span className="uv-btn__label">Back to site</span>
         </a>
       </header>
 

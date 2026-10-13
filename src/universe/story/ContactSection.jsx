@@ -221,7 +221,6 @@ export default function ContactSection() {
                     <span className="uv-btn__rest" aria-hidden={sending || undefined}>Discuss your project</span>
                     {sending && <span className="uv-btn__progress">Sending…</span>}
                   </span>
-                  <span className="uv-btn__mark" aria-hidden="true">{sending ? '…' : '↗'}</span>
                 </button>
                 <span className="uv-sr" role="status" aria-live="polite">{sending ? 'Sending your project enquiry.' : ''}</span>
                 <p className="st-form__note">We reply within one business day. <a href="#/privacy">Privacy policy</a></p>

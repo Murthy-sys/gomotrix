@@ -23,8 +23,9 @@
   --glass-edge: rgba(213, 224, 190, 0.24);
   --glass-blur: 18px;
   --glass-inner-radius: 16px;
-  --font-body: 'Manrope', ui-sans-serif, system-ui, sans-serif;
-  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Manrope', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-body);
+  --type-section-title: clamp(2.25rem, 3.8vw, 3.75rem);
 
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --gut: clamp(1.5rem, 5vw, 5rem);
@@ -33,7 +34,7 @@
   isolation: isolate;
   background: var(--studio-ground);
   color: var(--text);
-  font-family: 'Manrope', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -65,51 +66,63 @@ html.uv-active body { background: #151710; margin: 0; }
 /* ── Buttons ─────────────────────────────────────────────────────────────── */
 
 .uv-btn {
-  --button-fill: var(--studio-accent);
-  --button-ink: var(--studio-ground);
-  --button-edge: var(--studio-accent);
-  --button-mark-ink: currentColor;
-  --button-mark-size: 22px;
+  --button-fill: #e3e6d6;
+  --button-ink: #1d2418;
+  --button-edge: #e3e6d6;
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 1.25rem;
-  min-height: 52px;
+  gap: 0.5rem;
+  min-height: 48px;
   max-width: 100%;
-  padding: 0.8rem 1.25rem;
+  padding: 0.75rem 1.35rem;
   border: 1px solid var(--button-edge);
   border-radius: 2px;
   background: var(--button-fill);
   color: var(--button-ink);
-  font-family: inherit;
+  font-family: var(--font-body);
   font-size: 0.875rem;
   font-weight: 600;
-  line-height: 1.35;
-  letter-spacing: 0.015em;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  text-align: center;
   text-transform: none;
   text-decoration: none;
   cursor: pointer;
   touch-action: manipulation;
 }
-.uv-btn__label { position: relative; min-width: 0; text-align: center; }
-.uv-btn__mark { display: grid; place-items: center; flex: none; width: var(--button-mark-size); height: var(--button-mark-size); color: var(--button-mark-ink); font-size: 1.25rem; font-weight: 400; line-height: 1; }
+.uv-btn__label { position: relative; min-width: 0; }
 .uv-btn:focus-visible { outline: 2px solid var(--studio-text); outline-offset: 4px; }
+.uv-btn--sm { min-height: 44px; padding: 0.65rem 1.05rem; font-size: 0.8125rem; }
 .uv-btn--ghost {
-  --button-fill: rgba(28, 35, 24, 0.78);
+  --button-fill: transparent;
   --button-ink: var(--studio-text);
-  --button-edge: #8c9878;
-  --button-mark-ink: var(--studio-accent);
+  --button-edge: rgba(213, 224, 190, 0.42);
 }
-.uv-btn--sm { --button-mark-size: 18px; min-height: 44px; gap: 0.75rem; padding: 0.65rem 1rem; font-size: 0.8125rem; }
-/* State changes are immediate: no chasing cursors or moving action symbols. */
+.uv-btn--text {
+  --button-fill: transparent;
+  --button-ink: var(--studio-text);
+  --button-edge: transparent;
+  justify-content: flex-start;
+  padding-inline: 0;
+  font-weight: 500;
+  text-align: left;
+  text-decoration: underline;
+  text-decoration-color: #87917b;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+}
+/* Immediate, stationary states keep the action target predictable. */
 @media (hover: hover) and (pointer: fine) {
-  .uv-btn:not(:disabled):hover { --button-fill: #d2dcb0; --button-edge: #d2dcb0; }
-  .uv-btn--ghost:not(:disabled):hover { --button-fill: #303c29; --button-edge: var(--studio-accent); }
+  .uv-btn:not(:disabled):hover { --button-fill: #f0f1e6; --button-edge: #f0f1e6; }
+  .uv-btn--ghost:not(:disabled):hover { --button-fill: #30382a; --button-edge: var(--studio-text); }
+  .uv-btn--text:not(:disabled):hover { --button-fill: transparent; --button-edge: transparent; --button-ink: var(--studio-accent); text-decoration-color: currentColor; }
 }
-.uv-btn:not(:disabled):active { --button-fill: #aab782; --button-edge: #aab782; }
-.uv-btn--ghost:not(:disabled):active { --button-fill: #3b4932; --button-edge: var(--studio-text); }
-.uv-btn:disabled { --button-fill: #a6af8b; --button-edge: #a6af8b; --button-ink: #333a27; cursor: not-allowed; }
+.uv-btn:not(:disabled):active { --button-fill: #c3cbb5; --button-edge: #c3cbb5; }
+.uv-btn--ghost:not(:disabled):active { --button-fill: #394331; --button-edge: var(--studio-text); }
+.uv-btn--text:not(:disabled):active { --button-fill: transparent; --button-edge: transparent; --button-ink: #aebd93; text-decoration-color: currentColor; }
+.uv-btn:disabled { --button-fill: #89917e; --button-edge: #89917e; --button-ink: #20271b; cursor: not-allowed; }
 .uv-btn[aria-busy='true'] { cursor: progress; }
 .uv-btn[aria-busy='true'] .uv-btn__rest { visibility: hidden; }
 .uv-btn__progress { position: absolute; inset: 0; display: grid; place-items: center; }

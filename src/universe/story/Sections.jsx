@@ -36,7 +36,7 @@ export function Team() {
                 <h3 className="st-team__name">{founder.name}</h3>
                 <p className="st-team__role">{founder.role}</p>
                 {founder.links.length > 0 && <div className="st-team__links">
-                  {founder.links.map((link) => <a key={link.href} className="st-text-link" href={link.href} target="_blank" rel="noreferrer noopener" aria-label={`${founder.name} on ${link.label}`}>{link.label} <span className="st-text-link__mark" aria-hidden="true">↗</span></a>)}
+                  {founder.links.map((link) => <a key={link.href} className="st-text-link" href={link.href} target="_blank" rel="noreferrer noopener" aria-label={`${founder.name} on ${link.label}`}>{link.label}</a>)}
                 </div>}
               </li>
             ))}

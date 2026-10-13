@@ -22,8 +22,8 @@ export default function Chrome() {
           </span>
         </a>
         <nav className="uv-nav" aria-label="Primary">
-          <ul className="uv-nav__links"><li><a className="uv-btn uv-btn--sm uv-btn--ghost" href="#work" onClick={(event) => go(event, '#work')}><span className="uv-btn__label">Work</span></a></li></ul>
-          <a className="uv-btn uv-btn--sm" href="#contact" onClick={(event) => go(event, '#contact')}><span className="uv-btn__label">Start a project</span><span className="uv-btn__mark" aria-hidden="true">↗</span></a>
+          <ul className="uv-nav__links"><li><a className="uv-nav__link" href="#work" onClick={(event) => go(event, '#work')}>Work</a></li></ul>
+          <a className="uv-btn uv-btn--sm" href="#contact" onClick={(event) => go(event, '#contact')}><span className="uv-btn__label">Start a project</span></a>
         </nav>
       </header>
     </>

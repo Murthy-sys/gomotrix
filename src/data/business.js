@@ -428,7 +428,7 @@ export const privacy = {
         'Web3Forms (web3forms.com) — receives the form submission and relays it to our email inbox. It is a processor acting on our instructions.',
         'Google Workspace — the inbox the enquiry is delivered to and stored in.',
         'Vercel — hosts this website and keeps short-lived technical server logs, including the IP address of every request, for security and diagnostics.',
-        'Google Fonts — the two typefaces on this site are requested from fonts.googleapis.com and fonts.gstatic.com when the page loads, which discloses your IP address to Google. No cookie is set by this request. If you would rather not make it, a content blocker or a browser that blocks third-party requests will stop it, and the site remains fully usable in a fallback typeface.',
+        'Google Fonts — the typeface on this site is requested from fonts.googleapis.com and fonts.gstatic.com when the page loads, which discloses your IP address to Google. No cookie is set by this request. If you would rather not make it, a content blocker or a browser that blocks third-party requests will stop it, and the site remains fully usable in a fallback typeface.',
       ],
       note: 'There are no other recipients. No analytics provider, no advertising network, no session recorder, no chat widget, no A/B testing tool, and no social media pixel.',
     },

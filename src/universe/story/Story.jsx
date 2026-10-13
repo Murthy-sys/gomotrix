@@ -33,9 +33,8 @@ export default function Story() {
               <p className="st-kicker">Beyond the experience. Into the real world.</p>
               <h2 className="st-title" id="overview-title">Digital products.<br /><em>Built with intent.</em></h2>
               <p className="st-lead">Web, mobile and the systems between them. Our engineers turn your idea into working software, taking shared ownership from first sketch to release.</p>
-              <a className="uv-btn uv-btn--ghost" href="#work" onClick={(event) => { event.preventDefault(); scrollToElement('#work') }}>
+              <a className="uv-btn uv-btn--text" href="#work" onClick={(event) => { event.preventDefault(); scrollToElement('#work') }}>
                 <span className="uv-btn__label">Explore selected work</span>
-                <span className="uv-btn__mark" aria-hidden="true">↗</span>
               </a>
             </div>
             <ProductStudio />

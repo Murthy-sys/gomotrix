@@ -114,9 +114,8 @@ function Study({ study }) {
         {links.length > 0 && (
           <div className="st-study__links">
             {links.map(([k, href]) => (
-              <a key={k} className={`uv-btn uv-btn--sm${k === 'live' ? '' : ' uv-btn--ghost'}`} href={href} target="_blank" rel="noreferrer noopener">
+              <a key={k} className="uv-btn uv-btn--sm uv-btn--text" href={href} target="_blank" rel="noreferrer noopener">
                 <span className="uv-btn__label">{LINK_LABELS[k] || k}</span>
-                <span className="uv-btn__mark" aria-hidden="true">↗</span>
               </a>
             ))}
           </div>
@@ -155,7 +154,7 @@ export default function CaseStudies() {
             <div className="st-project-picker" role="group" aria-label="Choose a project">
               {visualProjects.map((item, index) => (
                 <button key={item.name} type="button" aria-pressed={selected === index} aria-controls="selected-project" onClick={() => setSelected(index)}>
-                  <span>{item.name}</span><span className="st-project-picker__indicator" aria-hidden="true">{selected === index ? 'Selected' : ''}</span>
+                  <span>{item.name}</span>
                 </button>
               ))}
             </div>
@@ -168,9 +167,8 @@ export default function CaseStudies() {
                 <ul className="st-chips" aria-label="Project technologies">{project.tags.map((tag) => <li key={tag}>{tag}</li>)}</ul>
                 <div className="st-project__links">
                   {Object.entries(project.links).map(([type, href]) => (
-                    <a key={type} className={`uv-btn uv-btn--sm${type === 'live' ? ' st-project__primary' : ' uv-btn--ghost'}`} href={href} target="_blank" rel="noreferrer noopener">
+                    <a key={type} className="uv-btn uv-btn--sm uv-btn--text" href={href} target="_blank" rel="noreferrer noopener">
                       <span className="uv-btn__label">{LINK_LABELS[type] || type}</span>
-                      <span className="uv-btn__mark" aria-hidden="true">↗</span>
                     </a>
                   ))}
                 </div>
