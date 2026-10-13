@@ -27,6 +27,13 @@ export default function Hero() {
   const visualReady = useCallback(() => setReady(true), [])
 
   useEffect(() => {
+    if (!active || ready || failed) return
+    // A stalled texture or unsupported renderer must still get a static visual.
+    const timeout = window.setTimeout(failVisual, 8000)
+    return () => window.clearTimeout(timeout)
+  }, [active, ready, failed, failVisual])
+
+  useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)')
     const update = () => setReduced(preference.matches)
     preference.addEventListener('change', update)
@@ -52,8 +59,8 @@ export default function Hero() {
 
   useEffect(() => {
     if (ready && !failed) return
-    // Use the same projection for loading and WebGL failure. This stays static
-    // and needs no renderer; labels remain readable around the real Earth poster.
+    // Prepare the static failure view while WebGL loads, without displaying a
+    // different Earth and badge arrangement before the first rendered frame.
     const element = globe.current
     const paint = () => {
       const width = element.clientWidth

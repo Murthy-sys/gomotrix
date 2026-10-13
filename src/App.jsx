@@ -1,4 +1,4 @@
-import { Component, Suspense, lazy, useState, useEffect } from 'react'
+import { Component, Suspense, lazy, useState, useEffect, useLayoutEffect } from 'react'
 import HomepageFallback from './components/HomepageFallback.jsx'
 
 // The page loads independently; only the decorative hero loads WebGL.
@@ -30,6 +30,14 @@ function useHashRoute() {
   return hash
 }
 
+function LoadedRoute({ children }) {
+  useLayoutEffect(() => {
+    // This commits only after the lazy route and its styles have loaded.
+    window.dispatchEvent(new Event('trimugo:page-ready'))
+  }, [])
+  return children
+}
+
 export default function App({ fallbackContent }) {
   const hash = useHashRoute()
 
@@ -40,7 +48,7 @@ export default function App({ fallbackContent }) {
   return (
     <RouteErrorBoundary key={isPrivacy ? 'privacy' : 'home'} fallbackContent={fallbackContent}>
       <Suspense fallback={<HomepageFallback content={fallbackContent} />}>
-        {isPrivacy ? <Privacy /> : <Universe />}
+        <LoadedRoute>{isPrivacy ? <Privacy /> : <Universe />}</LoadedRoute>
       </Suspense>
     </RouteErrorBoundary>
   )

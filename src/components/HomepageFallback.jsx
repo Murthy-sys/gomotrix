@@ -1,6 +1,6 @@
 import { useLayoutEffect } from 'react'
 
-/** Reuse the initial HTML so loading and recovery never become empty screens. */
+/** Preserve readable HTML for no-JS visits and failed or stalled route loads. */
 export default function HomepageFallback({ content, failed = false }) {
   useLayoutEffect(() => {
     // A lazy scene can fail after the preloader has locked the document.
@@ -8,7 +8,10 @@ export default function HomepageFallback({ content, failed = false }) {
     // StrictMode replays effects or the privacy route replaces the journey.
     document.documentElement.classList.remove('uv-active', 'uv-locked')
     document.body.style.cursor = ''
-    if (failed) window.scrollTo(0, 0)
+    if (failed) {
+      window.dispatchEvent(new Event('trimugo:page-ready'))
+      window.scrollTo(0, 0)
+    }
   }, [failed])
 
   return (
