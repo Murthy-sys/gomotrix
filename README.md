@@ -1,6 +1,6 @@
 # Trimugo — Official Website
 
-Official website: [www.trimugo.in](https://www.trimugo.in/)
+Official website: [Trimugo](https://www.trimugo.in/)
 
 A modern, premium, enterprise-grade marketing site for **Trimugo**, a technology solutions company. Built with **React + Vite + Tailwind CSS** and **Framer Motion**, with dark/light mode, responsive layout, animations, and PWA support.
 
