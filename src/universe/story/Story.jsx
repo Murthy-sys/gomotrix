@@ -15,7 +15,9 @@ const FOOT_LINKS = [
   { label: 'Who we are', to: '#team', scroll: true },
   { label: 'FAQ', to: '#faq', scroll: true },
   { label: 'Contact', to: '#contact', scroll: true },
-  { label: 'About', to: '/about/' },
+  { label: 'About Trimugo', to: '/about/' },
+  { label: 'Freelance development', to: '/hire-freelance-react-developer/' },
+  { label: 'Contract engineering', to: '/contract-developer-for-hire/' },
   { label: 'Privacy policy', to: '#/privacy' },
 ]
 const FOOT_CONTACT_CHANNELS = contactChannels.filter(({ label }) => label === 'Email' || label === 'Phone')

@@ -185,7 +185,7 @@ export const differentiators = [
 // ── 08 · Team ───────────────────────────────────────────────────────────────
 
 export const team = {
-  body: 'We are a group of engineers bringing thoughtful design and hands-on development together. We build web and mobile products, connect business systems and take shared ownership from idea to release.',
+  body: 'We are a five-engineer team bringing thoughtful design and hands-on development together. We build web and mobile products, connect business systems and take shared ownership from idea to release.',
   practice: [
     { label: 'Focus', value: 'Web, mobile and connected business systems' },
     { label: 'Approach', value: 'Collaborative engineering, from architecture to launch' },
@@ -272,7 +272,7 @@ export const faq = [
   },
   {
     q: 'Who actually does the work?',
-    a: 'Trimugo is a group of engineers working together across product design, architecture, development and delivery. Cimala Gowthami is Founder and CEO, and Malisetti Obulamurthy is Founder and CTO. You collaborate directly with the engineers building your product.',
+    a: 'Trimugo is a five-engineer team working across product design, architecture, development and delivery. Cimala Gowthami is Founder and CEO, and Malisetti Obulamurthy is Founder and CTO. You collaborate directly with the engineers building your product.',
   },
   {
     q: 'How do we collaborate on a project?',

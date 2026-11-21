@@ -125,7 +125,7 @@ function layout({ url, title, description, h1, crumbs, body, schema }) {
 <h1>${esc(h1)}</h1>
 ${body}
 <div class="cta">
-<p>Trimugo is a group of engineers working together to bring your product to life. You collaborate directly with the people building it.</p>
+<p>Trimugo is a five-engineer team building web and mobile products. You collaborate directly with the people building it.</p>
 <p><a href="mailto:murthy@trimugo.in">murthy@trimugo.in</a> &nbsp;·&nbsp; <a href="tel:+918500098088">+91 8500098088</a> &nbsp;·&nbsp; <a href="/">See the full journey and case studies</a></p>
 </div>
 <footer>
@@ -193,7 +193,7 @@ const SERVICE_PAGES = [
     url: '/about/',
     title: 'Who We Are | Trimugo, Bangalore',
     description:
-      'Trimugo is a group of engineers building web and mobile products and connected workflows. Based in Bangalore, India, working remotely worldwide.',
+      'Trimugo is a five-engineer team building web and mobile products and connected workflows. Based in Bangalore, India, working remotely worldwide.',
     h1: 'Who we are',
     crumbs: [
       { name: 'Trimugo', url: '/' },
@@ -245,7 +245,7 @@ const SERVICE_PAGES = [
       },
     ],
     body: `
-<p class="lead">Trimugo is a group of engineers building thoughtful web and mobile products and connected business systems. Based in Bangalore, India, we collaborate remotely with clients worldwide.</p>
+<p class="lead">Trimugo is a five-engineer team building thoughtful web and mobile products and connected business systems. Based in Bangalore, India, we collaborate remotely with clients worldwide.</p>
 
 <h2>What Trimugo is</h2>
 <p>We work together across product design, architecture, development and delivery. Our engineers connect thoughtful interfaces with dependable systems, staying close to the decisions that shape a product from discovery to launch and beyond. You collaborate directly with the people building your product, with shared ownership and clear communication throughout.</p>
@@ -289,7 +289,7 @@ ${pickFaq(['who actually does', 'only work with european', 'freelance developer'
       ...faqSchema(['freelance developer', 'idea but no technical', 'who actually does']),
     ],
     body: `
-<p class="lead">Collaborate directly with a group of engineers who bring thoughtful interfaces, dependable systems and shared product ownership to your project.</p>
+<p class="lead">Hire Trimugo’s five-engineer team to take a defined web or mobile project from scope to launch.</p>
 
 <p>Trimugo builds production web and mobile applications in React, Vue and React Native, connected to the APIs and services behind them. Our engineers work together across discovery, architecture, implementation and delivery, keeping decisions clear and progress visible from the initial scope through launch and continued development.</p>
 
@@ -348,7 +348,7 @@ ${pickFaq(['freelance developer', 'idea but no technical', 'who actually does'])
       ...faqSchema(['freelance developer', 'alongside our internal', 'existing software', 'crm or erp']),
     ],
     body: `
-<p class="lead">Ongoing engineering within your team, using your repositories, review standards and release process.</p>
+<p class="lead">Bring in Trimugo engineers for ongoing React, Vue or React Native development in your repositories and release process.</p>
 
 <p>A contract engagement supports ongoing development inside your existing process. Our engineers collaborate in your stand-ups, repositories and code reviews, helping your team move from technical decisions to working releases while keeping direction and priorities aligned.</p>
 

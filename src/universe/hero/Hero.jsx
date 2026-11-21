@@ -91,9 +91,9 @@ export default function Hero() {
   return (
     <section className="uv-hero" id="hero" ref={hero} aria-labelledby="hero-title" data-motion={reduced || failed ? 'static' : 'live'} data-renderer={failed ? 'fallback' : ready ? 'webgl' : 'loading'}>
       <div className="uv-hero__copy">
-        <p className="uv-beat__kicker">Ideas · Technology · Real impact</p>
+        <p className="uv-beat__kicker">Trimugo · Remote engineering team</p>
         <h1 className="uv-beat__title" id="hero-title"><span>Global ideas.</span><em>Built together.</em></h1>
-        <p className="uv-beat__body">We design and build web, mobile and AI-powered solutions that help businesses grow, automate and create real value.</p>
+        <p className="uv-beat__body">We build web and mobile apps and automate workflows. Hire Trimugo for a freelance project or bring our engineers into your team.</p>
       </div>
       <div className="uv-hero__globe" ref={globe}>
         <div className="uv-hero__poster" ref={poster} aria-hidden="true"><img src="/visuals/earth/earth-poster.webp" alt="" width="1024" height="1024" fetchpriority="high" /></div>
